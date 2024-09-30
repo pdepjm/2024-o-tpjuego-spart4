@@ -1,28 +1,18 @@
 object helado {
-  var property position = game.origin()
+  var property position = game.at(1,1)
   method image() = "helado.png"
-  var puntos = 0
 
   method recolectar(fruta){
     game.removeVisual(fruta)
-    puntos += 1
   }
+}
 
-  method puntos() = puntos
-
-  method decirPuntos(){
-    var mensaje
-    if(puntos <=10){
-      mensaje = "Recolecté " + self.puntos() + "/10"
-
-    }
-    if(puntos <= 20 && puntos > 10){
-      mensaje = "Recolecté " + self.puntos() + "/20"
-    }
-    if(puntos > 20 && puntos <= 25){
-      mensaje = "Recolecté " + self.puntos() + "/30"
-    }
-    
-		game.say(self, mensaje)
+object points{
+  var frutasObtenidas = 0
+  method sumarFrutas(){
+    frutasObtenidas += 1
   }
+  method frutasObtenidas() = frutasObtenidas
+	method position() = game.at(8,9)
+	method text() ="Puntaje: " + frutasObtenidas + "/30"
 }

@@ -1,6 +1,6 @@
 import wollok.game.*
 
-import example.helado
+import example.*
 
 object posicionAleatoria {
   method calcular() = game.at(
@@ -11,9 +11,9 @@ object posicionAleatoria {
 
 class Fruta{
 	method image(){
-		if(helado.puntos() < 10){
+		if(points.frutasObtenidas() < 10){
 			return "banana.png"
-		}if(helado.puntos()<20){
+		}if(points.frutasObtenidas() < 20){
 			return "uva2.png"
 		}
 		return "sandia.png"
@@ -26,9 +26,10 @@ class Fruta{
 	}
 }
 
-object bloque{
-	var property position = game.at(3,0) //habrá que posicionar los limites
+class Bloque{
+	var property position = game.center() //habrá que posicionar los limites
 	method image() = "bloque_slime.png"
+	method soyBloque() = true
 }
 
 object juego{
@@ -53,7 +54,151 @@ program BadIceCreamGame {
 	game.title("Bad Ice Cream")
 	game.height(10)
 	game.width(10)
+//dibujar muros
+	const bloque00 = new Bloque()
+	bloque00.position(game.at(0,0))
+	game.addVisual(bloque00)
+	const bloque01 = new Bloque()
+	bloque01.position(game.at(0,1))
+	game.addVisual(bloque01)
+	const bloque02 = new Bloque()
+	bloque02.position(game.at(0,2))
+	game.addVisual(bloque02)
+	const bloque03 = new Bloque()
+	bloque03.position(game.at(0,3))
+	game.addVisual(bloque03)
+	const bloque04 = new Bloque()
+	bloque04.position(game.at(0,4))
+	game.addVisual(bloque04)
+	const bloque05 = new Bloque()
+	bloque05.position(game.at(0,5))
+	game.addVisual(bloque05)
+	const bloque06 = new Bloque()
+	bloque06.position(game.at(0,6))
+	game.addVisual(bloque06)
+	const bloque07 = new Bloque()
+	bloque07.position(game.at(0,7))
+	game.addVisual(bloque07)
+	const bloque08 = new Bloque()
+	bloque08.position(game.at(0,8))
+	game.addVisual(bloque08)
+	const bloque09 = new Bloque()
+	bloque09.position(game.at(0,9))
+	game.addVisual(bloque09)
+	const bloque90 = new Bloque()
+	bloque90.position(game.at(9,0))
+	game.addVisual(bloque90)
+	const bloque91 = new Bloque()
+	bloque91.position(game.at(9,1))
+	game.addVisual(bloque91)
+	const bloque92 = new Bloque()
+	bloque92.position(game.at(9,2))
+	game.addVisual(bloque92)
+	const bloque93 = new Bloque()
+	bloque93.position(game.at(9,3))
+	game.addVisual(bloque93)
+	const bloque94 = new Bloque()
+	bloque94.position(game.at(9,4))
+	game.addVisual(bloque94)
+	const bloque95 = new Bloque()
+	bloque95.position(game.at(9,5))
+	game.addVisual(bloque95)
+	const bloque96 = new Bloque()
+	bloque96.position(game.at(9,6))
+	game.addVisual(bloque96)
+	const bloque97 = new Bloque()
+	bloque97.position(game.at(9,7))
+	game.addVisual(bloque97)
+	const bloque98 = new Bloque()
+	bloque98.position(game.at(9,8))
+	game.addVisual(bloque98)
+	const bloque99 = new Bloque()
+	bloque99.position(game.at(9,9))
+	game.addVisual(bloque99)
+	const bloque10 = new Bloque()
+	bloque10.position(game.at(1,0))
+	game.addVisual(bloque10)
+	const bloque20 = new Bloque()
+	bloque20.position(game.at(2,0))
+	game.addVisual(bloque20)
+	const bloque30 = new Bloque()
+	bloque30.position(game.at(3,0))
+	game.addVisual(bloque30)
+	const bloque40 = new Bloque()
+	bloque40.position(game.at(4,0))
+	game.addVisual(bloque40)
+	const bloque50 = new Bloque()
+	bloque50.position(game.at(5,0))
+	game.addVisual(bloque50)
+	const bloque60 = new Bloque()
+	bloque60.position(game.at(6,0))
+	game.addVisual(bloque60)
+	const bloque70 = new Bloque()
+	bloque70.position(game.at(7,0))
+	game.addVisual(bloque70)
+	const bloque80 = new Bloque()
+	bloque80.position(game.at(8,0))
+	game.addVisual(bloque80)
+	const bloque19 = new Bloque()
+	bloque19.position(game.at(1,9))
+	game.addVisual(bloque19)
+	const bloque29 = new Bloque()
+	bloque29.position(game.at(2,9))
+	game.addVisual(bloque29)
+	const bloque39 = new Bloque()
+	bloque39.position(game.at(3,9))
+	game.addVisual(bloque39)
+	const bloque49 = new Bloque()
+	bloque49.position(game.at(4,9))
+	game.addVisual(bloque49)
+	const bloque59 = new Bloque()
+	bloque59.position(game.at(5,9))
+	game.addVisual(bloque59)
+	const bloque69 = new Bloque()
+	bloque69.position(game.at(6,9))
+	game.addVisual(bloque69)
+	const bloque79 = new Bloque()
+	bloque79.position(game.at(7,9))
+	game.addVisual(bloque79)
+	const bloque89 = new Bloque()
+	bloque89.position(game.at(8,9))
+	game.addVisual(bloque89)
+	const bloqueA = new Bloque()
+	bloqueA.position(game.at(2,7))
+	game.addVisual(bloqueA)
+	const bloqueB = new Bloque()
+	bloqueB.position(game.at(2,6))
+	game.addVisual(bloqueB)
+	const bloqueC = new Bloque()
+	bloqueC.position(game.at(2,4))
+	game.addVisual(bloqueC)
+	const bloqueD = new Bloque()
+	bloqueD.position(game.at(3,3))
+	game.addVisual(bloqueD)
+	const bloqueE = new Bloque()
+	bloqueE.position(game.at(4,2))
+	game.addVisual(bloqueE)
+	const bloqueF = new Bloque()
+	bloqueF.position(game.at(5,2))
+	game.addVisual(bloqueF)
+	const bloqueG = new Bloque()
+	bloqueG.position(game.at(6,3))
+	game.addVisual(bloqueG)
+	const bloqueH = new Bloque()
+	bloqueH.position(game.at(7,4))
+	game.addVisual(bloqueH)
+	const bloqueI = new Bloque()
+	bloqueI.position(game.at(7,6))
+	game.addVisual(bloqueI)
+	const bloqueJ = new Bloque()
+	bloqueJ.position(game.at(7,7))
+	game.addVisual(bloqueJ)
+
+//dibujar frutas
 	juego.dibujarFrutas()
+//dibujar puntos
+	game.addVisual(points)
+//dibujar helado
 	game.addVisualCharacter(helado)
 	game.showAttributes(helado)
 	game.start()
@@ -62,31 +207,27 @@ program BadIceCreamGame {
 		const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
 		if(nuevaFruta.esFruta()){
 			helado.recolectar(nuevaFruta)
+			points.sumarFrutas()
 		}
-		if(helado.puntos() == 10){
+		if(points.frutasObtenidas() == 10){
 			juego.dibujarFrutas()
 		}
-		if(helado.puntos()==20){
+		if(points.frutasObtenidas()==20){
 			juego.dibujarFrutas()
 		}
-		if(helado.puntos() == 30){
+		if(points.frutasObtenidas() == 30){
 			game.removeVisual(helado)
 			game.addVisual(fondo_de_pausa)
 			game.addVisual(ganaste)
 			game.stop()
 		}
 	})
-
-	keyboard.f().onPressDo({
-		helado.decirPuntos()
-	})
-
 }
 
 object interactuador{
     method obtenerPrimerElemento(key,accion){
       		const colliders = game.colliders(helado)
-		if (colliders.isEmpty()) 
+		if (colliders.isEmpty())
 			throw new DomainException(message = "Apreta "+ key + accion, source = helado)
     return colliders.head()
     }
