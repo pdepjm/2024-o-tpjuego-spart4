@@ -3,10 +3,54 @@ import wollok.game.*
 import example.*
 
 object posicionAleatoria {
-  method calcular() = game.at(
-    0.randomUpTo(game.width()).truncate(0),
-    0.randomUpTo(game.width()).truncate(0)
-  )
+	method calcular() {
+		const posicion = self.generarXY()
+		return posicion
+	}
+
+	//((x == 3 && y == 3) || (x == 4 && y == 2) || (x == 5 && y == 2) || (x == 6 && y == 3)
+	//|| (x == 2 && y == 4) || (x == 2 && y == 6) || (x == 2 && y == 7)
+	//|| (x == 7 && y == 4) || (x == 7 && y == 6) || (x == 7 && y == 7))
+
+	method generarPos() = 1.randomUpTo(8).truncate(0)
+
+	method generarXY(){
+		const x = self.generarPos()
+		if(x == 2 || x == 7){
+			const indice = 1.randomUpTo(3).truncate(0)
+			if(indice == 1){
+				const y = 1.randomUpTo(3).truncate(0)
+				return game.at(x,y)
+			} else if (indice == 2){
+				const y = 5
+				return game.at(x,y)
+			} else {
+				const y = 8
+				return game.at(x,y)
+			}
+		} else if(x == 3 || x == 6){
+			const indice = 1.randomUpTo(2).truncate(0)
+			if(indice == 1){
+				const y = 1.randomUpTo(2).truncate(0)
+				return game.at(x,y)
+			} else {
+				const y = 4.randomUpTo(8).truncate(0)
+				return game.at(x,y)
+			}
+		} else if(x == 4 || x == 5){
+			const indice = 1.randomUpTo(2).truncate(0)
+			if(indice == 1){
+				const y = 1
+				return game.at(x,y)
+			} else {
+				const y = 3.randomUpTo(8).truncate(0)
+				return game.at(x,y)
+			}
+		} else {
+			const y = self.generarPos()
+			return game.at(x,y)
+		}
+	}
 }
 
 class Fruta{
