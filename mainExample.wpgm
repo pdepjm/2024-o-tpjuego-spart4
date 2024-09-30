@@ -1,0 +1,93 @@
+import wollok.game.*
+
+import example.helado
+
+object posicionAleatoria {
+  method calcular() = game.at(
+    0.randomUpTo(game.width()).truncate(0),
+    0.randomUpTo(game.width()).truncate(0)
+  )
+}
+
+class Fruta{
+	method image(){
+		if(helado.puntos() < 10){
+			return "banana.png"
+		}if(helado.puntos()<20){
+			return "uva2.png"
+		}
+		return "sandia.png"
+	}
+
+	var property position = posicionAleatoria.calcular()
+  	method esFruta() = true
+  	method dibujar(){
+		game.addVisual(self)
+	}
+}
+
+object bloque{
+	var property position = game.at(3,0) //habrá que posicionar los limites
+	method image() = "bloque_slime.png"
+}
+
+object juego{
+	const frutas = [new Fruta(), new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta()]
+	method dibujarFrutas(){
+		frutas.forEach({fruta_n => fruta_n.dibujar()})
+	}
+}
+
+object fondo_de_pausa{
+	var property position = game.origin()
+	method image() = "pausa.png"
+}
+
+object ganaste{
+	var property position = game.at(0,3)
+	method image() = "ganaste.png"
+}
+
+program BadIceCreamGame {
+	game.cellSize(40) //ancho del helado
+	game.title("Bad Ice Cream")
+	game.height(10)
+	game.width(10)
+	juego.dibujarFrutas()
+	game.addVisualCharacter(helado)
+	game.showAttributes(helado)
+	game.start()
+
+	keyboard.r().onPressDo({
+		const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
+		if(nuevaFruta.esFruta()){
+			helado.recolectar(nuevaFruta)
+		}
+		if(helado.puntos() == 10){
+			juego.dibujarFrutas()
+		}
+		if(helado.puntos()==20){
+			juego.dibujarFrutas()
+		}
+		if(helado.puntos() == 30){
+			game.removeVisual(helado)
+			game.addVisual(fondo_de_pausa)
+			game.addVisual(ganaste)
+			game.stop()
+		}
+	})
+
+	keyboard.f().onPressDo({
+		helado.decirPuntos()
+	})
+
+}
+
+object interactuador{
+    method obtenerPrimerElemento(key,accion){
+      		const colliders = game.colliders(helado)
+		if (colliders.isEmpty()) 
+			throw new DomainException(message = "Apreta "+ key + accion, source = helado)
+    return colliders.head()
+    }
+}
