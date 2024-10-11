@@ -65,6 +65,7 @@ class Fruta{
 
 	var property position = posicionAleatoria.calcular()
   	method esFruta() = true
+	method soyBloque() = false
   	method dibujar(){
 		game.addVisual(self)
 	}
@@ -74,6 +75,11 @@ class Bloque{
 	var property position = game.center() //habrá que posicionar los limites
 	method image() = "bloque_slime.png"
 	method soyBloque() = true
+	
+	method ubicarYDibujar(x, y) {
+		self.position(game.at(x, y))
+		game.addVisual(self)
+	}
 }
 
 object juego{
@@ -98,7 +104,17 @@ program BadIceCreamGame {
 	game.title("Bad Ice Cream")
 	game.height(10)
 	game.width(10)
-//dibujar muros
+
+	// Dibujar muros alrededor del tablero
+	const ancho = game.width() - 1
+	const alto = game.height() - 1
+	
+	(0 .. ancho).forEach({x => (new Bloque()).ubicarYDibujar(x, 0)}) // Borde inferior
+	(0 .. ancho).forEach({x => (new Bloque()).ubicarYDibujar(x, alto)}) // Borde superior
+
+	(0 .. alto).forEach({y => (new Bloque()).ubicarYDibujar(0, y)}) // Borde izquierdo
+	(0 .. alto).forEach({y => (new Bloque()).ubicarYDibujar(ancho, y)}) // Borde derecho
+	/*
 	const bloque00 = new Bloque()
 	bloque00.position(game.at(0,0))
 	game.addVisual(bloque00)
@@ -207,6 +223,30 @@ program BadIceCreamGame {
 	const bloque89 = new Bloque()
 	bloque89.position(game.at(8,9))
 	game.addVisual(bloque89)
+	*/
+
+	// Muros internos
+	const bloqueA = new Bloque()
+	bloqueA.ubicarYDibujar(2, 7)
+	const bloqueB = new Bloque()
+	bloqueB.ubicarYDibujar(2, 6)
+	const bloqueC = new Bloque()
+	bloqueC.ubicarYDibujar(2, 4)
+	const bloqueD = new Bloque()
+	bloqueD.ubicarYDibujar(3, 3)
+	const bloqueE = new Bloque()
+	bloqueE.ubicarYDibujar(4, 2)
+	const bloqueF = new Bloque()
+	bloqueF.ubicarYDibujar(5, 2)
+	const bloqueG = new Bloque()
+	bloqueG.ubicarYDibujar(6, 3)
+	const bloqueH = new Bloque()
+	bloqueH.ubicarYDibujar(7, 4)
+	const bloqueI = new Bloque()
+	bloqueI.ubicarYDibujar(7, 6)
+	const bloqueJ = new Bloque()
+	bloqueJ.ubicarYDibujar(7, 7)
+	/*
 	const bloqueA = new Bloque()
 	bloqueA.position(game.at(2,7))
 	game.addVisual(bloqueA)
@@ -237,6 +277,7 @@ program BadIceCreamGame {
 	const bloqueJ = new Bloque()
 	bloqueJ.position(game.at(7,7))
 	game.addVisual(bloqueJ)
+	*/
 
 //dibujar frutas
 	juego.dibujarFrutas()
