@@ -39,57 +39,32 @@ object siSeleccionado{
 	method image() = "si.png"
 }
 
+object menuNiveles{
+	var property position = game.origin()
+	method image() = "niveles.png"
+}
+
+object seleccion{
+	var property position = game.at(1, 11)
+	method image() = "nivel_s.png"
+}
+
 program BadIceCreamGame {
 	game.cellSize(40) //ancho del helado
 	game.title("Bad Ice Cream")
 	game.height(18)
 	game.width(18)
 	//dibujar menu de personajes
-	var inicio = false
 	game.addVisual(menuPersonajes)
 	game.addVisual(noSeleccionado)
 	game.addVisual(siSeleccionado)
+	//Personalización
+	//Mundo
+	juego.menuPersonajes()
 	//inicio
 	game.start()
-	//menu selección de personajes
-	var comenzar = 1
-	if(!inicio){
-		keyboard.a().onPressDo({
-			noSeleccionado.direccion(0)
-			siSeleccionado.direccion(1)
-		})
-		keyboard.d().onPressDo({
-			noSeleccionado.direccion(1)
-			siSeleccionado.direccion(0)
-		})
-		keyboard.enter().onPressDo({
-			if(noSeleccionado.position() == game.at(2,5)){
-				jugador.valor(0)
-			} else {
-				jugador.valor(1)
-			}
-			game.removeVisual(menuPersonajes)
-			game.removeVisual(noSeleccionado)
-			game.removeVisual(siSeleccionado)
-			if(comenzar == 1){
-				//dibujar muros
-				muros.crearLaterales()
-				//dibujar escenario
-				escenario.generarEscenario()
-				//dibujar frutas
-				spawn.dibujarFrutas()
-				//dibujar puntos
-				game.addVisual(points)
-				//dibujar jugador
-				game.addVisualCharacter(jugador)
-				game.showAttributes(jugador)
-				comenzar = 0
-				inicio = true
-			}
-		})
-	}
-	
-	//Juego
+
+	//Juego puntos
 	keyboard.r().onPressDo({
 		const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
 		if(nuevaFruta.esFruta()){
@@ -106,6 +81,81 @@ program BadIceCreamGame {
 			game.stop()
 		}
 	})
+}
+
+object juego{
+	method menuNiveles(){
+		var x = seleccion.position().x()
+		var y = seleccion.position().y()
+		keyboard.a().onPressDo({
+			if(seleccion.position().x() >= 1){
+				seleccion.position(game.at(x-2,y))
+			}
+		})
+		keyboard.d().onPressDo({
+			if(seleccion.position().x() < 14){
+				seleccion.position(game.at(x+2,y))
+			}
+		})
+		keyboard.w().onPressDo({
+			if(seleccion.position().y() < 11){
+				seleccion.position(game.at(x,y+2))
+			}
+		})
+		keyboard.s().onPressDo({
+			if(seleccion.position().y() > 3){
+				seleccion.position(game.at(x,y-2))
+			}
+		})
+		keyboard.enter().onPressDo({
+			if(seleccion.position() == game.at(1,11)){ //Seleccionado nivel 1
+				escenario.generarLista(0)
+			} else if(seleccion.position() == game.at(3,11)){ //Seleccionado nivel 2
+				escenario.generarLista(1)
+			}
+			game.removeVisual(menuNiveles)
+			game.removeVisual(seleccion)
+			self.jugar()
+		})
+	}
+
+	method menuPersonajes(){
+		keyboard.a().onPressDo({
+			noSeleccionado.direccion(0)
+			siSeleccionado.direccion(1)
+		})					
+		keyboard.d().onPressDo({
+			noSeleccionado.direccion(1)
+			siSeleccionado.direccion(0)
+		})
+		keyboard.enter().onPressDo({
+			if(noSeleccionado.position() == game.at(2,5)){
+				jugador.valor(0)
+			} else {
+				jugador.valor(1)
+			}
+			game.removeVisual(menuPersonajes)
+			game.removeVisual(noSeleccionado)
+			game.removeVisual(siSeleccionado)
+			game.addVisual(menuNiveles)
+			game.addVisual(seleccion)
+			self.menuNiveles()
+		})
+	}
+
+	method jugar(){
+		//dibujar muros
+		muros.crearLaterales()
+		//dibujar escenario
+		escenario.generarEscenario()
+		//dibujar frutas
+		spawn.dibujarFrutas()
+		//dibujar puntos
+		game.addVisual(points)
+		//dibujar jugador
+		game.addVisualCharacter(jugador)
+		game.showAttributes(jugador)
+	}
 }
 
 object interactuador{
