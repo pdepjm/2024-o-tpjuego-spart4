@@ -38,9 +38,6 @@ object siSeleccionado{
 	method position() = if(direccion == 0) game.at(10,5) else game.at(2,5) 
 	method image() = "si.png"
 }
-object comenzar{
-	
-}
 
 program BadIceCreamGame {
 	game.cellSize(40) //ancho del helado
@@ -52,19 +49,10 @@ program BadIceCreamGame {
 	game.addVisual(menuPersonajes)
 	game.addVisual(noSeleccionado)
 	game.addVisual(siSeleccionado)
-	//dibujar muros
-	//muros.crearLaterales()
-	//dibujar escenario
-	//escenario.generarEscenario()
-	//dibujar frutas
-	//spawn.dibujarFrutas()
-	//dibujar puntos
-	//game.addVisual(points)
-	//dibujar helado
-	//game.addVisualCharacter(jugador)
-	//game.showAttributes(jugador)
+	//inicio
 	game.start()
-
+	//menu selección de personajes
+	var comenzar = 1
 	if(!inicio){
 		keyboard.a().onPressDo({
 			noSeleccionado.direccion(0)
@@ -83,22 +71,25 @@ program BadIceCreamGame {
 			game.removeVisual(menuPersonajes)
 			game.removeVisual(noSeleccionado)
 			game.removeVisual(siSeleccionado)
-			inicio = true
-			//dibujar muros
-			muros.crearLaterales()
-			//dibujar escenario
-			escenario.generarEscenario()
-			//dibujar frutas
-			spawn.dibujarFrutas()
-			//dibujar puntos
-			game.addVisual(points)
-			//dibujar jugador
-			game.addVisualCharacter(jugador)
-			game.showAttributes(jugador)
+			if(comenzar == 1){
+				//dibujar muros
+				muros.crearLaterales()
+				//dibujar escenario
+				escenario.generarEscenario()
+				//dibujar frutas
+				spawn.dibujarFrutas()
+				//dibujar puntos
+				game.addVisual(points)
+				//dibujar jugador
+				game.addVisualCharacter(jugador)
+				game.showAttributes(jugador)
+				comenzar = 0
+				inicio = true
+			}
 		})
 	}
 	
-	
+	//Juego
 	keyboard.r().onPressDo({
 		const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
 		if(nuevaFruta.esFruta()){
