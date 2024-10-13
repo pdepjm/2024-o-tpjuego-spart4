@@ -49,6 +49,11 @@ object seleccion{
 	method image() = "nivel_s.png"
 }
 
+object bloqueado{
+	var property position = game.at(1, 1)
+	method image() = "bloqueado.png"
+}
+
 program BadIceCreamGame {
 	game.cellSize(40) //ancho del helado
 	game.title("Bad Ice Cream")
@@ -90,21 +95,41 @@ object juego{
 		keyboard.a().onPressDo({
 			if(seleccion.position().x() >= 1){
 				seleccion.position(game.at(x-2,y))
+				if(seleccion.position() == game.at(1,9)){
+					game.addVisual(bloqueado)
+				} else {
+					game.removeVisual(bloqueado)
+				}
 			}
 		})
 		keyboard.d().onPressDo({
 			if(seleccion.position().x() < 14){
 				seleccion.position(game.at(x+2,y))
+				if(seleccion.position() == game.at(1,9)){
+					game.addVisual(bloqueado)
+				} else {
+					game.removeVisual(bloqueado)
+				}
 			}
 		})
 		keyboard.w().onPressDo({
 			if(seleccion.position().y() < 11){
 				seleccion.position(game.at(x,y+2))
+				if(seleccion.position() == game.at(1,9)){
+					game.addVisual(bloqueado)
+				} else {
+					game.removeVisual(bloqueado)
+				}
 			}
 		})
 		keyboard.s().onPressDo({
 			if(seleccion.position().y() > 3){
 				seleccion.position(game.at(x,y-2))
+				if(seleccion.position() == game.at(1,9)){
+					game.addVisual(bloqueado)
+				} else {
+					game.removeVisual(bloqueado)
+				}
 			}
 		})
 		keyboard.enter().onPressDo({
