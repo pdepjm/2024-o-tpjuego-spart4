@@ -1,6 +1,6 @@
 import muros.*
 
-object helado {
+object jugador {
   var position = game.at(1,1)
 
   method position() = position
@@ -15,7 +15,18 @@ object helado {
     }
   }
 
-  method image() = "goku2.png"
+  var valor = 0
+  method valor(numero){
+    valor = numero
+  }
+  
+  method image(){
+    if(valor == 0){
+      return "goku2.png"
+    } else {
+      return "helado.png"
+    }
+  }
 
   method recolectar(fruta){
     game.removeVisual(fruta)

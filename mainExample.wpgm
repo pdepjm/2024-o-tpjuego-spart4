@@ -16,38 +16,100 @@ object ganaste{
 	method image() = "ganaste.png"
 }
 
+object menuPersonajes{
+	var property position = game.origin()
+	method image() = "FondoSeleccion2.png"
+}
+
+object noSeleccionado{
+	var direccion = 1
+	method direccion(numero){
+		direccion = numero
+	}
+	method position() = if(direccion == 1) game.at(2,5) else game.at(10,5) 
+	method image() = "no.png"
+}
+
+object siSeleccionado{
+	var direccion = 0
+	method direccion(numero){
+		direccion = numero
+	}
+	method position() = if(direccion == 0) game.at(10,5) else game.at(2,5) 
+	method image() = "si.png"
+}
+object comenzar{
+	
+}
+
 program BadIceCreamGame {
 	game.cellSize(40) //ancho del helado
 	game.title("Bad Ice Cream")
-	game.height(21)
-	game.width(40)
+	game.height(18)
+	game.width(18)
+	//dibujar menu de personajes
+	var inicio = false
+	game.addVisual(menuPersonajes)
+	game.addVisual(noSeleccionado)
+	game.addVisual(siSeleccionado)
 	//dibujar muros
-	muros.crearLaterales()
+	//muros.crearLaterales()
 	//dibujar escenario
-	escenario.generarEscenario()
+	//escenario.generarEscenario()
 	//dibujar frutas
-	spawn.dibujarFrutas()
+	//spawn.dibujarFrutas()
 	//dibujar puntos
-	game.addVisual(points)
+	//game.addVisual(points)
 	//dibujar helado
-	game.addVisualCharacter(helado)
-	game.showAttributes(helado)
+	//game.addVisualCharacter(jugador)
+	//game.showAttributes(jugador)
 	game.start()
+
+	if(!inicio){
+		keyboard.a().onPressDo({
+			noSeleccionado.direccion(0)
+			siSeleccionado.direccion(1)
+		})
+		keyboard.d().onPressDo({
+			noSeleccionado.direccion(1)
+			siSeleccionado.direccion(0)
+		})
+		keyboard.enter().onPressDo({
+			if(noSeleccionado.position() == game.at(2,5)){
+				jugador.valor(0)
+			} else {
+				jugador.valor(1)
+			}
+			game.removeVisual(menuPersonajes)
+			game.removeVisual(noSeleccionado)
+			game.removeVisual(siSeleccionado)
+			inicio = true
+			//dibujar muros
+			muros.crearLaterales()
+			//dibujar escenario
+			escenario.generarEscenario()
+			//dibujar frutas
+			spawn.dibujarFrutas()
+			//dibujar puntos
+			game.addVisual(points)
+			//dibujar jugador
+			game.addVisualCharacter(jugador)
+			game.showAttributes(jugador)
+		})
+	}
+	
 	
 	keyboard.r().onPressDo({
 		const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
 		if(nuevaFruta.esFruta()){
-			helado.recolectar(nuevaFruta)
+			jugador.recolectar(nuevaFruta)
 			points.sumarFrutas()
 		}
-		if(points.frutasObtenidas() == 10){
-			spawn.dibujarFrutas()
-		}
-		if(points.frutasObtenidas()==20){
+		if(points.frutasObtenidas() == 10 || points.frutasObtenidas() == 20){
 			spawn.dibujarFrutas()
 		}
 		if(points.frutasObtenidas() == 30){
-			game.removeVisual(helado)
+			game.removeVisual(jugador)
 			game.addVisual(fondo_de_pausa)
 			game.addVisual(ganaste)
 			game.stop()
@@ -57,9 +119,9 @@ program BadIceCreamGame {
 
 object interactuador{
     method obtenerPrimerElemento(key,accion){
-      		const colliders = game.colliders(helado)
+      		const colliders = game.colliders(jugador)
 		if (colliders.isEmpty())
-			throw new DomainException(message = "Apreta "+ key + accion, source = helado)
+			throw new DomainException(message = "Apreta "+ key + accion, source = jugador)
     return colliders.head()
     }
 }
