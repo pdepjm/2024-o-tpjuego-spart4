@@ -1,49 +1,10 @@
 import wollok.game.*
 
-import example.*
+import jugador.*
 
 import muros.*
 
-object posicionAleatoria {
-	method generarPosX() = 1.randomUpTo(39).truncate(0)
-	method generarPosY() = 1.randomUpTo(20).truncate(0)
-
-	method generarPosicionAleatoria(){
-		const x = self.generarPosX()
-		const y = self.generarPosY()
-		
-		if(escenario.mismaPosicion(game.at(x, y))){
-			return self.generarPosicionAleatoria()
-		}
-		escenario.enlistarObjeto(game.at(x, y))
-		return game.at(x, y)
-	}
-}
-
-class Fruta{
-	var property position = posicionAleatoria.generarPosicionAleatoria()
-
-	method image(){
-		if(points.frutasObtenidas() < 10){
-			return "banana.png"
-		}if(points.frutasObtenidas() < 20){
-			return "uva2.png"
-		}
-		return "sandia.png"
-	}
-
-  	method esFruta() = true
-  	method dibujar(){
-		game.addVisual(self)
-	}
-}
-
-object juego{
-	const frutas = [new Fruta(), new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta()]
-	method dibujarFrutas(){
-		frutas.forEach({fruta_n => fruta_n.dibujar()})
-	}
-}
+import puntos.*
 
 object fondo_de_pausa{
 	var property position = game.origin()
@@ -65,7 +26,7 @@ program BadIceCreamGame {
 	//dibujar escenario
 	escenario.generarEscenario()
 	//dibujar frutas
-	juego.dibujarFrutas()
+	spawn.dibujarFrutas()
 	//dibujar puntos
 	game.addVisual(points)
 	//dibujar helado
@@ -80,10 +41,10 @@ program BadIceCreamGame {
 			points.sumarFrutas()
 		}
 		if(points.frutasObtenidas() == 10){
-			juego.dibujarFrutas()
+			spawn.dibujarFrutas()
 		}
 		if(points.frutasObtenidas()==20){
-			juego.dibujarFrutas()
+			spawn.dibujarFrutas()
 		}
 		if(points.frutasObtenidas() == 30){
 			game.removeVisual(helado)

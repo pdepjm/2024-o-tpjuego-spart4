@@ -14,15 +14,8 @@ object helado {
       position = game.at(posicion.x(), posicion.y())
     }
   }
-/*
- method mover(){
-    keyboard.w().onPressDo {position.up(2)}
-    keyboard.a().onPressDo {position.left(2)}
-    keyboard.s().onPressDo {position.down(2)}
-    keyboard.d().onPressDo {position.right(2)}
- }
-*/
-  method image() = "goku.png"
+
+  method image() = "goku2.png"
 
   method recolectar(fruta){
     game.removeVisual(fruta)
