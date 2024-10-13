@@ -1,59 +1,28 @@
 import wollok.game.*
+
 import example.*
+
 import muros.*
 
 object posicionAleatoria {
-	method calcular() {
-		const posicion = self.generarXY()
-		return posicion
-	}
+	method generarPosX() = 1.randomUpTo(39).truncate(0)
+	method generarPosY() = 1.randomUpTo(20).truncate(0)
 
-	//((x == 3 && y == 3) || (x == 4 && y == 2) || (x == 5 && y == 2) || (x == 6 && y == 3)
-	//|| (x == 2 && y == 4) || (x == 2 && y == 6) || (x == 2 && y == 7)
-	//|| (x == 7 && y == 4) || (x == 7 && y == 6) || (x == 7 && y == 7))
-
-	method generarPos() = 1.randomUpTo(8).truncate(0)
-
-	method generarXY(){
-		const x = self.generarPos()
-		if(x == 2 || x == 7){
-			const indice = 1.randomUpTo(3).truncate(0)
-			if(indice == 1){
-				const y = 1.randomUpTo(3).truncate(0)
-				return game.at(x,y)
-			} else if (indice == 2){
-				const y = 5
-				return game.at(x,y)
-			} else {
-				const y = 8
-				return game.at(x,y)
-			}
-		} else if(x == 3 || x == 6){
-			const indice = 1.randomUpTo(2).truncate(0)
-			if(indice == 1){
-				const y = 1.randomUpTo(2).truncate(0)
-				return game.at(x,y)
-			} else {
-				const y = 4.randomUpTo(8).truncate(0)
-				return game.at(x,y)
-			}
-		} else if(x == 4 || x == 5){
-			const indice = 1.randomUpTo(2).truncate(0)
-			if(indice == 1){
-				const y = 1
-				return game.at(x,y)
-			} else {
-				const y = 3.randomUpTo(8).truncate(0)
-				return game.at(x,y)
-			}
-		} else {
-			const y = self.generarPos()
-			return game.at(x,y)
+	method generarPosicionAleatoria(){
+		const x = self.generarPosX()
+		const y = self.generarPosY()
+		
+		if(escenario.mismaPosicion(game.at(x, y))){
+			return self.generarPosicionAleatoria()
 		}
+		escenario.enlistarObjeto(game.at(x, y))
+		return game.at(x, y)
 	}
 }
 
 class Fruta{
+	var property position = posicionAleatoria.generarPosicionAleatoria()
+
 	method image(){
 		if(points.frutasObtenidas() < 10){
 			return "banana.png"
@@ -63,13 +32,12 @@ class Fruta{
 		return "sandia.png"
 	}
 
-	var property position = posicionAleatoria.calcular()
   	method esFruta() = true
-	method soyBloque() = false
   	method dibujar(){
 		game.addVisual(self)
 	}
 }
+
 object juego{
 	const frutas = [new Fruta(), new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta(),new Fruta()]
 	method dibujarFrutas(){
@@ -90,23 +58,21 @@ object ganaste{
 program BadIceCreamGame {
 	game.cellSize(40) //ancho del helado
 	game.title("Bad Ice Cream")
-	game.height(10)
-	game.width(10)
-
+	game.height(21)
+	game.width(40)
 	//dibujar muros
 	muros.crearLaterales()
 	//dibujar escenario
 	escenario.generarEscenario()
-
-//dibujar frutas
+	//dibujar frutas
 	juego.dibujarFrutas()
-//dibujar puntos
+	//dibujar puntos
 	game.addVisual(points)
-//dibujar helado
+	//dibujar helado
 	game.addVisualCharacter(helado)
 	game.showAttributes(helado)
 	game.start()
-
+	
 	keyboard.r().onPressDo({
 		const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
 		if(nuevaFruta.esFruta()){
