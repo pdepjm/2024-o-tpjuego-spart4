@@ -33,7 +33,7 @@ object posicionAleatoria {
 		const x = self.generarPosX()
 		const y = self.generarPosY()
 		
-		if(escenario.mismaPosicion(game.at(x, y))){
+		if(escenario.mismaPosicion(game.at(x, y)) || escenario.mismaPosicionFruta(game.at(x, y))){
 			return self.generarPosicionAleatoria()
 		}
 		escenario.enlistarObjeto(game.at(x, y))

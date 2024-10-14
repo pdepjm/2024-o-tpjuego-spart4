@@ -35,7 +35,6 @@ program BadIceCreamGame {
 		}
 		if(points.frutasObtenidas() == 30){
 			game.removeVisual(jugador)
-			game.addVisual(fondo_de_pausa)
 			game.addVisual(ganaste)
 			game.stop()
 		}
@@ -83,12 +82,12 @@ object juego{
 
 	method menuPersonajes(){
 		keyboard.a().onPressDo({
-			noSeleccionado.direccion(0)
-			siSeleccionado.direccion(1)
+			noSeleccionado.position(game.at(10,5))
+			siSeleccionado.position(game.at(2,5))
 		})					
 		keyboard.d().onPressDo({
-			noSeleccionado.direccion(1)
-			siSeleccionado.direccion(0)
+			noSeleccionado.position(game.at(2,5))
+			siSeleccionado.position(game.at(10,5))
 		})
 		keyboard.enter().onPressDo({
 			if(noSeleccionado.position() == game.at(2,5)){

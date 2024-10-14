@@ -21,6 +21,7 @@ object muros{
 
 object escenario{
     var listan = niveles.get(0)
+    const listafrutas = []
 
     method generarLista(indice){
         listan = niveles.get(indice)
@@ -32,14 +33,14 @@ object escenario{
 
     method mismaPosicion(posiblePosicion) = listan.any({posicion => posicion == posiblePosicion})
 
-    method mismaPosicionPrimeras10(posiblePosicion) = listan.take(10).any({posicion => posicion == posiblePosicion})
+    method mismaPosicionFruta(posiblePosicion) = listafrutas.any({posicion => posicion == posiblePosicion})
 
     method enlistarObjeto(cosa){
-		listan.add(cosa)
+		listafrutas.add(cosa)
 	}
 
     method quitarObjeto(cosa){
-		listan.remove(cosa)
+		listafrutas.remove(cosa)
 	}
     
     const niveles = [

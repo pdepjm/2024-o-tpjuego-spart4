@@ -4,8 +4,8 @@ object fondo_de_pausa{
 }
 
 object ganaste{
-	var property position = game.at(0,3)
-	method image() = "ganaste.png"
+	var property position = game.origin()
+	method image() = "ganaste2.png"
 }
 
 object menuPersonajes{
@@ -14,26 +14,18 @@ object menuPersonajes{
 }
 
 object noSeleccionado{
-	var direccion = 1
-	method direccion(numero){
-		direccion = numero
-	}
-	method position() = if(direccion == 1) game.at(2,5) else game.at(10,5) 
+	var property position = game.at(2,5)
 	method image() = "no.png"
 }
 
 object siSeleccionado{
-	var direccion = 0
-	method direccion(numero){
-		direccion = numero
-	}
-	method position() = if(direccion == 0) game.at(10,5) else game.at(2,5) 
+	var property position = game.at(10,5)
 	method image() = "si.png"
 }
 
 object menuNiveles{
 	var property position = game.origin()
-	method image() = "niveles.png"
+	method image() = "niveles2.png"
 }
 
 object seleccion{
