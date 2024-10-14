@@ -1,6 +1,6 @@
 class Bloque{
 	var property position = game.center() //habrá que posicionar los limites
-	method image() = "bloque_slime.png"
+	method image() = "bloque_slime2.png"
 	method soyBloque() = true
     method ubicarYDibujar(posicion){
         self.position(posicion)
@@ -48,7 +48,7 @@ object escenario{
         [game.at(2,12), game.at(2,13), game.at(2,14), game.at(2,15), game.at(3,15), game.at(4,12), game.at(4,13), game.at(4,14), game.at(4,15), //ojo I
         game.at(13,12), game.at(13,13), game.at(13,14), game.at(13,15), game.at(14,15), game.at(15,12), game.at(15,13), game.at(15,14), game.at(15,15), //ojo D
         game.at(7,10), game.at(8,10), game.at(9,10), game.at(10,10), game.at(8,9), game.at(9,9), //nariz
-        game.at(3,5), game.at(4,4), game.at(5,4), game.at(6,3), game.at(7,3), game.at(8,4), game.at(9,4), game.at(10,3), game.at(11,3), game.at(12,4), game.at(13,4), game.at(14,5), game.at(8,5), game.at(8,6), game.at(8,7), game.at(9,5), game.at(9,6), game.at(9,7)], //boca]
+        game.at(3,5), game.at(4,4), game.at(5,4), game.at(6,3), game.at(7,3), game.at(8,4), game.at(9,4), game.at(10,3), game.at(11,3), game.at(12,4), game.at(13,4), game.at(14,5), game.at(8,5), game.at(8,6), game.at(8,7), game.at(9,5), game.at(9,6), game.at(9,7)], //boca
         //Nivel 2
         [game.at(2,13), game.at(3,13), game.at(4,14), game.at(5,14), game.at(6,15), game.at(7,15), game.at(8,15), game.at(9,15), game.at(10,15), game.at(11,15), game.at(12,15), game.at(13,15), game.at(14,14), game.at(15,12),
          game.at(2,12), game.at(3,4),  game.at(4,11), game.at(5,11), game.at(6,12), game.at(7,13), game.at(8,13), game.at(9,13), game.at(10,13), game.at(11,13), game.at(12,13), game.at(13,11), game.at(14,13), game.at(15,11),

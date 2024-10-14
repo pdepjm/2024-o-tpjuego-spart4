@@ -10,16 +10,11 @@ object ganaste{
 
 object menuPersonajes{
 	var property position = game.origin()
-	method image() = "FondoSeleccion2.png"
-}
-
-object noSeleccionado{
-	var property position = game.at(2,5)
-	method image() = "no.png"
+	method image() = "FondoSeleccion.png"
 }
 
 object siSeleccionado{
-	var property position = game.at(10,5)
+	var property position = game.at(2,5)
 	method image() = "si.png"
 }
 

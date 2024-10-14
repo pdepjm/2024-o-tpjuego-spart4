@@ -15,16 +15,15 @@ object jugador {
     }
   }
 
-  var valor = 0
-  method valor(numero){
-    valor = numero
-  }
+  var property valor = 0
   
   method image(){
     if(valor == 0){
-      return "goku2.png"
+      return "heladon.png"
+    } else if (valor == 1){
+      return "piopio.png"
     } else {
-      return "helado.png"
+      return "goku2.png"
     }
   }
 
