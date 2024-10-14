@@ -5,11 +5,29 @@ class Fruta{
 
 	method image(){
 		if(points.frutasObtenidas() < 10){
-			return "banana.png"
+			if(jugador.image() == "heladon.png"){
+				return "bananas.png"
+			} else if (jugador.image() == "piopio.png"){
+				return "circus coin.png"
+			} else {
+				return "semilla.png"
+			}
 		}if(points.frutasObtenidas() < 20){
-			return "uva2.png"
+			if(jugador.image() == "heladon.png"){
+				return "uva.png"
+			} else if (jugador.image() == "piopio.png"){
+				return "lunaver coin.png"
+			} else {
+				return "capsula.png"
+			}
 		}
-		return "sandia.png"
+		if(jugador.image() == "heladon.png"){
+				return "sandia1.png"
+			} else if (jugador.image() == "piopio.png"){
+				return "archaic coin.png"
+			} else {
+				return "comida.png"
+			}
 	}
 
   	method esFruta() = true
