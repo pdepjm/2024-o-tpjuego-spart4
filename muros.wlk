@@ -20,7 +20,7 @@ object muros{
 }
 
 object escenario{
-    var listan = []
+    var listan = niveles.get(0)
 
     method generarLista(indice){
         listan = niveles.get(indice)
@@ -55,7 +55,7 @@ object escenario{
          game.at(2,10),                game.at(4,9),  game.at(5,4),  game.at(6,8),  game.at(7,8),  game.at(8,8),  game.at(9,9),  game.at(10,7),  game.at(11,9),  game.at(12,6),  game.at(13,9),                  game.at(15,9),
          game.at(2,9),                 game.at(4,8),  game.at(5,2),  game.at(6,6),  game.at(7,6),  game.at(8,6),  game.at(9,6),  game.at(10,4),  game.at(11,8),  game.at(12,3),  game.at(13,8),                  game.at(15,8),
          game.at(2,8),                 game.at(4,7),                 game.at(6,4),  game.at(7,4),  game.at(8,4),  game.at(9,4),  game.at(10,2),  game.at(11,5),                  game.at(13,7),                  game.at(15,7),
-         game.at(2,7),                 game.at(4,6),                 game.at(6,2),  game.at(7,2),  game.at(8,2),  game.at(9,2),                  game.at(11,3),                  game.at(13,6),                  game.at(15,6),
+         game.at(2,7),                 game.at(4,6),                 game.at(6,2),  game.at(7,2),  game.at(8,2),  game.at(9,2),                  game.at(11,2),                  game.at(13,6),                  game.at(15,6),
          game.at(2,6),                 game.at(4,4),                                                                                                                             game.at(13,4),                  game.at(15,5),
          game.at(2,5),                 game.at(4,2)]
     ]
