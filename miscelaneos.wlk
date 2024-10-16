@@ -26,6 +26,9 @@ object menuNiveles{
 object seleccion{
 	var property position = game.at(1, 11)
 	method image() = "nivel_s.png"
+	method posicionParaPantallaGanaste() { //Se aplica metodo para reutilizar el visual al final del juego en otra posicion
+		position = game.at(6, 5)
+	}
 }
 
 object bloqueado{

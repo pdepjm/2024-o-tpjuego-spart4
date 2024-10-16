@@ -31,9 +31,12 @@ program BadIceCreamGame {
 			spawn.dibujarFrutas()
 		}
 		if(points.frutasObtenidas() == 30){
+			/*
 			game.removeVisual(jugador)
 			game.addVisual(ganaste)
 			game.stop()
+			*/
+			juego.pantallaGanaste()
 		}
 	})
 }
@@ -140,6 +143,19 @@ object juego{
 						game.at(11,3),game.at(11,5),game.at(11,7),game.at(11,9),game.at(11,11),
 						game.at(13,3),game.at(13,5),game.at(13,7),game.at(13,9),game.at(13,11),
 						game.at(15,3),game.at(15,5),game.at(15,7),game.at(15,9),game.at(15,11)]
+	
+	method pantallaGanaste(){ //Mostrar pantalla para cuando se gana y elegir si seguir jugando o no
+		game.removeVisual(jugador)
+		game.addVisual(ganaste)
+		seleccion.posicionParaPantallaGanaste()
+		game.addVisual(seleccion)
+		keyboard.a().onPressDo({
+			if (seleccion.position() == game.at(8,5)) seleccion.position(game.at(6,5))
+		})
+		keyboard.d().onPressDo({
+			if (seleccion.position() == game.at(6,5)) seleccion.position(game.at(8,5))
+		})
+	}
 }
 
 object interactuador{
