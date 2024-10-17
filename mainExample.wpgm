@@ -46,6 +46,7 @@ object juego{
 	var seleccionado = 0
 	method menuNiveles(){ //SELECCION DE NIVELES
 		game.addVisual(menuNiveles)
+		seleccion.posicionParaNiveles()
 		game.addVisual(seleccion)
 		keyboard.a().onPressDo({
 			if(seleccion.position().x() > 1){
@@ -150,10 +151,24 @@ object juego{
 		seleccion.posicionParaPantallaGanaste()
 		game.addVisual(seleccion)
 		keyboard.a().onPressDo({
-			if (seleccion.position() == game.at(8,5)) seleccion.position(game.at(6,5))
+			if (seleccion.position().x() < 10) seleccion.position(game.at(6, 5))
 		})
 		keyboard.d().onPressDo({
-			if (seleccion.position() == game.at(6,5)) seleccion.position(game.at(8,5))
+			if (seleccion.position().x() > 6) seleccion.position(game.at(10, 5))
+		})
+		//Por alguna razon se mueve al presionar w y s, asi que lo restringi
+		keyboard.w().onPressDo({
+			seleccion.position(game.at(seleccion.position().x(), 5))
+		})
+		keyboard.s().onPressDo({
+			seleccion.position(game.at(seleccion.position().x(), 5))
+		})
+		keyboard.enter().onPressDo({
+			if (seleccion.position() == game.at(6, 5)) {
+				game.removeVisual(seleccion)
+				self.menuNiveles()
+			}
+			if (seleccion.position() == game.at(10, 5)) game.stop()
 		})
 	}
 }

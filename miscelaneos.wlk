@@ -24,8 +24,11 @@ object menuNiveles{
 }
 
 object seleccion{
-	var property position = game.at(1, 11)
+	var property position = game.origin()
 	method image() = "nivel_s.png"
+	method posicionParaNiveles() { //Posicion que tendra en la pantalla de niveles
+		position = game.at(1, 11)
+	}
 	method posicionParaPantallaGanaste() { //Se aplica metodo para reutilizar el visual al final del juego en otra posicion
 		position = game.at(6, 5)
 	}
