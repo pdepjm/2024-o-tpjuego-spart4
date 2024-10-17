@@ -23,15 +23,14 @@ object menuNiveles{
 	method image() = "niveles2.png"
 }
 
-object seleccion{
-	var property position = game.origin()
+object seleccionNivel{
+	var property position = game.at(1, 11)
 	method image() = "nivel_s.png"
-	method posicionParaNiveles() { //Posicion que tendra en la pantalla de niveles
-		position = game.at(1, 11)
-	}
-	method posicionParaPantallaGanaste() { //Se aplica metodo para reutilizar el visual al final del juego en otra posicion
-		position = game.at(6, 5)
-	}
+}
+
+object seleccionGanaste{
+	var property position = game.at(6, 5)
+	method image() = "nivel_s.png"
 }
 
 object bloqueado{

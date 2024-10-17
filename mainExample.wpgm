@@ -46,41 +46,43 @@ object juego{
 	var seleccionado = 0
 	method menuNiveles(){ //SELECCION DE NIVELES
 		game.addVisual(menuNiveles)
-		seleccion.posicionParaNiveles()
-		game.addVisual(seleccion)
+		game.addVisual(seleccionNivel)
 		keyboard.a().onPressDo({
-			if(seleccion.position().x() > 1){
-				seleccion.position(game.at(seleccion.position().x()-2,seleccion.position().y()))
+			if(seleccionNivel.position().x() > 1){
+				seleccionNivel.position(game.at(seleccionNivel.position().x()-2,seleccionNivel.position().y()))
 				self.bloquear()
 			}
 		})
 		keyboard.d().onPressDo({
-			if(seleccion.position().x() < 14){
-				seleccion.position(game.at(seleccion.position().x()+2,seleccion.position().y()))
+			if(seleccionNivel.position().x() < 14){
+				seleccionNivel.position(game.at(seleccionNivel.position().x()+2,seleccionNivel.position().y()))
 				self.bloquear()
 			}
 		})
 		keyboard.w().onPressDo({
-			if(seleccion.position().y() < 11){
-				seleccion.position(game.at(seleccion.position().x(),seleccion.position().y()+2))
+			if(seleccionNivel.position().y() < 11){
+				seleccionNivel.position(game.at(seleccionNivel.position().x(),seleccionNivel.position().y()+2))
 				self.bloquear()
 			}
 		})
 		keyboard.s().onPressDo({
-			if(seleccion.position().y() > 3){
-				seleccion.position(game.at(seleccion.position().x(),seleccion.position().y()-2))
+			if(seleccionNivel.position().y() > 3){
+				seleccionNivel.position(game.at(seleccionNivel.position().x(),seleccionNivel.position().y()-2))
 				self.bloquear()
 			}
 		})
 		keyboard.enter().onPressDo({
-			if(seleccion.position() == game.at(1,11)){ //Seleccionado nivel 1
+			if(seleccionado == 1){
+				if(seleccionNivel.position() == game.at(1,11)){ //Seleccionado nivel 1
 				escenario.generarLista(0)
-			} else if(seleccion.position() == game.at(3,11)){ //Seleccionado nivel 2
+				} else if(seleccionNivel.position() == game.at(3,11)){ //Seleccionado nivel 2
 				escenario.generarLista(1)
+				}
+				game.removeVisual(menuNiveles)
+				seleccionado = 2
+				game.removeVisual(seleccionNivel)
+				self.jugar()
 			}
-			game.removeVisual(menuNiveles)
-			game.removeVisual(seleccion)
-			self.jugar()
 		})
 	}
 
@@ -129,7 +131,7 @@ object juego{
 
 	method bloquear(){ //DIBUJAR MENSAJE DE "NIVEL NO DESBLOQUEADO"
 		if(!inicio){
-			if(bloqueados.any({bloqueado => bloqueado == seleccion.position()})){
+			if(bloqueados.any({bloqueado => bloqueado == seleccionNivel.position()})){
 				game.addVisual(bloqueado)
 			} else {
 				game.removeVisual(bloqueado)
@@ -148,27 +150,21 @@ object juego{
 	method pantallaGanaste(){ //Mostrar pantalla para cuando se gana y elegir si seguir jugando o no
 		game.removeVisual(jugador)
 		game.addVisual(ganaste)
-		seleccion.posicionParaPantallaGanaste()
-		game.addVisual(seleccion)
+		game.addVisual(seleccionGanaste)
 		keyboard.a().onPressDo({
-			if (seleccion.position().x() < 10) seleccion.position(game.at(6, 5))
+			if (seleccionGanaste.position().x() == 10) seleccionGanaste.position(game.at(6, 5))
 		})
 		keyboard.d().onPressDo({
-			if (seleccion.position().x() > 6) seleccion.position(game.at(10, 5))
-		})
-		//Por alguna razon se mueve al presionar w y s, asi que lo restringi
-		keyboard.w().onPressDo({
-			seleccion.position(game.at(seleccion.position().x(), 5))
-		})
-		keyboard.s().onPressDo({
-			seleccion.position(game.at(seleccion.position().x(), 5))
+			if (seleccionGanaste.position().x() == 6) seleccionGanaste.position(game.at(10, 5))
 		})
 		keyboard.enter().onPressDo({
-			if (seleccion.position() == game.at(6, 5)) {
-				game.removeVisual(seleccion)
+			if (seleccionGanaste.position() == game.at(6, 5)) {
+				game.removeVisual(seleccionGanaste)
+				game.removeVisual(ganaste)
+				seleccionado = 1
 				self.menuNiveles()
 			}
-			if (seleccion.position() == game.at(10, 5)) game.stop()
+			if (seleccionGanaste.position() == game.at(10, 5)) game.stop()
 		})
 	}
 }
