@@ -164,7 +164,12 @@ object juego{
 				seleccionado = 1
 				self.menuNiveles()
 			}
-			if (seleccionGanaste.position() == game.at(10, 5)) game.stop()
+			if (seleccionGanaste.position() == game.at(10, 5)) {
+				game.removeVisual(seleccionGanaste)
+				game.removeVisual(ganaste)
+				game.addVisual(finDelJuego)
+				game.stop()
+			}
 		})
 	}
 }
