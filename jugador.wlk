@@ -13,18 +13,23 @@ object jugador {
     if(self.equisCorrecta(posicion.x()) && self.yeCorrecta(posicion.y()) && !escenario.mismaPosicion(posicion)){
       position = game.at(posicion.x(), posicion.y())
     }
-  }
 
-  var property valor = 0
+  }
+  method posicionate(){
+    self.position(game.at(1, 1))
+    game.addVisualCharacter(self)
+  }
   
+  var property valor = 0
+
   method image(){
-    if(valor == 0){
+    if(valor == 2){
       return "heladon.png"
-    } else if (valor == 1){
+    } 
+    if (valor == 7){
       return "piopio.png"
-    } else {
-      return "goku2.png"
     }
+      return "goku2.png"
   }
 
   method recolectar(fruta){
@@ -39,5 +44,21 @@ object points{
   }
   method frutasObtenidas() = frutasObtenidas
 	method position() = game.at((game.width()-2),(game.height()-1))
-	method text() ="Puntaje: " + frutasObtenidas + "/30"
+	method text() = "je:  " + frutasObtenidas
+  method reset(){
+    frutasObtenidas = 0
+  }
+  method image() = "Fondo_Marcador.png"
+}
+
+object marcadorLeft{
+	method position() = game.at((game.width()-3),(game.height()-1))
+  method image() = "Fondo_Marcador.png"
+  method text() ="Punta"
+}
+
+object marcadorRight{
+	method position() = game.at((game.width()-1),(game.height()-1))
+  method image() = "Fondo_Marcador.png"
+  method text() = "/  30"
 }

@@ -5,7 +5,9 @@ class Bloque{
     method ubicarYDibujar(posicion){
         self.position(posicion)
         game.addVisual(self)
+        escenario.enlistarBloque(self)
     }
+    method quitarBloque() = game.removeVisual(self)
 }
 
 object muros{
@@ -20,29 +22,6 @@ object muros{
 }
 
 object escenario{
-    var listan = niveles.get(0)
-    const listafrutas = []
-
-    method generarLista(indice){
-        listan = niveles.get(indice)
-    }
-
-    method generarEscenario(){
-        listan.forEach({cosa => new Bloque().ubicarYDibujar(cosa)})
-    }
-
-    method mismaPosicion(posiblePosicion) = listan.any({posicion => posicion == posiblePosicion})
-
-    method mismaPosicionFruta(posiblePosicion) = listafrutas.any({posicion => posicion == posiblePosicion})
-
-    method enlistarObjeto(cosa){
-		listafrutas.add(cosa)
-	}
-
-    method quitarObjeto(cosa){
-		listafrutas.remove(cosa)
-	}
-    
     const niveles = [
         //Nivel 1
         [game.at(2,12), game.at(2,13), game.at(2,14), game.at(2,15), game.at(3,15), game.at(4,12), game.at(4,13), game.at(4,14), game.at(4,15), //ojo I
@@ -60,4 +39,34 @@ object escenario{
          game.at(2,6),                 game.at(4,4),                                                                                                                             game.at(13,4),                  game.at(15,5),
          game.at(2,5),                 game.at(4,2)]
     ]
+    var listan = niveles.get(0)
+    const listafrutas = []
+
+    method generarLista(indice){
+        listan = niveles.get(indice)
+    }
+    const listaBloques = []
+
+    method generarEscenario() = listan.forEach({pos => new Bloque().ubicarYDibujar(pos)})
+
+    method limpiarBloques() = listaBloques.forEach({block => block.quitarBloque() listaBloques.remove(block)})
+
+    method limpiarFrutas() = listafrutas.forEach({fruta => listafrutas.remove(fruta)})
+
+    method limpiarEscenario() {
+      self.limpiarBloques()
+      self.limpiarFrutas()
+    }
+
+    method mismaPosicion(posiblePosicion) = listan.any({posicion => posicion == posiblePosicion})
+
+    method mismaPosicionFruta(posiblePosicion) = listafrutas.any({posicion => posicion == posiblePosicion})
+
+    method enlistarObjeto(cosa) = listafrutas.add(cosa)
+
+    method quitarObjeto(cosa) = listafrutas.remove(cosa)
+
+    method enlistarBloque(block) = listaBloques.add(block)
+
+    method sacarBloqueDeLista(block) = listaBloques.remove(block)
 }

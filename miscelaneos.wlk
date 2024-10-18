@@ -13,7 +13,7 @@ object menuPersonajes{
 	method image() = "FondoSeleccion.png"
 }
 
-object siSeleccionado{
+object marcoDeSeleccion{
 	var property position = game.at(2,5)
 	method image() = "si.png"
 }
