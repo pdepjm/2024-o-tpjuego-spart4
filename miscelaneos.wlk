@@ -38,3 +38,8 @@ object bloqueado{
 	var property position = game.at(1, 1)
 	method image() = "bloqueado.png"
 }
+
+object finDelJuego{
+	var property position = game.origin()
+	method image() = "TERMINO.png"
+}
