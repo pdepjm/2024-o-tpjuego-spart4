@@ -4,11 +4,11 @@ class Bloque{
 	var property position = game.center() //habrá que posicionar los limites
 	method image(){
         if(jugador.image() == "helado.png"){
-            return "bloque_fiesta.png"
+            return "fiesta.png"
         } else if(jugador.image() == "piopio.png"){
-            return "bloque_fiesta.png" //no lo dibuje
+            return "fiesta.png" //no lo dibuje
         } else {
-            return "bloque_pasto.png"
+            return "pasto.png"
         }
     } 
 	method soyBloque() = true
