@@ -22,7 +22,7 @@ class Fruta{
 			}
 		}
 		if(jugador.image() == "helado.png"){
-				return "sandia1.png"
+				return "sandia.png"
 			} else if (jugador.image() == "piopio.png"){
 				return "archaic coin.png"
 			} else {
