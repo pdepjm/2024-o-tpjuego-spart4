@@ -41,6 +41,22 @@ object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSelec
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
 				sincronizadorDePantallas.cambiarPantalla("niveles")
 				jugador.valor(marcoDeSeleccion.position().x())
+				if(marcoDeSeleccion.position().x() == 2){
+					jugador.valor("helado.png")
+					fondoJuego.valor("f_slime.png")
+					visual.valor("b_fiesta.png")
+					spawn.puntos(["bananas.png", "uva.png", "sandia.png"])
+				} else if(marcoDeSeleccion.position().x() == 7){
+					jugador.valor("piopio.png")
+					fondoJuego.valor("f_pio.png")
+					visual.valor("b_pio.png")
+					spawn.puntos(["archaic coin.png", "circus coin.png", "lunaver coin.png"])
+				} else {
+					jugador.valor("goku.png")
+					fondoJuego.valor("f_pasto.png")
+					visual.valor("b_pasto.png")
+					spawn.puntos(["semilla.png", "capsula.png", "comida.png"])
+				}
 				game.removeVisual(menuPersonajes)
 				game.removeVisual(marcoDeSeleccion)
 				menuNivel.cargar()

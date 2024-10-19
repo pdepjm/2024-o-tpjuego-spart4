@@ -5,29 +5,12 @@ class Fruta{
 
 	method image(){
 		if(points.frutasObtenidas() < 10){
-			if(jugador.image() == "helado.png"){
-				return "bananas.png"
-			} else if (jugador.image() == "piopio.png"){
-				return "circus coin.png"
-			} else {
-				return "semilla.png"
-			}
-		}if(points.frutasObtenidas() < 20){
-			if(jugador.image() == "helado.png"){
-				return "uva.png"
-			} else if (jugador.image() == "piopio.png"){
-				return "lunaver coin.png"
-			} else {
-				return "capsula.png"
-			}
+			return spawn.puntos().get(0)
+		} else if(points.frutasObtenidas() < 20){
+			return spawn.puntos().get(1)
+		} else {
+			return spawn.puntos().get(2)
 		}
-		if(jugador.image() == "helado.png"){
-				return "sandia.png"
-			} else if (jugador.image() == "piopio.png"){
-				return "archaic coin.png"
-			} else {
-				return "comida.png"
-			}
 	}
 
   	method esFruta() = true
@@ -41,6 +24,8 @@ object spawn{
 	method dibujarFrutas(){
 		(0..9).forEach({x => new Fruta().ubicarYDibujar(posicionAleatoria.generarPosicionAleatoria())})
 	}
+
+	var property puntos = []
 }
 
 object posicionAleatoria {

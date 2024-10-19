@@ -47,13 +47,15 @@ object finDelJuego{
 
 object fondoJuego{
 	var property position = game.origin()
-	method image(){
+	var property valor = "f_slime.png"
+	method image() = valor
+	/*method image(){
         if(jugador.image() == "helado.png"){
-            return "fondo slime.png"
+            return "f_slime.png"
         } else if(jugador.image() == "piopio.png"){
-            return "fondo slime.png" //no lo dibuje
+            return "f_pio.png"
         } else {
-            return "fondo pasto.png"
+            return "f_pasto.png"
         }
-    } 
+    }*/
 }

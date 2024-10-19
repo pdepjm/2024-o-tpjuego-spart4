@@ -20,17 +20,9 @@ object jugador {
     game.addVisualCharacter(self)
   }
   
-  var property valor = 0
+  var property valor = "helado.png"
 
-  method image(){
-    if(valor == 2){
-      return "helado.png"
-    } 
-    if (valor == 7){
-      return "piopio.png"
-    }
-      return "goku.png"
-  }
+  method image() = valor
 
   method recolectar(fruta){
     game.removeVisual(fruta)
@@ -43,22 +35,10 @@ object points{
     frutasObtenidas += 1
   }
   method frutasObtenidas() = frutasObtenidas
-	method position() = game.at((game.width()-3),(game.height()-1))//(game.width()-2),(game.height()-1))
+	method position() = game.at((game.width()-3),(game.height()-1))
 	method text() = "            Puntos:  " + frutasObtenidas
   method reset(){
     frutasObtenidas = 0
   }
   method image() = "barra.png"
 }
-/*
-object marcadorLeft{
-	method position() = game.at((game.width()-3),(game.height()-1))
-  method image() = "barra.png"
-  method text() ="Punta"
-}
-
-object marcadorRight{
-	method position() = game.at((game.width()-1),(game.height()-1))
-  method image() = "barra.png"
-  method text() = "/  30"
-}*/

@@ -4,11 +4,7 @@ import wollok.game.*
 
 import jugador.*
 
-import muros.*
-
 import puntos.*
-
-import miscelaneos.*
 
 program BadIceCreamGame {
 	game.cellSize(40)

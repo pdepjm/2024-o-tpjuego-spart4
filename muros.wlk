@@ -1,16 +1,6 @@
-import jugador.jugador
-
 class Bloque{
 	var property position = game.center() //habrá que posicionar los limites
-	method image(){
-        if(jugador.image() == "helado.png"){
-            return "fiesta.png"
-        } else if(jugador.image() == "piopio.png"){
-            return "fiesta.png" //no lo dibuje
-        } else {
-            return "pasto.png"
-        }
-    } 
+	method image() = visual.valor()
 	method soyBloque() = true
     method ubicarYDibujar(posicion){
         self.position(posicion)
@@ -18,6 +8,10 @@ class Bloque{
         escenario.enlistarBloque(self)
     }
     method quitarBloque() = game.removeVisual(self)
+}
+
+object visual{
+    var property valor = "b_fiesta.png"
 }
 
 object muros{
