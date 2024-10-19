@@ -24,12 +24,12 @@ object jugador {
 
   method image(){
     if(valor == 2){
-      return "heladon.png"
+      return "helado.png"
     } 
     if (valor == 7){
       return "piopio.png"
     }
-      return "goku2.png"
+      return "goku.png"
   }
 
   method recolectar(fruta){
@@ -43,22 +43,22 @@ object points{
     frutasObtenidas += 1
   }
   method frutasObtenidas() = frutasObtenidas
-	method position() = game.at((game.width()-2),(game.height()-1))
-	method text() = "je:  " + frutasObtenidas
+	method position() = game.at((game.width()-3),(game.height()-1))//(game.width()-2),(game.height()-1))
+	method text() = "            Puntos:  " + frutasObtenidas
   method reset(){
     frutasObtenidas = 0
   }
-  method image() = "Fondo_Marcador.png"
+  method image() = "barra.png"
 }
-
+/*
 object marcadorLeft{
 	method position() = game.at((game.width()-3),(game.height()-1))
-  method image() = "Fondo_Marcador.png"
+  method image() = "barra.png"
   method text() ="Punta"
 }
 
 object marcadorRight{
 	method position() = game.at((game.width()-1),(game.height()-1))
-  method image() = "Fondo_Marcador.png"
+  method image() = "barra.png"
   method text() = "/  30"
-}
+}*/

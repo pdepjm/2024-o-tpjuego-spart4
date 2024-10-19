@@ -11,9 +11,7 @@ import puntos.*
 import miscelaneos.*
 
 program BadIceCreamGame {
-	game.cellSize(40) //ancho del helado
-	var fondo = "fondo slime.png"
-	game.boardGround(fondo)
+	game.cellSize(40)
 	game.title("Bad Ice Cream")
 	game.height(18)
 	game.width(18)

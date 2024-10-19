@@ -1,3 +1,5 @@
+import jugador.jugador
+
 object fondo_de_pausa{
 	var property position = game.origin()
 	method image() = "pausa.png"
@@ -10,7 +12,7 @@ object ganaste{
 
 object menuPersonajes{
 	var property position = game.origin()
-	method image() = "FondoSeleccion.png"
+	method image() = "FondoSeleccion1.png"
 }
 
 object marcoDeSeleccion{
@@ -40,5 +42,18 @@ object bloqueado{
 
 object finDelJuego{
 	var property position = game.origin()
-	method image() = "TERMINO.png"
+	method image() = "PantallaFinal.png"
+}
+
+object fondoJuego{
+	var property position = game.origin()
+	method image(){
+        if(jugador.image() == "helado.png"){
+            return "fondo slime.png"
+        } else if(jugador.image() == "piopio.png"){
+            return "fondo slime.png" //no lo dibuje
+        } else {
+            return "fondo pasto.png"
+        }
+    } 
 }

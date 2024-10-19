@@ -89,9 +89,10 @@ object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, mov
 	override method cargar(){
 		super()
         game.removeVisual(jugador)
-		game.removeVisual(marcadorLeft)
+		game.removeVisual(fondoJuego)
+		//game.removeVisual(marcadorLeft)
 		game.removeVisual(points)
-		game.removeVisual(marcadorRight)
+		//game.removeVisual(marcadorRight)
 		escenario.limpiarEscenario()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
@@ -113,16 +114,18 @@ object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, mov
 object juego{
 
 	method jugar(){ //DIBUJO DE LOS ELEMENTOS DEL MUNDO
+		//dibujar fondo
+		game.addVisual(fondoJuego)
+		//dibujar frutas
+		spawn.dibujarFrutas()
 		//dibujar muros
 		muros.crearLaterales()
 		//dibujar escenario
 		escenario.generarEscenario()
-		//dibujar frutas
-		spawn.dibujarFrutas()
 		//dibujar puntos
-		game.addVisual(marcadorLeft)
+		//game.addVisual(marcadorLeft)
 		game.addVisual(points)
-		game.addVisual(marcadorRight)
+		//game.addVisual(marcadorRight)
 		//dibujar jugador
 		jugador.posicionate()
 		//game.addVisualCharacter(jugador)
