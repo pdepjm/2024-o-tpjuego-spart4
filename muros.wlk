@@ -18,12 +18,17 @@ object muros{
     method crearLaterales(){
         const ancho = game.width() - 1
         const alto = game.height() - 1
-        (0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, 0))}) // Borde inferior
+        //(0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, 0))}) // Borde inferior
         (0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, alto))}) // Borde superior
         (alto .. 0).forEach({y => new Bloque().ubicarYDibujar(game.at(0, y))}) // Borde izquierdo
         (alto .. 0).forEach({y => new Bloque().ubicarYDibujar(game.at(ancho, y))}) // Borde derecho
     }
-}
+    method crearBordeInferior(){
+        const ancho = game.width() - 1
+        const alto = game.height() - 1
+        (0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, 0))}) // Borde inferior
+    }
+}//4.times({unValor => 5.times(action)})
 
 object escenario{
     const niveles = [

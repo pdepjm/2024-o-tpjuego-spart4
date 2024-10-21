@@ -6,6 +6,8 @@ import jugador.*
 
 import muros.*
 
+import enemigos.*
+
 import puntos.*
 
 import miscelaneos.*
@@ -41,17 +43,17 @@ object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSelec
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
 				sincronizadorDePantallas.cambiarPantalla("niveles")
 				jugador.valor(marcoDeSeleccion.position().x())
-				if(marcoDeSeleccion.position().x() == 2){
+				if(marcoDeSeleccion.position().x() == 2){ //elementos del helado
 					jugador.valor("helado.png")
 					fondoJuego.valor("f_slime.png")
 					visual.valor("b_fiesta.png")
-					spawn.puntos(["bananas.png", "uva.png", "sandia.png"])
-				} else if(marcoDeSeleccion.position().x() == 7){
+					spawn.puntos(["bananas.png", "uva.png", "sandia.png"]) //Rompe encapsulamiento?
+				} else if(marcoDeSeleccion.position().x() == 7){ //elementos del pajarito
 					jugador.valor("piopio.png")
 					fondoJuego.valor("f_pio.png")
 					visual.valor("b_pio.png")
 					spawn.puntos(["archaic coin.png", "circus coin.png", "lunaver coin.png"])
-				} else {
+				} else { //elementos de Goku
 					jugador.valor("goku.png")
 					fondoJuego.valor("f_pasto.png")
 					visual.valor("b_pasto.png")
@@ -105,10 +107,9 @@ object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, mov
 	override method cargar(){
 		super()
         game.removeVisual(jugador)
+		lineaEnemiga.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
-		//game.removeVisual(marcadorLeft)
 		game.removeVisual(points)
-		//game.removeVisual(marcadorRight)
 		escenario.limpiarEscenario()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
@@ -117,6 +118,30 @@ object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, mov
 				if (seleccionGanaste.position() == game.at(6, 5)) {
 					sincronizadorDePantallas.cambiarPantalla("niveles")
 					menuNivel.cargar()
+				}
+				if (seleccionGanaste.position() == game.at(10, 5)){ 
+					game.addVisual(finDelJuego)
+					game.stop()
+				}
+			}
+		})
+	}
+}
+object menuPerdiste inherits Menus(add_1 = perdiste, add_2 = seleccionGanaste, moverA = seleccionGanaste, cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 7, yeMin = 7, tipoDeMenu = "perdedor"){
+	override method cargar(){
+		super()
+        game.removeVisual(jugador)
+		lineaEnemiga.enemigo().limpiarEnemigos()
+		game.removeVisual(fondoJuego)
+		game.removeVisual(points)
+		escenario.limpiarEscenario()
+		keyboard.enter().onPressDo({
+			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
+				game.removeVisual(seleccionGanaste)
+				game.removeVisual(perdiste)
+				if (seleccionGanaste.position() == game.at(6, 5)) {
+					sincronizadorDePantallas.cambiarPantalla("jugar")
+					juego.jugar()
 				}
 				if (seleccionGanaste.position() == game.at(10, 5)){ 
 					game.addVisual(finDelJuego)
@@ -136,6 +161,8 @@ object juego{
 		spawn.dibujarFrutas()
 		//dibujar muros
 		muros.crearLaterales()
+		//?
+		lineaEnemiga.activar()
 		//dibujar escenario
 		escenario.generarEscenario()
 		//dibujar puntos
@@ -145,6 +172,7 @@ object juego{
 		//dibujar jugador
 		jugador.posicionate()
 		//game.addVisualCharacter(jugador)
+		muros.crearBordeInferior()
 		game.showAttributes(jugador)
 	}
 }

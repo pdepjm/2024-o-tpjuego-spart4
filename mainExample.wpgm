@@ -6,38 +6,46 @@ import jugador.*
 
 import puntos.*
 
-program BadIceCreamGame {
-	game.cellSize(40)
-	game.title("Bad Ice Cream")
-	game.height(18)
-	game.width(18)
-	//Inicio menu
-	menuPersonaje.cargar()
-	//inicio
-	game.start()
+import enemigos.*
 
-	//Juego puntos
-	keyboard.r().onPressDo({
-		const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
-		if(nuevaFruta.esFruta()){
-			jugador.recolectar(nuevaFruta)
-			points.sumarFrutas()
-		}
-		if(points.frutasObtenidas() == 10 || points.frutasObtenidas() == 20){
-			spawn.dibujarFrutas()
-		}
-		if(points.frutasObtenidas() == 30){
-			sincronizadorDePantallas.cambiarPantalla("ganador")
-			menuGanaste.cargar()
-		}
-	})
+program BadIceCreamGame {
+    game.cellSize(40)
+    game.title("Bad Ice Cream")
+    game.height(18)
+    game.width(18)
+    //Inicio menu
+    menuPersonaje.cargar()
+    //inicio
+    game.start()
+
+
+//const position = new MutablePosition
+	
+	
+    //Juego puntos
+    keyboard.r().onPressDo({
+        const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
+        if(nuevaFruta.esFruta()){
+            jugador.recolectar(nuevaFruta)
+            points.sumarFrutas()
+        }
+        if(points.frutasObtenidas() == 10 || points.frutasObtenidas() == 20){
+            spawn.dibujarFrutas()
+        }
+        if(points.frutasObtenidas() == 30){
+            sincronizadorDePantallas.cambiarPantalla("ganador")
+            menuGanaste.cargar()
+        }
+    })
+
+    game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
 }
 
 object interactuador{
     method obtenerPrimerElemento(key,accion){
-      		const colliders = game.colliders(jugador)
-		if (colliders.isEmpty())
-			throw new DomainException(message = "Apreta "+ key + accion, source = jugador)
+              const colliders = game.colliders(jugador)
+        if (colliders.isEmpty())
+            throw new DomainException(message = "Apreta "+ key + accion, source = jugador)
     return colliders.head()
     }
 }

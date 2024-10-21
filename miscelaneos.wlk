@@ -1,55 +1,60 @@
 import jugador.jugador
 
 object fondo_de_pausa{
-	var property position = game.origin()
-	method image() = "pausa.png"
+    var property position = game.origin()
+    method image() = "pausa.png"
 }
 
 object ganaste{
-	var property position = game.origin()
-	method image() = "ganaste2.png"
+    var property position = game.origin()
+    method image() = "ganaste2.png"
+}
+
+object perdiste{
+    var property position = game.origin()
+    method image() = "perdiste2.png"
 }
 
 object menuPersonajes{
-	var property position = game.origin()
-	method image() = "FondoSeleccion1.png"
+    var property position = game.origin()
+    method image() = "FondoSeleccion1.png"
 }
 
 object marcoDeSeleccion{
-	var property position = game.at(2,5)
-	method image() = "si.png"
+    var property position = game.at(2,5)
+    method image() = "si.png"
 }
 
 object menuNiveles{
-	var property position = game.origin()
-	method image() = "niveles2.png"
+    var property position = game.origin()
+    method image() = "niveles2.png"
 }
 
 object seleccionNivel{
-	var property position = game.at(1, 11)
-	method image() = "nivel_s.png"
+    var property position = game.at(1, 11)
+    method image() = "nivel_s.png"
 }
 
 object seleccionGanaste{
-	var property position = game.at(6, 5)
-	method image() = "nivel_s.png"
+    var property position = game.at(6, 5)
+    method image() = "nivel_s.png"
 }
 
 object bloqueado{
-	var property position = game.at(1, 1)
-	method image() = "bloqueado.png"
+    var property position = game.at(1, 1)
+    method image() = "bloqueado.png"
 }
 
 object finDelJuego{
-	var property position = game.origin()
-	method image() = "PantallaFinal.png"
+    var property position = game.origin()
+    method image() = "PantallaFinal.png"
 }
 
 object fondoJuego{
-	var property position = game.origin()
-	var property valor = "f_slime.png"
-	method image() = valor
-	/*method image(){
+    var property position = game.origin()
+    var property valor = "f_slime.png"
+    method image() = valor
+    /*method image(){
         if(jugador.image() == "helado.png"){
             return "f_slime.png"
         } else if(jugador.image() == "piopio.png"){

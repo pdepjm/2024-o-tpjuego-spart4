@@ -3,6 +3,8 @@ import muros.*
 class Fruta{
 	var property position = posicionAleatoria.generarPosicionAleatoria()
 
+	method jugador() = false
+
 	method image(){
 		if(points.frutasObtenidas() < 10){
 			return spawn.puntos().get(0)
