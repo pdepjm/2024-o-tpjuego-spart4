@@ -36,3 +36,32 @@ object lineaEnemiga{
         enemigo.moverseH(4,13)
     }
 }
+
+/*
+import movimiento.*
+
+class Enemigos inherits FiguraConMovimiento(position = game.at(1,2)){
+    //var property position = game.at(4,16)
+    const tiempo
+    var lado = 0
+    method image() = "piopio.png"
+
+    method moverseH(){
+        game.onTick(tiempo, self, {self.position(game.at(self.position().x().randomUpTo(self.position().x()+1), self.position().y().randomUpTo(self.position().y()+1)))})
+    }
+
+    method limpiarEnemigos(){
+        game.removeVisual(self)
+    }
+
+}
+
+object lineaEnemiga{
+    var property enemigo1 = new Enemigos(tiempo = 500)
+
+    method activar(){
+        game.addVisual(enemigo1)
+        enemigo1.moverseH()
+    }
+}
+*/
