@@ -38,6 +38,12 @@ program BadIceCreamGame {
         }
     })
 
+
+    // Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
+	keyboard.shift().onPressDo({
+		sincronizadorDePantallas.cambiarPantalla("ganador")
+		menuGanaste.cargar()})
+
     game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
 }
 
