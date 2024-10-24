@@ -17,16 +17,28 @@ object visual{
 object muros{
     method crearLaterales(){
         const ancho = game.width() - 1
-        const alto = game.height() - 1
+        const alto = game.height()
+        /*
         //(0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, 0))}) // Borde inferior
         (0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, alto))}) // Borde superior
         (alto .. 0).forEach({y => new Bloque().ubicarYDibujar(game.at(0, y))}) // Borde izquierdo
         (alto .. 0).forEach({y => new Bloque().ubicarYDibujar(game.at(ancho, y))}) // Borde derecho
+        */
+        alto.times({y => 
+                        new Bloque().ubicarYDibujar(game.at(0, (alto - y)))//Comienza desde alto - y para que no se superpongan
+                        new Bloque().ubicarYDibujar(game.at(ancho, (alto - y)))
+                        })
+    }
+    method crearBordeSuperior(){
+        const ancho = game.width()
+        const alto = game.height() - 1
+        //(0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, 0))}) // Borde inferior
+        ancho.times({x => new Bloque().ubicarYDibujar(game.at(x, alto))})
     }
     method crearBordeInferior(){
-        const ancho = game.width() - 1
-        const alto = game.height() - 1
-        (0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, 0))}) // Borde inferior
+        const ancho = game.width()
+        //(0 .. ancho).forEach({x => new Bloque().ubicarYDibujar(game.at(x, 0))}) // Borde inferior
+        ancho.times({x => new Bloque().ubicarYDibujar(game.at(x, 0))})
     }
 }//4.times({unValor => 5.times(action)})
 

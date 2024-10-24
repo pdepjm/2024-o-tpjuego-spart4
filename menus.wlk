@@ -160,19 +160,20 @@ object juego{
 		//dibujar frutas
 		spawn.dibujarFrutas()
 		//dibujar muros
+		muros.crearBordeSuperior()
 		muros.crearLaterales()
 		//?
 		lineaEnemiga.activar()
 		//dibujar escenario
 		escenario.generarEscenario()
-		//dibujar puntos
-		//game.addVisual(marcadorLeft)
-		game.addVisual(points)
-		//game.addVisual(marcadorRight)
 		//dibujar jugador
 		jugador.posicionate()
 		//game.addVisualCharacter(jugador)
 		muros.crearBordeInferior()
+		//dibujar puntos
+		//game.addVisual(marcadorLeft)
+		game.addVisual(points)
+		//game.addVisual(marcadorRight)
 		game.showAttributes(jugador)
 	}
 }
