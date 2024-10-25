@@ -14,7 +14,7 @@ import miscelaneos.*
 
 class Menus{
 	const add_1
-	const add_2
+	//const add_2
 	const moverA
 	const cantidadDeIncrementoParaPosiciones
 	const equisMax
@@ -25,7 +25,8 @@ class Menus{
 
 	method cargar(){
 		game.addVisual(add_1)
-		game.addVisual(add_2)	  
+		//game.addVisual(add_2)	
+		game.addVisual(moverA)  
 	  if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
 		keyboard.w().onPressDo({if(moverA.position().y() < yeMax) moverA.position(game.at(moverA.position().x(), moverA.position().y() + cantidadDeIncrementoParaPosiciones))})
 	  	keyboard.a().onPressDo({if(moverA.position().x() > equisMin) moverA.position(game.at(moverA.position().x() - cantidadDeIncrementoParaPosiciones, moverA.position().y()))})
@@ -36,40 +37,44 @@ class Menus{
 }
 
 
-object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSeleccion, moverA = marcoDeSeleccion, cantidadDeIncrementoParaPosiciones = 5, equisMax = 12, equisMin = 2, yeMax = 5, yeMin = 5, tipoDeMenu = "personajes"){
+object menuPersonaje inherits Menus(add_1 = menuPersonajes, /* add_2 = marcoDeSeleccion,*/ moverA = marcoDeSeleccion, cantidadDeIncrementoParaPosiciones = 5, equisMax = 12, equisMin = 2, yeMax = 5, yeMin = 5, tipoDeMenu = "personajes"){
 	override method cargar(){
 		super()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
 				sincronizadorDePantallas.cambiarPantalla("niveles")
-				jugador.valor(marcoDeSeleccion.position().x())
+				//jugador.valor(marcoDeSeleccion.position().x())
 				if(marcoDeSeleccion.position().x() == 2){ //elementos del helado
-					jugador.valor("helado.png")
+					//jugador.valor("helado.png")
+					datosJugador.imagen("helado.png")
 					fondoJuego.valor("f_slime.png")
 					visual.valor("b_fiesta.png")
 					spawn.puntos(["bananas.png", "uva.png", "sandia.png"]) //Rompe encapsulamiento?
 				} else if(marcoDeSeleccion.position().x() == 7){ //elementos del pajarito
-					jugador.valor("piopio.png")
+					//jugador.valor("piopio.png")
+					datosJugador.imagen("piopio.png")
 					fondoJuego.valor("f_pio.png")
 					visual.valor("b_pio.png")
 					spawn.puntos(["archaic coin.png", "circus coin.png", "lunaver coin.png"])
 				} else { //elementos de Goku
-					jugador.valor("goku.png")
+					//jugador.valor("goku.png")
+					datosJugador.imagen("goku.png")
 					fondoJuego.valor("f_pasto.png")
 					visual.valor("b_pasto.png")
 					spawn.puntos(["semilla.png", "capsula.png", "comida.png"])
 				}
 				game.removeVisual(menuPersonajes)
 				game.removeVisual(marcoDeSeleccion)
+				const menuNivel = new MenuNivel()
 				menuNivel.cargar()
 			}
 		})
 	}
 }
 
-object menuNivel inherits Menus(add_1 = menuNiveles, add_2 = seleccionNivel, moverA = seleccionNivel, cantidadDeIncrementoParaPosiciones = 2, equisMax = 14, equisMin = 1, yeMax = 11, yeMin = 3, tipoDeMenu = "niveles"){
+class MenuNivel inherits Menus(add_1 = menuNiveles,/* add_2 = seleccionNivel,*/ moverA = new SeleccionNivel(), cantidadDeIncrementoParaPosiciones = 2, equisMax = 14, equisMin = 1, yeMax = 11, yeMin = 3, tipoDeMenu = "niveles"){
 	method bloquear(){ //DIBUJAR MENSAJE DE "NIVEL NO DESBLOQUEADO"
-			if(bloqueados.any({bloqueado => bloqueado == seleccionNivel.position()})){
+			if(bloqueados.any({bloqueado => bloqueado == moverA.position()})){
 				game.addVisual(bloqueado)
 			} else {
 				game.removeVisual(bloqueado)
@@ -89,13 +94,13 @@ object menuNivel inherits Menus(add_1 = menuNiveles, add_2 = seleccionNivel, mov
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				sincronizadorDePantallas.cambiarPantalla("jugar")
-				if(seleccionNivel.position() == game.at(1,11)){ //Seleccionado nivel 1
+				if(moverA.position() == game.at(1,11)){ //Seleccionado nivel 1
 				escenario.generarLista(0)
-				} else if(seleccionNivel.position() == game.at(3,11)){ //Seleccionado nivel 2
+				} else if(moverA.position() == game.at(3,11)){ //Seleccionado nivel 2
 				escenario.generarLista(1)
 				}
 				game.removeVisual(menuNiveles)
-				game.removeVisual(seleccionNivel)
+				game.removeVisual(moverA)
 				points.reset()
 				juego.jugar()
 			}
@@ -103,23 +108,26 @@ object menuNivel inherits Menus(add_1 = menuNiveles, add_2 = seleccionNivel, mov
 	}
 }
 
-object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, moverA = seleccionGanaste, cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 5, yeMin = 5, tipoDeMenu = "ganador"){
+class MenuGanaste inherits Menus(add_1 = ganaste, /*add_2 = seleccionGanaste,*/ moverA = new SeleccionGanaste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 5, yeMin = 5, tipoDeMenu = "ganador"){
 	override method cargar(){
 		super()
-        game.removeVisual(jugador)
+        //game.removeVisual(jugador)
+		game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().eliminate()
 		lineaEnemiga.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
 		escenario.limpiarEscenario()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
-				game.removeVisual(seleccionGanaste)
+				game.removeVisual(moverA)
 				game.removeVisual(ganaste)
-				if (seleccionGanaste.position() == game.at(6, 5)) {
+				if (moverA.position() == game.at(6, 5)) {
 					sincronizadorDePantallas.cambiarPantalla("niveles")
-					menuNivel.cargar()
+					//const menuNivel = new MenuNivel()
+					//menuNivel.cargar()
+					new MenuNivel().cargar()
 				}
-				if (seleccionGanaste.position() == game.at(10, 5)){ 
+				if (moverA.position() == game.at(10, 5)){ 
 					game.addVisual(finDelJuego)
 					game.stop()
 				}
@@ -127,23 +135,24 @@ object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, mov
 		})
 	}
 }
-object menuPerdiste inherits Menus(add_1 = perdiste, add_2 = seleccionGanaste, moverA = seleccionGanaste, cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 7, yeMin = 7, tipoDeMenu = "perdedor"){
+object menuPerdiste inherits Menus(add_1 = perdiste, /*add_2 = seleccionGanaste,*/ moverA = new SeleccionGanaste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 7, yeMin = 7, tipoDeMenu = "perdedor"){
 	override method cargar(){
 		super()
-        game.removeVisual(jugador)
+        //game.removeVisual(jugador)
+		game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().eliminate()
 		lineaEnemiga.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
 		escenario.limpiarEscenario()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
-				game.removeVisual(seleccionGanaste)
+				game.removeVisual(moverA)
 				game.removeVisual(perdiste)
-				if (seleccionGanaste.position() == game.at(6, 5)) {
+				if (moverA.position() == game.at(6, 5)) {
 					sincronizadorDePantallas.cambiarPantalla("jugar")
 					juego.jugar()
 				}
-				if (seleccionGanaste.position() == game.at(10, 5)){ 
+				if (moverA.position() == game.at(10, 5)){ 
 					game.addVisual(finDelJuego)
 					game.stop()
 				}
@@ -167,6 +176,8 @@ object juego{
 		//dibujar escenario
 		escenario.generarEscenario()
 		//dibujar jugador
+		const jugador = new Jugador()
+		jugador.valor(datosJugador.imagen())
 		jugador.posicionate()
 		//game.addVisualCharacter(jugador)
 		muros.crearBordeInferior()
@@ -184,4 +195,8 @@ object sincronizadorDePantallas{
 	  pantalla = nuevaPantalla
 	}
 	method pantallaActual() = pantalla
+}
+
+object laMuerte {
+  method erradicar() = game.removeVisual(game.getObjectsIn(game.at(1, 1)))
 }

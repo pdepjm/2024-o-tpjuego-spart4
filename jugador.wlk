@@ -1,14 +1,15 @@
 import muros.*
 
-import menus.menuPerdiste
+import menus.*
 
 import movimiento.*
 
-object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
+class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
 
   method jugador() = true
 
   method posicionate(){
+    //self.position().clear()
     self.position(game.at(1, 1))
     game.addVisualCharacter(self)
   }
@@ -24,6 +25,10 @@ object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
   method eliminate(){
     game.removeVisual(self)
   }
+}
+
+object datosJugador {
+  var property imagen = null
 }
 
 object points{

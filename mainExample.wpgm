@@ -26,7 +26,8 @@ program BadIceCreamGame {
     keyboard.r().onPressDo({
         const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
         if(nuevaFruta.esFruta()){
-            jugador.recolectar(nuevaFruta)
+            //jugador.recolectar(nuevaFruta)
+            game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().recolectar(nuevaFruta)
             points.sumarFrutas()
         }
         if(points.frutasObtenidas() == 10 || points.frutasObtenidas() == 20){
@@ -34,6 +35,7 @@ program BadIceCreamGame {
         }
         if(points.frutasObtenidas() == 30){
             sincronizadorDePantallas.cambiarPantalla("ganador")
+            const menuGanaste = new MenuGanaste()
             menuGanaste.cargar()
         }
     })
@@ -42,16 +44,18 @@ program BadIceCreamGame {
     // Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
 	keyboard.shift().onPressDo({
 		sincronizadorDePantallas.cambiarPantalla("ganador")
-		menuGanaste.cargar()})
+        /*const menuGanaste = new MenuGanaste()
+		menuGanaste.cargar()})*/
+		new MenuGanaste().cargar()})
 
     game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
 }
 
 object interactuador{
     method obtenerPrimerElemento(key,accion){
-              const colliders = game.colliders(jugador)
+        const colliders = game.colliders(game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head())
         if (colliders.isEmpty())
-            throw new DomainException(message = "Apreta "+ key + accion, source = jugador)
+            throw new DomainException(message = "Apreta "+ key + accion, source = game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head())
     return colliders.head()
     }
 }

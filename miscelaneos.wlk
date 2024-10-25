@@ -1,4 +1,4 @@
-import jugador.jugador
+import jugador.*
 
 object fondo_de_pausa{
     var property position = game.origin()
@@ -30,12 +30,12 @@ object menuNiveles{
     method image() = "niveles2.png"
 }
 
-object seleccionNivel{
+class SeleccionNivel{
     var property position = game.at(1, 11)
     method image() = "nivel_s.png"
 }
 
-object seleccionGanaste{
+class SeleccionGanaste{
     var property position = game.at(6, 5)
     method image() = "nivel_s.png"
 }
