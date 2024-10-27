@@ -1,33 +1,35 @@
-import jugador.*
 import muros.*
 class Fruta{
 	var property position = posicionAleatoria.generarPosicionAleatoria()
+	var valor = spawn.puntos().get(0)
 
 	method jugador() = false
 
 	method image(){
-		if(points.frutasObtenidas() < 10){
-			return spawn.puntos().get(0)
-		} else if(points.frutasObtenidas() < 20){
-			return spawn.puntos().get(1)
-		} else {
-			return spawn.puntos().get(2)
-		}
+		return valor
 	}
 
-  	method esFruta() = true
-  	method ubicarYDibujar(posicion){
+  	method ubicarYDibujar(posicion, indice){
+		if(indice == 2){
+			valor = spawn.puntos().get(1)
+		} else if (indice == 3){
+			valor = spawn.puntos().get(2)
+		}
         self.position(posicion)
         game.addVisual(self)
     }
+
+	method eliminarPunto(){
+		game.removeVisual(self)
+	}
 }
 
 object spawn{
-	method dibujarFrutas(){
-		(0..9).forEach({x => new Fruta().ubicarYDibujar(posicionAleatoria.generarPosicionAleatoria())})
+	method dibujarPuntos(indice){
+		(0..9).forEach({x => new Fruta().ubicarYDibujar(posicionAleatoria.generarPosicionAleatoria(), indice)})
 	}
 
-	var property puntos = []
+	var property puntos = ["bananas.png", "uva.png", "sandia.png"]
 }
 
 object posicionAleatoria {

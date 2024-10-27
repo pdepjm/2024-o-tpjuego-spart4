@@ -1,57 +1,193 @@
-import menus.*
-
 import wollok.game.*
-
+import pantallas.*
 import jugador.*
-
 import puntos.*
-
 import enemigos.*
+import miscelaneos.*
+import muros.*
 
 program BadIceCreamGame {
+//Datos base de la pantalla
     game.cellSize(40)
     game.title("Bad Ice Cream")
     game.height(18)
     game.width(18)
-    //Inicio menu
-    menuPersonaje.cargar()
-    //inicio
+//inicio
     game.start()
-
-
 //const position = new MutablePosition
-	
-	
-    //Juego puntos
-    keyboard.r().onPressDo({
-        const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
-        if(nuevaFruta.esFruta()){
-            jugador.recolectar(nuevaFruta)
-            points.sumarFrutas()
-        }
-        if(points.frutasObtenidas() == 10 || points.frutasObtenidas() == 20){
-            spawn.dibujarFrutas()
-        }
-        if(points.frutasObtenidas() == 30){
-            sincronizadorDePantallas.cambiarPantalla("ganador")
-            menuGanaste.cargar()
-        }
-    })
+//Primer pantalla
+	movimientoJugador.jugar()
+    movimientoPPersonajes.movimiento(p_personajes)
+    p_personajes.cargar()
 
-
-    // Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
+// Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
 	keyboard.shift().onPressDo({
-		sincronizadorDePantallas.cambiarPantalla("ganador")
-		menuGanaste.cargar()})
+        movimientoPGanaste.movimiento(p_ganaste)
+		p_ganaste.cargar()
+    })
+//Colision con el enemigo
+    game.onCollideDo(lineaEnemiga.enemigo(), {
+        elemento => if(elemento.jugador()){
+            elemento.eliminate() 
+            movimientoPPerdiste.movimiento(p_perdiste)
+            p_perdiste.cargar()
+            }})
 
-    game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
 }
 
+//Si no colisionamos con nada muestra un mensaje y toma al elemento con el que el jugador colisiona
 object interactuador{
     method obtenerPrimerElemento(key,accion){
-              const colliders = game.colliders(jugador)
+              const colliders = game.colliders(prota)
         if (colliders.isEmpty())
-            throw new DomainException(message = "Apreta "+ key + accion, source = jugador)
+            throw new DomainException(message = "Apreta "+ key + accion, source = prota)
     return colliders.head()
+    }
+}
+
+//Acciones que puede realizar el jugador
+object movimientoJugador{
+    method jugar(){
+        //moverse
+        keyboard.up().onPressDo({
+            prota.position(game.at(prota.position().x(), prota.position().y()+1))
+        })
+        keyboard.down().onPressDo({
+            prota.position(game.at(prota.position().x(), prota.position().y()-1))
+        })
+        keyboard.right().onPressDo({
+            prota.position(game.at(prota.position().x()+1, prota.position().y()))
+        })
+        keyboard.left().onPressDo({
+            prota.position(game.at(prota.position().x()-1, prota.position().y()))
+        })
+        //Recoger puntos
+        keyboard.r().onPressDo({
+            const nuevoPunto = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
+            nuevoPunto.eliminarPunto()
+            points.sumarFrutas()
+            if(points.puntosObtenidos() == 10){
+                spawn.dibujarPuntos(2)
+            }
+            if(points.puntosObtenidos() == 20){
+                spawn.dibujarPuntos(3)
+            }
+            if(points.puntosObtenidos() == 30){
+                movimientoPGanaste.movimiento(p_ganaste)
+                p_ganaste.cargar()
+            }
+            })
+        }
+}
+
+//Acciones que se pueden realizar en la pantalla de personajes
+object movimientoPPersonajes{
+    method movimiento(pantalla){
+        keyboard.q().onPressDo({
+            if(pantalla.posicionX()>2){
+                pantalla.modificarXY(game.at(pantalla.posicionX()-5,pantalla.posicionY()))
+            }
+        })
+        keyboard.e().onPressDo({
+            if(pantalla.posicionX()<12){
+                pantalla.modificarXY(game.at(pantalla.posicionX()+5,pantalla.posicionY()))
+            }
+        })
+        keyboard.enter().onPressDo({ //no coloco lo del helado porque ya son los valores base
+			if(pantalla.posicionX() == 7){ //elementos del pajarito
+				prota.valor("piopio.png")
+				fondoJuego.valor("f_pio.png")
+				visual.valor("b_pio.png")
+				spawn.puntos(["archaic coin.png", "circus coin.png", "lunaver coin.png"])
+			} else if(pantalla.posicionX() == 12){ //elementos de Goku
+				prota.valor("goku.png")
+				fondoJuego.valor("f_pasto.png")
+				visual.valor("b_pasto.png")
+				spawn.puntos(["semilla.png", "capsula.png", "comida.png"])
+			}
+			pantalla.borrar()
+//falta movimiento
+			p_niveles.cargar()
+		})
+    }
+}
+
+//Acciones que se pueden realizar en la pantalla de niveles
+object movimientoPNiveles{
+    method movimiento(pantalla){
+        keyboard.a().onPressDo({
+            if(pantalla.posicionX()>1){
+                pantalla.modificarXY(game.at(pantalla.posicionX()-2,pantalla.posicionY()))
+            }
+        })
+        keyboard.d().onPressDo({
+            if(pantalla.posicionX()<14){
+                pantalla.modificarXY(game.at(pantalla.posicionX()+2,pantalla.posicionY()))
+            }
+        })
+        keyboard.enter().onPressDo({
+			if(pantalla.posicionX() == 1){ //Seleccionado nivel 1
+			escenario.generarLista(0)
+			} else if(pantalla.posicionX() == 3){ //Seleccionado nivel 2
+			escenario.generarLista(1)
+			}
+			pantalla.borrar()
+			points.reset()
+			juego.jugar()
+
+		})
+    }
+}
+
+//Acciones que se pueden realizar en la pantalla de ganaste
+object movimientoPGanaste{
+    method movimiento(pantalla){
+        keyboard.q().onPressDo({
+            if(pantalla.posicionX()>6){
+                pantalla.modificarXY(game.at(pantalla.posicionX()-4,pantalla.posicionY()))
+            }
+        })
+        keyboard.e().onPressDo({
+            if(pantalla.posicionX()<10){
+                pantalla.modificarXY(game.at(pantalla.posicionX()+4,pantalla.posicionY()))
+            }
+        })
+        keyboard.enter().onPressDo({
+            pantalla.borrar()
+			if (pantalla.posicionX() == 6) {
+//falta movimiento
+				p_niveles.cargar()
+			}
+			if (pantalla.posicionX() == 10){ 
+				game.addVisual(finDelJuego)
+				game.stop()
+			}
+		})
+    }
+}
+
+//Acciones que se pueden realizar en la pantalla de perdiste
+object movimientoPPerdiste{
+    method movimiento(pantalla){
+        keyboard.a().onPressDo({
+            if(pantalla.posicionX()>6){
+                pantalla.modificarXY(game.at(pantalla.posicionX()-4,pantalla.posicionY()))
+            }
+        })
+        keyboard.d().onPressDo({
+            if(pantalla.posicionX()<10){
+                pantalla.modificarXY(game.at(pantalla.posicionX()+4,pantalla.posicionY()))
+            }
+        })
+        keyboard.enter().onPressDo({
+            pantalla.borrar()
+			if (pantalla.posicionX() == 6) {
+				juego.jugar()
+			}
+			if (pantalla.posicionX() == 10){ 
+				game.addVisual(finDelJuego)
+				game.stop()
+			}
+		})
     }
 }

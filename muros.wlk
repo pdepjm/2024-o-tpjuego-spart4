@@ -1,7 +1,6 @@
 class Bloque{
 	var property position = game.center() //habrá que posicionar los limites
 	method image() = visual.valor()
-	method soyBloque() = true
     method ubicarYDibujar(posicion){
         self.position(posicion)
         game.addVisual(self)

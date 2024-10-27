@@ -1,5 +1,3 @@
-import jugador.jugador
-
 object fondo_de_pausa{
     var property position = game.origin()
     method image() = "pausa.png"
@@ -54,13 +52,5 @@ object fondoJuego{
     var property position = game.origin()
     var property valor = "f_slime.png"
     method image() = valor
-    /*method image(){
-        if(jugador.image() == "helado.png"){
-            return "f_slime.png"
-        } else if(jugador.image() == "piopio.png"){
-            return "f_pio.png"
-        } else {
-            return "f_pasto.png"
-        }
-    }*/
+
 }
