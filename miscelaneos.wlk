@@ -40,6 +40,11 @@ class SeleccionGanaste{
     method image() = "nivel_s.png"
 }
 
+class SeleccionPerdiste{
+    var property position = game.at(6, 5)
+    method image() = "nivel_s.png"
+}
+
 object bloqueado{
     var property position = game.at(1, 1)
     method image() = "bloqueado.png"

@@ -14,6 +14,10 @@ class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
     game.addVisualCharacter(self)
   }
 
+  method volver(){
+    game.addVisualCharacter(self)
+  }
+
   var property valor = "helado.png"
 
   method image() = valor
@@ -25,10 +29,75 @@ class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
   method eliminate(){
     game.removeVisual(self)
   }
+
+  method atacarDerecha() = new KamehamehaDerecha().energia(self.position(), "goku_Kamehameha_Derecha.png", 1)
+  method atacarIzquierda() = new KamehamehaIzquierda().energia(self.position(), "goku_Kamehameha_Izquierda.png", -1)
 }
 
 object datosJugador {
   var property imagen = null
+}
+
+object gokuAtacando {
+  var property position = null
+  var property lado = null
+  method image() = lado
+}
+
+class KamehamehaDerecha{
+  var personaje = null
+  
+  var property position = null
+  
+  method image() = "kamehameha_Derecha.png"
+
+  method energia(posicion, lado, valor){
+    gokuAtacando.lado(lado)
+    gokuAtacando.position(posicion)
+    self.position(game.at(posicion.x() + valor, posicion.y()))
+    if(!escenario.mismaPosicion(self.position())){
+      game.addVisual(gokuAtacando)
+      personaje = game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head()
+      game.removeVisual(game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head())
+      game.addVisual(self)
+      game.schedule(500, {self.avanzar()})
+    }
+  }
+
+  method lugarValido() = escenario.mismaPosicion(self.position())
+
+  method avanzar(){
+    if(!escenario.mismaPosicion(game.at(self.position().x() + 1, self.position().y())) && self.position().x() + 1 < game.width() - 1){
+      self.position(game.at(self.position().x() + 1, self.position().y()))
+      game.schedule(500, {self.avanzar()})
+    }
+    else{
+      personaje.position(gokuAtacando.position())
+      personaje.volver()
+      self.eliminate()
+    }
+  }
+
+  method eliminate(){
+    game.removeVisual(gokuAtacando)
+    game.removeVisual(self)
+  }
+}
+
+class KamehamehaIzquierda inherits KamehamehaDerecha{
+  override method image() = "kamehameha_Izquierda.png"
+
+  override method avanzar(){
+    if(!escenario.mismaPosicion(game.at(self.position().x() - 1, self.position().y())) && self.position().x() - 1 > 0){
+      self.position(game.at(self.position().x() - 1, self.position().y()))
+      game.schedule(500, {self.avanzar()})
+    }
+    else{
+      personaje.position(gokuAtacando.position())
+      personaje.volver()
+      self.eliminate()
+    }
+  }
 }
 
 object points{

@@ -14,7 +14,8 @@ program BadIceCreamGame {
     game.height(18)
     game.width(18)
     //Inicio menu
-    menuPersonaje.cargar()
+    //menuPersonaje.cargar()
+    new MenuPersonaje().cargar()
     //inicio
     game.start()
 
@@ -35,10 +36,14 @@ program BadIceCreamGame {
         }
         if(points.frutasObtenidas() == 30){
             sincronizadorDePantallas.cambiarPantalla("ganador")
-            const menuGanaste = new MenuGanaste()
-            menuGanaste.cargar()
+            //const menuGanaste = new MenuGanaste()
+            //menuGanaste.cargar()
+            new MenuGanaste().cargar()
         }
     })
+
+    keyboard.e().onPressDo({game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().atacarDerecha()})
+    keyboard.q().onPressDo({game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().atacarIzquierda()})
 
 
     // Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
@@ -48,7 +53,7 @@ program BadIceCreamGame {
 		menuGanaste.cargar()})*/
 		new MenuGanaste().cargar()})
 
-    game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
+    game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") new MenuPerdiste().cargar()}})
 }
 
 object interactuador{

@@ -1,7 +1,7 @@
 class Enemigo1{
     var property position = game.at(4,16)
     var lado = 0
-    method image() = "piopio.png"
+    method image() = "cell1.png"
 
     method moverseH(limite1, limite2){
         game.onTick(500, self, {self.muevete(limite1, limite2)})

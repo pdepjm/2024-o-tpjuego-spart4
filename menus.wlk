@@ -37,7 +37,7 @@ class Menus{
 }
 
 
-object menuPersonaje inherits Menus(add_1 = menuPersonajes, /* add_2 = marcoDeSeleccion,*/ moverA = marcoDeSeleccion, cantidadDeIncrementoParaPosiciones = 5, equisMax = 12, equisMin = 2, yeMax = 5, yeMin = 5, tipoDeMenu = "personajes"){
+class MenuPersonaje inherits Menus(add_1 = menuPersonajes, /* add_2 = marcoDeSeleccion,*/ moverA = marcoDeSeleccion, cantidadDeIncrementoParaPosiciones = 5, equisMax = 12, equisMin = 2, yeMax = 5, yeMin = 5, tipoDeMenu = "personajes"){
 	override method cargar(){
 		super()
 		keyboard.enter().onPressDo({
@@ -135,11 +135,11 @@ class MenuGanaste inherits Menus(add_1 = ganaste, /*add_2 = seleccionGanaste,*/ 
 		})
 	}
 }
-object menuPerdiste inherits Menus(add_1 = perdiste, /*add_2 = seleccionGanaste,*/ moverA = new SeleccionGanaste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 7, yeMin = 7, tipoDeMenu = "perdedor"){
+class MenuPerdiste inherits Menus(add_1 = perdiste, /*add_2 = seleccionGanaste,*/ moverA = new SeleccionGanaste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 7, yeMin = 7, tipoDeMenu = "perdedor"){
 	override method cargar(){
 		super()
         //game.removeVisual(jugador)
-		game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().eliminate()
+		//game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().eliminate()
 		lineaEnemiga.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
