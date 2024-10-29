@@ -24,36 +24,42 @@ program BadIceCreamGame {
 	
 	
     //Juego puntos
-    keyboard.r().onPressDo({
-        const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
-        if(nuevaFruta.esFruta()){
-            //jugador.recolectar(nuevaFruta)
-            game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().recolectar(nuevaFruta)
-            points.sumarFrutas()
+    keyboard.r().onPressDo({ 
+        if(sincronizadorDePantallas.habilitar()){
+            const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
+            if(nuevaFruta.esFruta()){
+                //jugador.recolectar(nuevaFruta)
+                game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().recolectar(nuevaFruta)
+                points.sumarFrutas()
+            }
+            if(points.frutasObtenidas() == 10 || points.frutasObtenidas() == 20){
+                spawn.dibujarFrutas()
+            }
+            if(points.frutasObtenidas() == 30){
+                sincronizadorDePantallas.cambiarPantalla("ganador")
+                //const menuGanaste = new MenuGanaste()
+                //menuGanaste.cargar()
+                new MenuGanaste().cargar()
+            }
         }
-        if(points.frutasObtenidas() == 10 || points.frutasObtenidas() == 20){
-            spawn.dibujarFrutas()
-        }
-        if(points.frutasObtenidas() == 30){
-            sincronizadorDePantallas.cambiarPantalla("ganador")
-            //const menuGanaste = new MenuGanaste()
-            //menuGanaste.cargar()
-            new MenuGanaste().cargar()
-        }
+        
     })
 
-    keyboard.e().onPressDo({game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().atacarDerecha()})
-    keyboard.q().onPressDo({game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().atacarIzquierda()})
+    keyboard.e().onPressDo({if(sincronizadorDePantallas.habilitar()) {game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().atacarDerecha()}})
+    keyboard.q().onPressDo({if(sincronizadorDePantallas.habilitar()) {game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().atacarIzquierda()}})
 
 
     // Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
 	keyboard.shift().onPressDo({
-		sincronizadorDePantallas.cambiarPantalla("ganador")
-        /*const menuGanaste = new MenuGanaste()
-		menuGanaste.cargar()})*/
-		new MenuGanaste().cargar()})
+        if(sincronizadorDePantallas.habilitar()){
+           sincronizadorDePantallas.cambiarPantalla("ganador")
+            /*const menuGanaste = new MenuGanaste()
+            menuGanaste.cargar()})*/
+            new MenuGanaste().cargar() 
+        }
+	})
 
-    game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") new MenuPerdiste().cargar()}})
+    game.onCollideDo(lineaEnemiga.enemigo(), {elemento => elemento.impactado()})
 }
 
 object interactuador{

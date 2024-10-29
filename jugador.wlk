@@ -1,3 +1,4 @@
+import enemigos.*
 import muros.*
 
 import menus.*
@@ -15,7 +16,9 @@ class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
   }
 
   method volver(){
-    game.addVisualCharacter(self)
+    if(sincronizadorDePantallas.pantallaActual() == "jugar"){
+      game.addVisualCharacter(self)
+    }
   }
 
   var property valor = "helado.png"
@@ -30,6 +33,12 @@ class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
     game.removeVisual(self)
   }
 
+  method impactado() {
+    self.eliminate()
+    sincronizadorDePantallas.cambiarPantalla("perdedor") 
+    new MenuPerdiste().cargar()
+  }
+
   method atacarDerecha() = new KamehamehaDerecha().energia(self.position(), "goku_Kamehameha_Derecha.png", 1)
   method atacarIzquierda() = new KamehamehaIzquierda().energia(self.position(), "goku_Kamehameha_Izquierda.png", -1)
 }
@@ -42,14 +51,32 @@ object gokuAtacando {
   var property position = null
   var property lado = null
   method image() = lado
+  
+  method impactado(){
+    //game.allVisuals().filter({objeto => objeto.image() == KamehamehaDerecha.image() || objeto.image() == KamehamehaIzquierda.image()}).head()
+    sincronizadorDePantallas.cambiarPantalla("perdedor") 
+    //new MenuPerdiste().cargar()
+  }
+
+  method eliminate(){
+    game.removeVisual(self)
+  }
+
 }
 
 class KamehamehaDerecha{
   var personaje = null
+  var property impacto = 0
   
   var property position = null
   
   method image() = "kamehameha_Derecha.png"
+
+  method impactado() {
+    //game.allVisuals().filter({objeto => objeto.image() == Enemigo1.image()}).head().herido()
+    lineaEnemiga.enemigo().herido()
+    self.impacto(1)
+  }
 
   method energia(posicion, lado, valor){
     gokuAtacando.lado(lado)
@@ -67,7 +94,7 @@ class KamehamehaDerecha{
   method lugarValido() = escenario.mismaPosicion(self.position())
 
   method avanzar(){
-    if(!escenario.mismaPosicion(game.at(self.position().x() + 1, self.position().y())) && self.position().x() + 1 < game.width() - 1){
+    if(!escenario.mismaPosicion(game.at(self.position().x() + 1, self.position().y())) && self.position().x() + 1 < game.width() - 1 && impacto < 1 && sincronizadorDePantallas.pantallaActual() != "perdedor"){
       self.position(game.at(self.position().x() + 1, self.position().y()))
       game.schedule(500, {self.avanzar()})
     }
@@ -75,11 +102,15 @@ class KamehamehaDerecha{
       personaje.position(gokuAtacando.position())
       personaje.volver()
       self.eliminate()
+      gokuAtacando.eliminate()
+      if(sincronizadorDePantallas.pantallaActual() == "perdedor"){
+        new MenuPerdiste().cargar()
+      }
     }
   }
 
   method eliminate(){
-    game.removeVisual(gokuAtacando)
+    //game.removeVisual(gokuAtacando)
     game.removeVisual(self)
   }
 }
@@ -88,7 +119,7 @@ class KamehamehaIzquierda inherits KamehamehaDerecha{
   override method image() = "kamehameha_Izquierda.png"
 
   override method avanzar(){
-    if(!escenario.mismaPosicion(game.at(self.position().x() - 1, self.position().y())) && self.position().x() - 1 > 0){
+    if(!escenario.mismaPosicion(game.at(self.position().x() - 1, self.position().y())) && self.position().x() - 1 > 0 && impacto < 1 && sincronizadorDePantallas.pantallaActual() != "perdedor"){
       self.position(game.at(self.position().x() - 1, self.position().y()))
       game.schedule(500, {self.avanzar()})
     }
@@ -96,7 +127,11 @@ class KamehamehaIzquierda inherits KamehamehaDerecha{
       personaje.position(gokuAtacando.position())
       personaje.volver()
       self.eliminate()
-    }
+      gokuAtacando.eliminate()
+      if(sincronizadorDePantallas.pantallaActual() == "perdedor"){
+        new MenuPerdiste().cargar()
+      }
+    } 
   }
 }
 

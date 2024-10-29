@@ -1,4 +1,14 @@
 import wollok.game.*
+=======
+import menus.*
+
+
+class Enemigo1{
+    var property position = game.at(4,16)
+    var lado = 0
+    var property vida
+    method image() = "cell1.png"
+>>>>>>> 31aae21524a78eed8c63ad098b624b259371b8a5
 
 
 class Enemigo1{
@@ -51,6 +61,18 @@ class Enemigo1{
 	  self.detectar_colisiones()
     }
 
+    method herido() {
+      vida -= 50
+      if(vida == 0){
+        self.morir()
+      }
+    }
+
+    method morir() {
+      sincronizadorDePantallas.cambiarPantalla("ganador")
+      new MenuGanaste().cargar()
+    }
+
     method limpiarEnemigos(){
         game.removeVisual(self)
     }
@@ -58,7 +80,7 @@ class Enemigo1{
 }
 
 object lineaEnemiga{
-    var property enemigo = new Enemigo1()
+    var property enemigo = new Enemigo1(vida = 150)
 
     method activar(){
         game.addVisual(enemigo)

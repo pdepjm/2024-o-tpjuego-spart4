@@ -5,6 +5,8 @@ class Fruta{
 
 	method jugador() = false
 
+	method impactado() = null
+
 	method image(){
 		if(points.frutasObtenidas() < 10){
 			return spawn.puntos().get(0)
