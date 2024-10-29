@@ -112,7 +112,7 @@ class MenuGanaste inherits Menus(add_1 = ganaste, /*add_2 = seleccionGanaste,*/ 
 	override method cargar(){
 		super()
         //game.removeVisual(jugador)
-		game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().eliminate()
+		//game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().eliminate()
 		lineaEnemiga.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
@@ -195,6 +195,8 @@ object sincronizadorDePantallas{
 	  pantalla = nuevaPantalla
 	}
 	method pantallaActual() = pantalla
+
+	method habilitar() = pantalla == "jugar"
 }
 
 object laMuerte {

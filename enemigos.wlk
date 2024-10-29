@@ -1,6 +1,10 @@
+import menus.*
+
+
 class Enemigo1{
     var property position = game.at(4,16)
     var lado = 0
+    var property vida
     method image() = "cell1.png"
 
     method moverseH(limite1, limite2){
@@ -22,6 +26,18 @@ class Enemigo1{
         }
     }
 
+    method herido() {
+      vida -= 50
+      if(vida == 0){
+        self.morir()
+      }
+    }
+
+    method morir() {
+      sincronizadorDePantallas.cambiarPantalla("ganador")
+      new MenuGanaste().cargar()
+    }
+
     method limpiarEnemigos(){
         game.removeVisual(self)
     }
@@ -29,7 +45,7 @@ class Enemigo1{
 }
 
 object lineaEnemiga{
-    var property enemigo = new Enemigo1()
+    var property enemigo = new Enemigo1(vida = 150)
 
     method activar(){
         game.addVisual(enemigo)
