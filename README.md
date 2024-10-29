@@ -4,8 +4,11 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 
 ## Equipo de desarrollo: 
 
-- completar...
-- completar...
+- Bellorin Mata Oriana Isabel
+- Brussa Brisa Aylen
+- Lecadito Tomas Pablo Ariel
+- Miranda Martín Julian
+- Valenzuela Maltas Luciano Santino
  
 
 ## Capturas 
@@ -17,6 +20,14 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 (completar...)
 
 ## Controles:
-
-- `W` para...
-
+### Menus:
+- `A` para moverse a la izquierda
+- `D` para moverse a la derecha
+- `Enter` para aceptar
+### Juego
+- `↑` para moverse hacia arriba
+- `↓` para moverse hacia abajo
+- `→` para moverse a la derecha
+- `←` para moverse a la izquierda
+- `E` disparar a la derecha
+- `Q` disparar a la izquierda
