@@ -1,18 +1,10 @@
-<<<<<<< HEAD
-import wollok.game.*
-=======
 import menus.*
 
 
 class Enemigo1{
-    var property position = game.at(4,16)
     var lado = 0
     var property vida
-    method image() = "cell1.png"
->>>>>>> 31aae21524a78eed8c63ad098b624b259371b8a5
 
-
-class Enemigo1{
     var property position = game.at(7,16)
     //var lado = 0
     method image() = "piopio.png"
