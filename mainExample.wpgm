@@ -83,12 +83,12 @@ object movimientoJugador{
 //Acciones que se pueden realizar en la pantalla de personajes
 object movimientoPPersonajes{
     method movimiento(pantalla){
-        keyboard.q().onPressDo({
+        keyboard.a().onPressDo({
             if(pantalla.posicionX()>2){
                 pantalla.modificarXY(game.at(pantalla.posicionX()-5,pantalla.posicionY()))
             }
         })
-        keyboard.e().onPressDo({
+        keyboard.d().onPressDo({
             if(pantalla.posicionX()<12){
                 pantalla.modificarXY(game.at(pantalla.posicionX()+5,pantalla.posicionY()))
             }
@@ -107,6 +107,7 @@ object movimientoPPersonajes{
 			}
 			pantalla.borrar()
 //falta movimiento
+            movimientoPNiveles.movimiento(p_niveles)
 			p_niveles.cargar()
 		})
     }
@@ -121,7 +122,7 @@ object movimientoPNiveles{
             }
         })
         keyboard.d().onPressDo({
-            if(pantalla.posicionX()<14){
+            if(pantalla.posicionX()<3){
                 pantalla.modificarXY(game.at(pantalla.posicionX()+2,pantalla.posicionY()))
             }
         })
@@ -142,12 +143,12 @@ object movimientoPNiveles{
 //Acciones que se pueden realizar en la pantalla de ganaste
 object movimientoPGanaste{
     method movimiento(pantalla){
-        keyboard.q().onPressDo({
+        keyboard.a().onPressDo({
             if(pantalla.posicionX()>6){
                 pantalla.modificarXY(game.at(pantalla.posicionX()-4,pantalla.posicionY()))
             }
         })
-        keyboard.e().onPressDo({
+        keyboard.d().onPressDo({
             if(pantalla.posicionX()<10){
                 pantalla.modificarXY(game.at(pantalla.posicionX()+4,pantalla.posicionY()))
             }

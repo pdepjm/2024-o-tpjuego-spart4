@@ -25,7 +25,7 @@ object marcoDeSeleccion{
 
 object menuNiveles{
     var property position = game.origin()
-    method image() = "niveles2.png"
+    method image() = "niveles_b.png"
 }
 
 object seleccionNivel{
