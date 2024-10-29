@@ -1,25 +1,54 @@
-class Enemigo1{
-    var property position = game.at(4,16)
-    var lado = 0
-    method image() = "cell1.png"
+import wollok.game.*
 
-    method moverseH(limite1, limite2){
-        game.onTick(500, self, {self.muevete(limite1, limite2)})
+
+class Enemigo1{
+    var property position = game.at(7,16)
+    //var lado = 0
+    method image() = "piopio.png"
+
+    var property vector_movimiento = [0, 1, 0, 0] 
+
+    method movimiento(){
+        game.onTick(700, "mover_automaticamente", {self.moverse()})
     }
 
-    method muevete(limite1, limite2){
-        if(self.position().x() == limite2){
-            lado = 1
-        }
-        if(self.position().x() == limite1){
-            lado = 0
-        }
-        if(lado == 0 && self.position().x()<limite2){
-            position = game.at(self.position().x()+1, 16)
-        }
-        if(lado == 1 && self.position().x()>limite1){
-            position = game.at(self.position().x()-1, 16)
-        }
+    method detener() {
+        game.removeTickEvent("mover_automaticamente")
+    }
+
+    method cambiar_vector_movimiento() {
+      const primer_elemento = vector_movimiento.take(1)
+      vector_movimiento.remove(vector_movimiento.get(0))
+      vector_movimiento.addAll(primer_elemento)
+      self.movimiento()
+    }
+
+    method detectar_colisiones() {
+        game.onCollideDo(self, {elemento => 
+            self.detener()
+            self.volver()
+            self.cambiar_vector_movimiento() 
+        })
+    }
+
+    method volver() {
+         position = position.left(vector_movimiento.get(0) * -1)
+                    .down(vector_movimiento.get(1) * -1)
+                    .right(vector_movimiento.get(2) * -1)
+                    .up(vector_movimiento.get(3) * -1)
+    }
+
+    method moverse(){
+        position = position.left(vector_movimiento.get(0))
+                    .down(vector_movimiento.get(1))
+                    .right(vector_movimiento.get(2))
+                    .up(vector_movimiento.get(3))
+    }
+
+    method activar_enemigo() {
+      game.addVisual(self)
+	  self.movimiento()
+	  self.detectar_colisiones()
     }
 
     method limpiarEnemigos(){
@@ -36,32 +65,3 @@ object lineaEnemiga{
         enemigo.moverseH(4,13)
     }
 }
-
-/*
-import movimiento.*
-
-class Enemigos inherits FiguraConMovimiento(position = game.at(1,2)){
-    //var property position = game.at(4,16)
-    const tiempo
-    var lado = 0
-    method image() = "piopio.png"
-
-    method moverseH(){
-        game.onTick(tiempo, self, {self.position(game.at(self.position().x().randomUpTo(self.position().x()+1), self.position().y().randomUpTo(self.position().y()+1)))})
-    }
-
-    method limpiarEnemigos(){
-        game.removeVisual(self)
-    }
-
-}
-
-object lineaEnemiga{
-    var property enemigo1 = new Enemigos(tiempo = 500)
-
-    method activar(){
-        game.addVisual(enemigo1)
-        enemigo1.moverseH()
-    }
-}
-*/

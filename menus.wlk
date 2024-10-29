@@ -172,7 +172,10 @@ object juego{
 		muros.crearBordeSuperior()
 		muros.crearLaterales()
 		//?
-		lineaEnemiga.activar()
+		const nuevo_enemigo = new Enemigo1()
+		nuevo_enemigo.activar()
+		//lineaEnemiga.activar()
+		
 		//dibujar escenario
 		escenario.generarEscenario()
 		//dibujar jugador
