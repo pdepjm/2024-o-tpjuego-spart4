@@ -15,6 +15,8 @@ class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
     game.addVisualCharacter(self)
   }
 
+  method soyBloque() = false
+
   method volver(){
     if(sincronizadorDePantallas.pantallaActual() == "jugar"){
       game.addVisualCharacter(self)

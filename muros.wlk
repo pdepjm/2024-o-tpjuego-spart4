@@ -10,6 +10,21 @@ class Bloque{
     method quitarBloque() = game.removeVisual(self)
 }
 
+class Bloque_mapa{
+    var property position = game.center()
+
+    const apariencia = "b_pasto.png"
+	method image() = visual.valor()
+
+	method soyBloque() = true
+
+    method Dibujar(){
+        game.addVisual(self)
+    }
+
+    method quitarBloque() = game.removeVisual(self)
+}
+
 object visual{
     var property valor = "b_fiesta.png"
 }

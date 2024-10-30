@@ -1,22 +1,26 @@
 import menus.*
+import wollok.game.*
 
 
 class Enemigo1{
     var lado = 0
     var property vida
 
-    var property position = game.at(7,16)
+    var property position = game.center()
     //var lado = 0
-    method image() = "piopio.png"
+    const apariencia = "piopio.png" 
+    method image() = apariencia
+
+    method soyBloque() = false
 
     var property vector_movimiento = [0, 1, 0, 0] 
 
     method movimiento(){
-        game.onTick(700, "mover_automaticamente", {self.moverse()})
+        game.onTick(700, self, {self.moverse()})
     }
 
     method detener() {
-        game.removeTickEvent("mover_automaticamente")
+        game.removeTickEvent(self)
     }
 
     method cambiar_vector_movimiento() {
@@ -28,9 +32,11 @@ class Enemigo1{
 
     method detectar_colisiones() {
         game.onCollideDo(self, {elemento => 
+          if(elemento.soyBloque()){
             self.detener()
             self.volver()
             self.cambiar_vector_movimiento() 
+          }
         })
     }
 
@@ -50,8 +56,8 @@ class Enemigo1{
 
     method activar_enemigo() {
       game.addVisual(self)
-	  self.movimiento()
-	  self.detectar_colisiones()
+	    self.movimiento()
+	    self.detectar_colisiones()
     }
 
     method herido() {

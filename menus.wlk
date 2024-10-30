@@ -12,6 +12,8 @@ import puntos.*
 
 import miscelaneos.*
 
+import niveles.*
+
 class Menus{
 	const add_1
 	//const add_2
@@ -95,9 +97,9 @@ class MenuNivel inherits Menus(add_1 = menuNiveles,/* add_2 = seleccionNivel,*/ 
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				sincronizadorDePantallas.cambiarPantalla("jugar")
 				if(moverA.position() == game.at(1,11)){ //Seleccionado nivel 1
-				escenario.generarLista(0)
+				juego.nivel(nivel_1)
 				} else if(moverA.position() == game.at(3,11)){ //Seleccionado nivel 2
-				escenario.generarLista(1)
+				juego.nivel(nivel_2)
 				}
 				game.removeVisual(menuNiveles)
 				game.removeVisual(moverA)
@@ -163,32 +165,11 @@ class MenuPerdiste inherits Menus(add_1 = perdiste, /*add_2 = seleccionGanaste,*
 
 object juego{
 
-	method jugar(){ //DIBUJO DE LOS ELEMENTOS DEL MUNDO
-		//dibujar fondo
-		game.addVisual(fondoJuego)
-		//dibujar frutas
-		spawn.dibujarFrutas()
-		//dibujar muros
-		muros.crearBordeSuperior()
-		muros.crearLaterales()
-		//?
-		const nuevo_enemigo = new Enemigo1(vida = 100)
-		nuevo_enemigo.activar_enemigo()
-		//lineaEnemiga.activar()
-		
-		//dibujar escenario
-		escenario.generarEscenario()
-		//dibujar jugador
-		const jugador = new Jugador()
-		jugador.valor(datosJugador.imagen())
-		jugador.posicionate()
-		//game.addVisualCharacter(jugador)
-		muros.crearBordeInferior()
-		//dibujar puntos
-		//game.addVisual(marcadorLeft)
+	var property nivel = nivel_1
+
+	method jugar(){ 
+		nivel.iniciar_mapa()
 		game.addVisual(points)
-		//game.addVisual(marcadorRight)
-		game.showAttributes(jugador)
 	}
 }
 

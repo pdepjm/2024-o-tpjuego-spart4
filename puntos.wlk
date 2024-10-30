@@ -7,6 +7,8 @@ class Fruta{
 
 	method impactado() = null
 
+	method soyBloque() = false
+
 	method image(){
 		if(points.frutasObtenidas() < 10){
 			return spawn.puntos().get(0)
