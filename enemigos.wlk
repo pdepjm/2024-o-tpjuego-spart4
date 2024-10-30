@@ -12,6 +12,7 @@ class Enemigo1{
     method image() = apariencia
 
     method soyBloque() = false
+    method esFruta() = false
 
     var property vector_movimiento = [0, 1, 0, 0] 
 

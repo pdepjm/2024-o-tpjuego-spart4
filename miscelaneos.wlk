@@ -59,6 +59,8 @@ object fondoJuego{
     var property position = game.origin()
     var property valor = "f_slime.png"
     method image() = valor
+    method esFruta() = false
+    method soyBloque() = false 
     /*method image(){
         if(jugador.image() == "helado.png"){
             return "f_slime.png"

@@ -16,6 +16,7 @@ class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
   }
 
   method soyBloque() = false
+  method esFruta() = false
 
   method volver(){
     if(sincronizadorDePantallas.pantallaActual() == "jugar"){

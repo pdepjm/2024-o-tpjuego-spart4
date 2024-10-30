@@ -2,6 +2,7 @@ class Bloque{
 	var property position = game.center() //habrá que posicionar los limites
 	method image() = visual.valor()
 	method soyBloque() = true
+    method esFruta() = false
     method ubicarYDibujar(posicion){
         self.position(posicion)
         game.addVisual(self)
@@ -17,6 +18,7 @@ class Bloque_mapa{
 	method image() = visual.valor()
 
 	method soyBloque() = true
+    method esFruta() = false
 
     method Dibujar(){
         game.addVisual(self)
