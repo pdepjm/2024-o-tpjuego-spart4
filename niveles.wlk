@@ -14,6 +14,8 @@ mixin Generacion_nivel{
 
     var property mapa = 2
 
+    const lista_de_enemigos = []
+
      method generarEscenario() {
 
         game.addVisual(fondo)
@@ -23,7 +25,7 @@ mixin Generacion_nivel{
 		muros.crearLaterales()
 
         var ys = game.height() - 2
-        var xs = game.width() - 2 
+        var xs = game.width() - 2
 
         mapa.forEach{fila => 
             fila.forEach{espacio =>
@@ -33,7 +35,7 @@ mixin Generacion_nivel{
                 }
                 else if(espacio == 2){
                     const enemigo = new Enemigo1(vida = 10, position = game.at(xs, ys), apariencia = apariencia_enemigo)
-                    enemigo.activar_enemigo()
+                    lista_de_enemigos.add(enemigo)
                 }
                 xs = xs - 1
             }
@@ -45,13 +47,18 @@ mixin Generacion_nivel{
 		jugador.valor(datosJugador.imagen())
 		jugador.posicionate()
 		muros.crearBordeInferior()
+        self.activar_enemigos()
         game.showAttributes(jugador)
+    }
+
+    method activar_enemigos() {
+      lista_de_enemigos.forEach({enemigo => enemigo.activar_enemigo()})
     }
 }
 
 object nivel_1 inherits Generacion_nivel {
     const mapa_1 = [
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
         [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
         [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
         [0,1,0,1,1,1,0,0,0,1,1,1,0,0,1,0],
@@ -62,11 +69,11 @@ object nivel_1 inherits Generacion_nivel {
         [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
         [0,1,0,0,0,0,2,0,0,0,0,0,0,0,0,0],
         [0,1,0,1,1,1,0,0,0,1,1,1,0,0,1,0],
-        [0,1,0,1,0,1,0,0,2,1,0,1,0,0,1,0],
+        [0,1,0,1,0,1,0,0,1,1,0,1,0,0,1,0],
         [0,1,0,1,0,1,0,0,0,1,0,1,0,0,1,0],
         [0,1,0,1,1,1,0,0,0,1,1,1,0,0,1,0],
         [0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
     ]
 
     method iniciar_mapa(){
@@ -104,6 +111,38 @@ object nivel_2 inherits Generacion_nivel {
 
     method iniciar_mapa(){
         self.mapa(mapa_2)
+        self.apariencia_enemigo("piopio.png")
+        self.apariencia_bloque("b_pasto.png")
+        self.fondo(fondoJuego)
+
+        self.generarEscenario()
+    }
+
+}
+
+object nivel_testing inherits Generacion_nivel {
+    const mapa_t = [
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+        [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+        [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+        [0,1,0,1,1,1,0,0,0,1,1,1,0,1,1,0],
+        [0,1,0,1,0,1,0,0,0,1,0,1,0,1,1,0],
+        [0,1,0,1,0,1,0,0,0,1,0,1,0,1,1,0],
+        [0,1,0,1,1,1,0,2,0,1,1,1,0,1,1,0],
+        [0,1,0,0,0,0,0,0,0,0,0,0,0,2,1,0],
+        [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+        [0,1,0,0,0,0,2,0,0,0,0,0,0,1,0,0],
+        [0,1,0,1,1,1,0,0,0,1,1,1,0,1,1,0],
+        [0,1,0,1,0,1,0,0,1,1,0,1,0,1,1,0],
+        [0,1,0,1,0,1,0,0,0,1,0,1,0,1,1,0],
+        [0,1,0,1,1,1,0,0,0,1,1,1,0,1,1,0],
+        [0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1]
+]
+
+
+    method iniciar_mapa(){
+        self.mapa(mapa_t)
         self.apariencia_enemigo("piopio.png")
         self.apariencia_bloque("b_pasto.png")
         self.fondo(fondoJuego)

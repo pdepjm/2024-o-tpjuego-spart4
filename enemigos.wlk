@@ -7,6 +7,7 @@ class Enemigo1{
     var property vida
 
     var property position = game.center()
+    var property velocidad = 700 
     //var lado = 0
     const apariencia = "piopio.png" 
     method image() = apariencia
@@ -17,24 +18,18 @@ class Enemigo1{
     var property vector_movimiento = [0, 1, 0, 0] 
 
     method movimiento(){
-        game.onTick(700, self, {self.moverse()})
-    }
-
-    method detener() {
-        game.removeTickEvent(self)
+        game.onTick(velocidad, self, {self.moverse()})
     }
 
     method cambiar_vector_movimiento() {
       const primer_elemento = vector_movimiento.take(1)
       vector_movimiento.remove(vector_movimiento.get(0))
       vector_movimiento.addAll(primer_elemento)
-      self.movimiento()
     }
 
     method detectar_colisiones() {
         game.onCollideDo(self, {elemento => 
           if(elemento.soyBloque()){
-            self.detener()
             self.volver()
             self.cambiar_vector_movimiento() 
           }

@@ -17,8 +17,8 @@ import niveles.*
 class Menus{
 	const add_1
 	//const add_2
-	const moverA
-	const cantidadDeIncrementoParaPosiciones
+	const property moverA
+	const property cantidadDeIncrementoParaPosiciones
 	const equisMax
 	const equisMin
 	const yeMax
@@ -99,7 +99,7 @@ class MenuNivel inherits Menus(add_1 = menuNiveles,/* add_2 = seleccionNivel,*/ 
 				if(moverA.position() == game.at(1,11)){ //Seleccionado nivel 1
 				juego.nivel(nivel_1)
 				} else if(moverA.position() == game.at(3,11)){ //Seleccionado nivel 2
-				juego.nivel(nivel_2)
+				juego.nivel(nivel_testing)
 				}
 				game.removeVisual(menuNiveles)
 				game.removeVisual(moverA)
