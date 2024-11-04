@@ -8,6 +8,8 @@ import puntos.*
 
 import enemigos.*
 
+import muros.*
+
 program BadIceCreamGame {
     game.cellSize(40)
     game.title("Bad Ice Cream")

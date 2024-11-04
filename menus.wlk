@@ -46,13 +46,15 @@ object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSelec
 					jugador.valor("p_piopio.png")
 					lineaEnemiga.imagen("e_elusive.png")
 					fondoJuego.valor("f_pio.png")
-					visual.valor("b_pio.png")
+					visual.valor("b_pio_i.png")
+					visualSuperior.valor("b_pio_sup.png")
 					spawn.puntos(["archaic coin.png", "circus coin.png", "lunaver coin.png"])
 				} else if(marcoDeSeleccion.position().x() == 12){ //elementos de Goku
 					jugador.valor("p_goku.png")
 					lineaEnemiga.imagen("e_cell.png")
 					fondoJuego.valor("f_pasto.png")
-					visual.valor("b_pasto.png")
+					visual.valor("b_pasto_i.png")
+					visualSuperior.valor("b_pasto_sup.png")
 					spawn.puntos(["semilla.png", "capsula.png", "comida.png"])
 				}
 				game.removeVisual(menuPersonajes)
@@ -146,12 +148,12 @@ object juego{
 		//dibujar jugador
 		jugador.posicionate()
 		game.showAttributes(jugador)
-		//dibujar lateral inferior
-		escenario.generarLateralInferior()
 		//dibujar frutas
 		spawn.dibujarPuntos(1)
 		//dibujar puntos
 		game.addVisual(points)
+		//dibujar superior
+		escenario.generarBloquesSuperiores()
 	}
 }
 
