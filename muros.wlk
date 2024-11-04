@@ -1,5 +1,7 @@
 import niveles.*
-class Bloque{
+import miscelaneos.*
+
+class Bloque inherits ObjetoVisible{
 	var property position = game.center()
 	method image() = visual.valor()
     method ubicarYDibujar(x,y){
@@ -8,8 +10,10 @@ class Bloque{
         escenario.enlistarBloque(self)
     }
     method quitarBloque() = game.removeVisual(self)
+
+    override method soyBloque() = true 
 }
-class BloqueSuperior{
+class BloqueSuperior inherits ObjetoVisible{
 	var property position = game.center()
 	method image() = visualSuperior.valor()
     method ubicarYDibujar(x,y){
@@ -17,6 +21,8 @@ class BloqueSuperior{
         game.addVisual(self)
     }
     method quitarBloque() = game.removeVisual(self)
+
+    //override method soyBloque() = true
 }
 
 object visual{

@@ -1,26 +1,52 @@
-class Enemigo1{
-    var property position = game.at(4,16)
-    var lado = 0
-    var property valor = "e_brocoli.png"
-    method image() = valor
+import miscelaneos.*
 
-    method moverseH(limite1, limite2){
-        game.onTick(500, self, {self.muevete(limite1, limite2)})
+class Enemigo1 inherits ObjetoVisible{
+    //var lado = 0
+    var property vida
+    var property position = game.center()
+    var property velocidad = 700 
+    var property apariencia = "piopio.png" 
+    method image() = apariencia
+
+    var property vector_movimiento = [0, 1, 0, 0] 
+
+    method movimiento(){
+        game.onTick(velocidad, self, {self.moverse()})
     }
 
-    method muevete(limite1, limite2){
-        if(self.position().x() == limite2){
-            lado = 1
-        }
-        if(self.position().x() == limite1){
-            lado = 0
-        }
-        if(lado == 0 && self.position().x()<limite2){
-            position = game.at(self.position().x()+1, 16)
-        }
-        if(lado == 1 && self.position().x()>limite1){
-            position = game.at(self.position().x()-1, 16)
-        }
+    method cambiar_vector_movimiento() {
+      const elemento = vector_movimiento.get(0)
+      vector_movimiento.remove(vector_movimiento.get(0))
+      vector_movimiento.addAll([elemento])
+    }
+
+    method detectar_colisiones() {
+        game.onCollideDo(self, {elemento => 
+          if(elemento.soyBloque()){
+            self.volver()
+            self.cambiar_vector_movimiento() 
+          }
+        })
+    }
+
+    method volver() {
+         position = position.left(vector_movimiento.get(0) * -1)
+                    .down(vector_movimiento.get(1) * -1)
+                    .right(vector_movimiento.get(2) * -1)
+                    .up(vector_movimiento.get(3) * -1)
+    }
+
+    method moverse(){
+        position = position.left(vector_movimiento.get(0))
+                    .down(vector_movimiento.get(1))
+                    .right(vector_movimiento.get(2))
+                    .up(vector_movimiento.get(3))
+    }
+
+    method activar_enemigo() {
+      game.addVisual(self)
+	    self.movimiento()
+	    self.detectar_colisiones()
     }
 
     method limpiarEnemigos(){
@@ -30,14 +56,13 @@ class Enemigo1{
 }
 
 object lineaEnemiga{
-    var property enemigo = new Enemigo1()
+    var property enemigo = new Enemigo1(vida = 100)
 
     method imagen(imagen){
-        enemigo.valor(imagen)
+        enemigo.apariencia(imagen)
     }
     method activar(){
-        game.addVisual(enemigo)
-        enemigo.moverseH(4,13)
+        enemigo.activar_enemigo()
     }
 }
 

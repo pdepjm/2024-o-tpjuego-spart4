@@ -4,9 +4,11 @@ import menus.menuPerdiste
 
 import movimiento.*
 
+import miscelaneos.*
+
 object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
 
-  method jugador() = true
+  override method jugador() = true
 
   method posicionate(){
     self.position(game.at(1, 1))
@@ -22,7 +24,7 @@ object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
   }
 }
 
-object points{
+object points inherits ObjetoVisible{
   var puntosObtenidos = 0
   method sumarPuntos(){
     puntosObtenidos += 1

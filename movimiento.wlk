@@ -1,8 +1,9 @@
 import muros.*
+import miscelaneos.*
 
 
 
-class FiguraConMovimiento{
+class FiguraConMovimiento inherits ObjetoVisible{
     var position
     method position() = position
 

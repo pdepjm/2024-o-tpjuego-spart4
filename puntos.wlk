@@ -1,9 +1,11 @@
 import muros.*
-class Fruta{
+import miscelaneos.*
+
+class Fruta inherits ObjetoVisible{
 	var property position = posicionAleatoria.generarPosicionAleatoria()
 	var valor = spawn.puntos().get(0)
 
-	method jugador() = false
+	override method esFruta() = true
 
 	method image(){
 		return valor

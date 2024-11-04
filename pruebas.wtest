@@ -1,9 +1,41 @@
-import pepita.*
+import muros.*
+import wollok.game.*
+import jugador.*
+import puntos.*
+import niveles.*
+import miscelaneos.*
+import menus.*
+import enemigos.*
 
-describe "group of tests for pepita" {
+describe "Group of test for the enemy" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  method initialize(){
+    game.clear()
+    game.cellSize(40)
+    game.height(18)
+    game.width(18)
+    game.start()
   }
 
+  test "Should move"{
+    const enemy = new Enemigo1(vida = 100, position = game.at(1, 2), velocidad = 0)
+    game.addVisual(enemy)
+    enemy.moverse()
+    assert.equals(game.at(1, 1), enemy.position())
+  }
+
+  test "Should rotate direction" {
+    const enemy = new Enemigo1(vida = 100, position = game.at(1, 1), velocidad = 0)
+    game.addVisual(enemy)
+    enemy.cambiar_vector_movimiento()
+    assert.equals(1, enemy.vector_movimiento().get(0))
+  }
+
+  test "Should turn back"{
+    const enemy = new Enemigo1(vida = 100, position = game.at(1, 2), velocidad = 0)
+    game.addVisual(enemy)
+    enemy.moverse()
+    enemy.volver()
+    assert.equals(game.at(1, 2), enemy.position())
+  }
 }

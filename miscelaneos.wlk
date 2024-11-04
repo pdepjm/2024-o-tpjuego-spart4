@@ -20,6 +20,12 @@ object finDelJuego{
     method image() = "PP_final.png"
 }
 
+mixin ObjetoVisible {
+  method soyBloque() = false
+  method esFruta() = false
+  method jugador() = false   
+}
+
 //IMAGENES DE SELECCION
 object marcoDeSeleccion{
     var property position = game.at(2,5)
