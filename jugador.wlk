@@ -13,13 +13,9 @@ object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
     game.addVisualCharacter(self)
   }
 
-  var property valor = "helado.png"
+  var property valor = "p_helado.png"
 
   method image() = valor
-
-  method recolectar(fruta){
-    game.removeVisual(fruta)
-  }
 
   method eliminate(){
     game.removeVisual(self)
@@ -27,16 +23,16 @@ object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
 }
 
 object points{
-  var frutasObtenidas = 0
-  method sumarFrutas(){
-    frutasObtenidas += 1
+  var puntosObtenidos = 0
+  method sumarPuntos(){
+    puntosObtenidos += 1
   }
-  method frutasObtenidas() = frutasObtenidas
+  method puntosObtenidos() = puntosObtenidos
     method position() = game.at((game.width()-3),(game.height()-1))
-    method text() = "            Puntos:  " + frutasObtenidas
+    method text() = "            Puntos:  " + puntosObtenidos
   method textColor() = "FF0000FF"
   method reset(){
-    frutasObtenidas = 0
+    puntosObtenidos = 0
   }
   method image() = "barra.png"
 }

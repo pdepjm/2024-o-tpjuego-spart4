@@ -1,66 +1,46 @@
-import jugador.jugador
-
-object fondo_de_pausa{
-    var property position = game.origin()
-    method image() = "pausa.png"
-}
-
+//IMAGENES DE PANTALLAS
 object ganaste{
     var property position = game.origin()
-    method image() = "ganaste2.png"
+    method image() = "PP_victoria.png"
 }
-
 object perdiste{
     var property position = game.origin()
-    method image() = "perdiste2.png"
+    method image() = "PP_derrota.png"
 }
-
 object menuPersonajes{
     var property position = game.origin()
-    method image() = "FondoSeleccion1.png"
+    method image() = "PP_personajes.png"
 }
-
-object marcoDeSeleccion{
-    var property position = game.at(2,5)
-    method image() = "si.png"
-}
-
 object menuNiveles{
     var property position = game.origin()
-    method image() = "niveles2.png"
+    method image() = "PP_niveles.png"
 }
-
-object seleccionNivel{
-    var property position = game.at(1, 11)
-    method image() = "nivel_s.png"
-}
-
-object seleccionGanaste{
-    var property position = game.at(6, 5)
-    method image() = "nivel_s.png"
-}
-
-object bloqueado{
-    var property position = game.at(1, 1)
-    method image() = "bloqueado.png"
-}
-
 object finDelJuego{
     var property position = game.origin()
-    method image() = "PantallaFinal.png"
+    method image() = "PP_final.png"
 }
 
+//IMAGENES DE SELECCION
+object marcoDeSeleccion{
+    var property position = game.at(2,5)
+    method image() = "S_personajes.png"
+}
+object seleccionNivel{
+    var property position = game.at(1, 11)
+    method image() = "S_niveles.png"
+}
+object seleccionGanaste{
+    var property position = game.at(6, 5)
+    method image() = "S_niveles.png"
+}
+object seleccionPerdiste{
+    var property position = game.at(5, 5)
+    method image() = "S_derrota.png"
+}
+
+//BACKGROUND
 object fondoJuego{
     var property position = game.origin()
     var property valor = "f_slime.png"
     method image() = valor
-    /*method image(){
-        if(jugador.image() == "helado.png"){
-            return "f_slime.png"
-        } else if(jugador.image() == "piopio.png"){
-            return "f_pio.png"
-        } else {
-            return "f_pasto.png"
-        }
-    }*/
 }

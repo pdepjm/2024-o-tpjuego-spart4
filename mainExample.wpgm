@@ -18,21 +18,18 @@ program BadIceCreamGame {
     //inicio
     game.start()
 
-
-//const position = new MutablePosition
-	
-	
     //Juego puntos
     keyboard.r().onPressDo({
-        const nuevaFruta = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
-        if(nuevaFruta.esFruta()){
-            jugador.recolectar(nuevaFruta)
-            points.sumarFrutas()
-        }
-        if(points.frutasObtenidas() == 10 || points.frutasObtenidas() == 20){
-            spawn.dibujarFrutas()
-        }
-        if(points.frutasObtenidas() == 30){
+        const nuevoPunto = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
+        nuevoPunto.eliminarPunto()
+        points.sumarPuntos()
+        if(points.puntosObtenidos() == 10){
+                spawn.dibujarPuntos(2)
+            }
+            if(points.puntosObtenidos() == 20){
+                spawn.dibujarPuntos(3)
+            }
+        if(points.puntosObtenidos() == 30){
             sincronizadorDePantallas.cambiarPantalla("ganador")
             menuGanaste.cargar()
         }

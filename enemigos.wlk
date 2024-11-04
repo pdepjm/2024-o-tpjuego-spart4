@@ -1,7 +1,8 @@
 class Enemigo1{
     var property position = game.at(4,16)
     var lado = 0
-    method image() = "piopio.png"
+    var property valor = "e_brocoli.png"
+    method image() = valor
 
     method moverseH(limite1, limite2){
         game.onTick(500, self, {self.muevete(limite1, limite2)})
@@ -31,6 +32,9 @@ class Enemigo1{
 object lineaEnemiga{
     var property enemigo = new Enemigo1()
 
+    method imagen(imagen){
+        enemigo.valor(imagen)
+    }
     method activar(){
         game.addVisual(enemigo)
         enemigo.moverseH(4,13)
