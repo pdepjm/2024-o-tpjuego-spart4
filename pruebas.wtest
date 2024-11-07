@@ -7,6 +7,57 @@ import miscelaneos.*
 import menus.*
 import enemigos.*
 
+describe "Group of tests for the player" {
+
+  method initialize(){
+    game.clear()
+    game.cellSize(40)
+    game.height(18)
+    game.width(18)
+    game.start()
+    jugador.posicionate()
+  }
+
+  test "Player spaw is correct" {
+    assert.equals(game.at(1, 1), jugador.position())
+  }
+
+  test "Player collides to the left wall"{
+    jugador.position(game.at(0, 1))
+    assert.equals(game.at(1, 1), jugador.position())
+  }
+
+  test "Player collides to the right wall"{
+    jugador.position(game.at(20, 1))
+    assert.equals(game.at(1, 1), jugador.position())
+  }
+
+  test "Player collides to the top wall"{
+    jugador.position(game.at(1, 20))
+    assert.equals(game.at(1, 1), jugador.position())
+  }
+
+  test "Player collides to the bottom wall"{
+    jugador.position(game.at(1, 0))
+    assert.equals(game.at(1, 1), jugador.position())
+  }
+
+  test "Should place a block"{
+    game.addVisual(new Bloque(position = game.at(4, 1)))
+    modificadorMapa.modBloques(moverDerecha)
+    assert.that(game.getObjectsIn(game.at(2, 1)).any({elemento => elemento.soyBloque()}) && 
+                !(game.getObjectsIn(game.at(5, 1)).any({elemento => elemento.soyBloque()})))
+  }
+
+  test "Should remove a block"{
+    game.addVisual(new Bloque(position = game.at(2, 1)))
+    game.addVisual(new Bloque(position = game.at(4, 1)))
+    modificadorMapa.modBloques(moverDerecha)
+    assert.notThat(game.getObjectsIn(game.at(2, 1)).any({elemento => elemento.soyBloque()}) &&
+                    !(game.getObjectsIn(game.at(4, 1)).any({elemento => elemento.soyBloque()})))
+  }
+}
+
 describe "Group of test for the enemy" {
 
   method initialize(){

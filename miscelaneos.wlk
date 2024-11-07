@@ -24,6 +24,25 @@ mixin ObjetoVisible {
   method soyBloque() = false
   method esFruta() = false
   method jugador() = false   
+  method esEnemigo() = false 
+  method esFondo() = false
+  method esBloqueSuperior() = false
+}
+
+object moverAbajo{
+    method vector() = [0, 1, 0, 0]
+}
+
+object moverArriba{
+    method vector() = [0, 0, 0, 1]
+}
+
+object moverDerecha{
+    method vector() = [0, 0, 1, 0]
+}
+
+object moverIzquierda{
+    method vector() = [1, 0, 0, 0]
 }
 
 //IMAGENES DE SELECCION
@@ -45,8 +64,9 @@ object seleccionPerdiste{
 }
 
 //BACKGROUND
-object fondoJuego{
+object fondoJuego inherits ObjetoVisible{
     var property position = game.origin()
     var property valor = "f_slime.png"
     method image() = valor
+    override method esFondo() = true 
 }

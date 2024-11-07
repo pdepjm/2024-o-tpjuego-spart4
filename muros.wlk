@@ -22,7 +22,7 @@ class BloqueSuperior inherits ObjetoVisible{
     }
     method quitarBloque() = game.removeVisual(self)
 
-    //override method soyBloque() = true
+    override method esBloqueSuperior() = true
 }
 
 object visual{

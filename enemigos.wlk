@@ -7,7 +7,9 @@ class Enemigo1 inherits ObjetoVisible{
     var property velocidad = 700 
     var property apariencia = "piopio.png" 
     method image() = apariencia
+    override method esEnemigo() = true 
 
+    // [left, down, right, up]
     var property vector_movimiento = [0, 1, 0, 0] 
 
     method movimiento(){
