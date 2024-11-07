@@ -43,6 +43,7 @@ object muros{
 }//4.times({unValor => 5.times(action)})
 
 object escenario{
+    var property nivelActual = null
     const niveles = [
         //Nivel 1
         [game.at(2,15), game.at(3,15), game.at(4,15), game.at(4,14), game.at(2,14), game.at(4,13), game.at(2,13), game.at(2,12), game.at(4,12), //ojo I

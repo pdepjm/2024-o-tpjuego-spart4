@@ -1,3 +1,4 @@
+import jugador.*
 import menus.*
 
 
@@ -33,9 +34,9 @@ class Enemigo1{
       }
     }
 
-    method morir() {
-      sincronizadorDePantallas.cambiarPantalla("ganador")
-      new MenuGanaste().cargar()
+    method morir(){
+        sincronizadorDePantallas.cambiarPantalla("ganador")
+        //new MenuGanaste().cargar()
     }
 
     method limpiarEnemigos(){

@@ -1,22 +1,23 @@
 import enemigos.*
 import muros.*
+import musica.*
 
 import menus.*
 
 import movimiento.*
 
 class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
-
+  
   method jugador() = true
 
   method posicionate(){
-    //self.position().clear()
     self.position(game.at(1, 1))
     game.addVisualCharacter(self)
   }
 
   method volver(){
     if(sincronizadorDePantallas.pantallaActual() == "jugar"){
+      musica.sonido_continue()
       game.addVisualCharacter(self)
     }
   }
@@ -30,17 +31,22 @@ class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
   }
 
   method eliminate(){
+    musica.sonido_pause()
     game.removeVisual(self)
   }
 
   method impactado() {
-    self.eliminate()
+    self.eliminate() //no debería ir acá, pero es donde mejor anda
     sincronizadorDePantallas.cambiarPantalla("perdedor") 
     new MenuPerdiste().cargar()
   }
 
   method atacarDerecha() = new KamehamehaDerecha().energia(self.position(), "goku_Kamehameha_Derecha.png", 1)
   method atacarIzquierda() = new KamehamehaIzquierda().energia(self.position(), "goku_Kamehameha_Izquierda.png", -1)
+}
+
+object atajos{
+  method jugador() = game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head()
 }
 
 object datosJugador {
@@ -53,9 +59,7 @@ object gokuAtacando {
   method image() = lado
   
   method impactado(){
-    //game.allVisuals().filter({objeto => objeto.image() == KamehamehaDerecha.image() || objeto.image() == KamehamehaIzquierda.image()}).head()
     sincronizadorDePantallas.cambiarPantalla("perdedor") 
-    //new MenuPerdiste().cargar()
   }
 
   method eliminate(){
@@ -67,13 +71,17 @@ object gokuAtacando {
 class KamehamehaDerecha{
   var personaje = null
   var property impacto = 0
-  
   var property position = null
+  const property sonido = game.sound("Kamehameha.mp3")
+
+  method efectoSonoro() {
+    self.sonido().volume(0.2)
+    self.sonido().play()
+  }
   
   method image() = "kamehameha_Derecha.png"
 
   method impactado() {
-    //game.allVisuals().filter({objeto => objeto.image() == Enemigo1.image()}).head().herido()
     lineaEnemiga.enemigo().herido()
     self.impacto(1)
   }
@@ -83,9 +91,10 @@ class KamehamehaDerecha{
     gokuAtacando.position(posicion)
     self.position(game.at(posicion.x() + valor, posicion.y()))
     if(!escenario.mismaPosicion(self.position())){
+      self.efectoSonoro()
       game.addVisual(gokuAtacando)
-      personaje = game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head()
-      game.removeVisual(game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head())
+      personaje = atajos.jugador()
+      atajos.jugador().eliminate()
       game.addVisual(self)
       game.schedule(500, {self.avanzar()})
     }
@@ -99,18 +108,27 @@ class KamehamehaDerecha{
       game.schedule(500, {self.avanzar()})
     }
     else{
-      personaje.position(gokuAtacando.position())
-      personaje.volver()
+      const jugador = new Jugador()
+		  jugador.valor(datosJugador.imagen())
+      jugador.position(gokuAtacando.position())
+      if(sincronizadorDePantallas.pantallaActual() == "jugar"){
+        jugador.volver()
+      }
       self.eliminate()
       gokuAtacando.eliminate()
       if(sincronizadorDePantallas.pantallaActual() == "perdedor"){
+        //jugador.eliminate()
         new MenuPerdiste().cargar()
+      }
+      if(sincronizadorDePantallas.pantallaActual() == "ganador"){
+        //jugador.eliminate()
+        new MenuGanaste().cargar()
       }
     }
   }
 
   method eliminate(){
-    //game.removeVisual(gokuAtacando)
+    self.sonido().stop()
     game.removeVisual(self)
   }
 }
@@ -124,12 +142,21 @@ class KamehamehaIzquierda inherits KamehamehaDerecha{
       game.schedule(500, {self.avanzar()})
     }
     else{
-      personaje.position(gokuAtacando.position())
-      personaje.volver()
+      const jugador = new Jugador()
+		  jugador.valor(datosJugador.imagen())
+      jugador.position(gokuAtacando.position())
+      if(sincronizadorDePantallas.pantallaActual() == "jugar"){
+        jugador.volver()
+      }
       self.eliminate()
       gokuAtacando.eliminate()
       if(sincronizadorDePantallas.pantallaActual() == "perdedor"){
+        //jugador.eliminate()
         new MenuPerdiste().cargar()
+      }
+      if(sincronizadorDePantallas.pantallaActual() == "ganador"){
+        //jugador.eliminate()
+        new MenuGanaste().cargar()
       }
     } 
   }

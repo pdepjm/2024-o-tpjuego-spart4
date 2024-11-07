@@ -4,6 +4,8 @@ import wollok.game.*
 
 import jugador.*
 
+import musica.*
+
 import muros.*
 
 import enemigos.*
@@ -47,24 +49,29 @@ class MenuPersonaje inherits Menus(add_1 = menuPersonajes, /* add_2 = marcoDeSel
 				if(marcoDeSeleccion.position().x() == 2){ //elementos del helado
 					//jugador.valor("helado.png")
 					datosJugador.imagen("helado.png")
+					musica.cancion(game.sound("Flow Hero.mp3"))
 					fondoJuego.valor("f_slime.png")
 					visual.valor("b_fiesta.png")
 					spawn.puntos(["bananas.png", "uva.png", "sandia.png"]) //Rompe encapsulamiento?
 				} else if(marcoDeSeleccion.position().x() == 7){ //elementos del pajarito
 					//jugador.valor("piopio.png")
 					datosJugador.imagen("piopio.png")
+					musica.cancion(game.sound("Flow Hero.mp3"))
 					fondoJuego.valor("f_pio.png")
 					visual.valor("b_pio.png")
 					spawn.puntos(["archaic coin.png", "circus coin.png", "lunaver coin.png"])
 				} else { //elementos de Goku
 					//jugador.valor("goku.png")
 					datosJugador.imagen("goku.png")
+					musica.cancion(game.sound("Super Survivor.mp3"))
 					fondoJuego.valor("f_pasto.png")
 					visual.valor("b_pasto.png")
 					spawn.puntos(["semilla.png", "capsula.png", "comida.png"])
 				}
 				game.removeVisual(menuPersonajes)
 				game.removeVisual(marcoDeSeleccion)
+				musica.sonido_on()
+				musica.sonido_pause()
 				const menuNivel = new MenuNivel()
 				menuNivel.cargar()
 			}
@@ -95,13 +102,15 @@ class MenuNivel inherits Menus(add_1 = menuNiveles,/* add_2 = seleccionNivel,*/ 
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				sincronizadorDePantallas.cambiarPantalla("jugar")
 				if(moverA.position() == game.at(1,11)){ //Seleccionado nivel 1
-				escenario.generarLista(0)
+				//escenario.generarLista(0)
+				escenario.nivelActual(0)
 				} else if(moverA.position() == game.at(3,11)){ //Seleccionado nivel 2
-				escenario.generarLista(1)
+				//escenario.generarLista(1)
+				escenario.nivelActual(1)
 				}
 				game.removeVisual(menuNiveles)
 				game.removeVisual(moverA)
-				points.reset()
+				//points.reset()
 				juego.jugar()
 			}
 		})
@@ -112,7 +121,7 @@ class MenuGanaste inherits Menus(add_1 = ganaste, /*add_2 = seleccionGanaste,*/ 
 	override method cargar(){
 		super()
         //game.removeVisual(jugador)
-		//game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().eliminate()
+		//atajos.jugador().eliminate()
 		lineaEnemiga.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
@@ -135,24 +144,28 @@ class MenuGanaste inherits Menus(add_1 = ganaste, /*add_2 = seleccionGanaste,*/ 
 		})
 	}
 }
-class MenuPerdiste inherits Menus(add_1 = perdiste, /*add_2 = seleccionGanaste,*/ moverA = new SeleccionGanaste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 7, yeMin = 7, tipoDeMenu = "perdedor"){
+class MenuPerdiste inherits Menus(add_1 = perdiste, /*add_2 = seleccionGanaste,*/ moverA = new SeleccionPerdiste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 6, yeMin = 6, tipoDeMenu = "perdedor"){
 	override method cargar(){
 		super()
         //game.removeVisual(jugador)
-		//game.allVisuals().filter({objeto => objeto.image() == datosJugador.imagen()}).head().eliminate()
+		//atajos.jugador().eliminate()
 		lineaEnemiga.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
 		escenario.limpiarEscenario()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
+				//escenario.generarLista(escenario.nivelActual())
 				game.removeVisual(moverA)
 				game.removeVisual(perdiste)
-				if (moverA.position() == game.at(6, 5)) {
+				if (moverA.position() == game.at(6, 6)) {
+					//points.reset()
 					sincronizadorDePantallas.cambiarPantalla("jugar")
 					juego.jugar()
+					//sincronizadorDePantallas.cambiarPantalla("niveles")
+					//new MenuNivel().cargar()
 				}
-				if (moverA.position() == game.at(10, 5)){ 
+				if (moverA.position() == game.at(10, 6)){ 
 					game.addVisual(finDelJuego)
 					game.stop()
 				}
@@ -165,6 +178,8 @@ object juego{
 
 	method jugar(){ //DIBUJO DE LOS ELEMENTOS DEL MUNDO
 		//dibujar fondo
+		points.reset()
+		escenario.generarLista(escenario.nivelActual())
 		game.addVisual(fondoJuego)
 		//dibujar frutas
 		spawn.dibujarFrutas()
@@ -179,6 +194,7 @@ object juego{
 		const jugador = new Jugador()
 		jugador.valor(datosJugador.imagen())
 		jugador.posicionate()
+		musica.sonido_continue()
 		//game.addVisualCharacter(jugador)
 		muros.crearBordeInferior()
 		//dibujar puntos
