@@ -9,6 +9,7 @@ import puntos.*
 import enemigos.*
 
 import muros.*
+import musica.*
 
 program BadIceCreamGame {
     game.cellSize(40)
@@ -18,7 +19,14 @@ program BadIceCreamGame {
     //Inicio menu
     menuPersonaje.cargar()
     //inicio
+    
+   
+    
     game.start()
+   
+
+
+
 
     //Juego puntos
     keyboard.r().onPressDo({

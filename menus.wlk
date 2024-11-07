@@ -1,3 +1,4 @@
+import musica.*
 import mainExample.*
 
 import wollok.game.*
@@ -56,7 +57,8 @@ object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSelec
 					visual.valor("b_pasto_i.png")
 					visualSuperior.valor("b_pasto_sup.png")
 					spawn.puntos(["semilla.png", "capsula.png", "comida.png"])
-				}
+					musicaDeFondo.sonido(game.sound("musicaDragonBallZ.mp3"))
+					}
 				game.removeVisual(menuPersonajes)
 				game.removeVisual(marcoDeSeleccion)
 				menuNivel.cargar()
@@ -93,6 +95,7 @@ object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, mov
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
 		escenario.limpiarEscenario()
+		musicaDeFondo.stop()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				game.removeVisual(seleccionGanaste)
@@ -117,6 +120,7 @@ object menuPerdiste inherits Menus(add_1 = perdiste, add_2 = seleccionPerdiste, 
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
 		escenario.limpiarEscenario()
+		musicaDeFondo.stop()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				game.removeVisual(seleccionGanaste)
@@ -154,6 +158,8 @@ object juego{
 		game.addVisual(points)
 		//dibujar superior
 		escenario.generarBloquesSuperiores()
+		//reproducir la musica correspondiente
+		musicaDeFondo.play()
 	}
 }
 
