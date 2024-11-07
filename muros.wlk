@@ -33,22 +33,20 @@ object visualSuperior{
 }
 
 object escenario{
-    const listaPosiciones = []
-    const listafrutas = []
-    const listaBloques = []
+    const property listaPosiciones = []
+    const property listafrutas = []
+    const property listaBloques = []
     var property nivel = 0
 
     method generarEscenario(){
         (16 .. 0).forEach({y => const listaAux = niveles.entregarFila(17-y, nivel)
 						        (0..17).forEach({x => const aux = listaAux.get(x)
-								 			          if(aux == 1){listaPosiciones.add(game.at(x,y)) 
-                                                                   new Bloque().ubicarYDibujar(x,y)}
-										        })
-					    })
+								 			          aux.decodificar(x, y)})
+                                                      })
     }
     method generarBloquesSuperiores(){//para crear la ilusion de que el jugador está detrás del bloque
         (16 .. 0).forEach({y => const listaAux = niveles.entregarFila(17-y, nivel)
-						        (0..17).forEach({x => const aux = listaAux.get(x) if(aux == 1){new BloqueSuperior().ubicarYDibujar(x, y)}})
+						        (0..17).forEach({x => const aux = listaAux.get(x) aux.decodificarSuperior(x, y)})
 					    })
     }
 
