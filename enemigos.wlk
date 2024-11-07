@@ -4,6 +4,7 @@ import menus.*
 
 class Enemigo1{
     var property position = game.at(4,16)
+    //const position = new MutablePosition()
     var lado = 0
     var property vida
     method image() = "cell1.png"
