@@ -6,7 +6,7 @@ import menus.*
 
 import movimiento.*
 
-class Jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
+class Jugador inherits FiguraConMovimiento() {
   
   method jugador() = true
 

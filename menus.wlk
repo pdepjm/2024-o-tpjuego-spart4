@@ -15,8 +15,7 @@ import puntos.*
 import miscelaneos.*
 
 class Menus{
-	const add_1
-	//const add_2
+	const add
 	const moverA
 	const cantidadDeIncrementoParaPosiciones
 	const equisMax
@@ -26,7 +25,7 @@ class Menus{
 	const tipoDeMenu
 
 	method cargar(){
-		game.addVisual(add_1)
+		game.addVisual(add)
 		//game.addVisual(add_2)	
 		game.addVisual(moverA)  
 	  if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
@@ -39,7 +38,7 @@ class Menus{
 }
 
 
-class MenuPersonaje inherits Menus(add_1 = menuPersonajes, /* add_2 = marcoDeSeleccion,*/ moverA = marcoDeSeleccion, cantidadDeIncrementoParaPosiciones = 5, equisMax = 12, equisMin = 2, yeMax = 5, yeMin = 5, tipoDeMenu = "personajes"){
+class MenuPersonaje inherits Menus(add = menuPersonajes, moverA = marcoDeSeleccion, cantidadDeIncrementoParaPosiciones = 5, equisMax = 12, equisMin = 2, yeMax = 5, yeMin = 5, tipoDeMenu = "personajes"){
 	override method cargar(){
 		super()
 		keyboard.enter().onPressDo({
@@ -79,7 +78,7 @@ class MenuPersonaje inherits Menus(add_1 = menuPersonajes, /* add_2 = marcoDeSel
 	}
 }
 
-class MenuNivel inherits Menus(add_1 = menuNiveles,/* add_2 = seleccionNivel,*/ moverA = new SeleccionNivel(), cantidadDeIncrementoParaPosiciones = 2, equisMax = 14, equisMin = 1, yeMax = 11, yeMin = 3, tipoDeMenu = "niveles"){
+class MenuNivel inherits Menus(add = menuNiveles, moverA = new SeleccionNivel(), cantidadDeIncrementoParaPosiciones = 2, equisMax = 14, equisMin = 1, yeMax = 11, yeMin = 3, tipoDeMenu = "niveles"){
 	method bloquear(){ //DIBUJAR MENSAJE DE "NIVEL NO DESBLOQUEADO"
 			if(bloqueados.any({bloqueado => bloqueado == moverA.position()})){
 				game.addVisual(bloqueado)
@@ -117,7 +116,7 @@ class MenuNivel inherits Menus(add_1 = menuNiveles,/* add_2 = seleccionNivel,*/ 
 	}
 }
 
-class MenuGanaste inherits Menus(add_1 = ganaste, /*add_2 = seleccionGanaste,*/ moverA = new SeleccionGanaste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 5, yeMin = 5, tipoDeMenu = "ganador"){
+class MenuGanaste inherits Menus(add = ganaste, moverA = new SeleccionGanaste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 5, yeMin = 5, tipoDeMenu = "ganador"){
 	override method cargar(){
 		super()
         //game.removeVisual(jugador)
@@ -144,7 +143,7 @@ class MenuGanaste inherits Menus(add_1 = ganaste, /*add_2 = seleccionGanaste,*/ 
 		})
 	}
 }
-class MenuPerdiste inherits Menus(add_1 = perdiste, /*add_2 = seleccionGanaste,*/ moverA = new SeleccionPerdiste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 6, yeMin = 6, tipoDeMenu = "perdedor"){
+class MenuPerdiste inherits Menus(add = perdiste, moverA = new SeleccionPerdiste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 6, yeMin = 6, tipoDeMenu = "perdedor"){
 	override method cargar(){
 		super()
         //game.removeVisual(jugador)

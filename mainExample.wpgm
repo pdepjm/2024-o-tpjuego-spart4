@@ -6,6 +6,9 @@ import jugador.*
 
 import puntos.*
 
+import musica.*
+
+
 import enemigos.*
 
 program BadIceCreamGame {
@@ -35,9 +38,9 @@ program BadIceCreamGame {
             }
             if(points.frutasObtenidas() == 30){
                 sincronizadorDePantallas.cambiarPantalla("ganador")
-                atajos.jugador().sonido_off()
-                //const menuGanaste = new MenuGanaste()
-                //menuGanaste.cargar()
+                //musica.sonido_off()
+                //musica.sonido_on()
+				musica.sonido_pause()
                 new MenuGanaste().cargar()
             }
         }
@@ -52,7 +55,7 @@ program BadIceCreamGame {
 	keyboard.shift().onPressDo({
         if(sincronizadorDePantallas.habilitar()){ 
            sincronizadorDePantallas.cambiarPantalla("ganador")
-           atajos.jugador().sonido_off()
+           musica.sonido_off()
             /*const menuGanaste = new MenuGanaste()
             menuGanaste.cargar()})*/
             new MenuGanaste().cargar() 
