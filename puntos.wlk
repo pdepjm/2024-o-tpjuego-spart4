@@ -31,7 +31,7 @@ object spawn{
 		(0..9).forEach({x => new Punto().ubicarYDibujar(posicionAleatoria.generarPosicionAleatoria(), indice)})
 	}
 
-	var property puntos = ["bananas.png", "uva.png", "sandia.png"]
+	var property puntos = ["pu_bananas.png","pu_uva.png","pu_sandia.png"]
 }
 
 object posicionAleatoria {
@@ -42,10 +42,10 @@ object posicionAleatoria {
 		const x = self.generarPosX()
 		const y = self.generarPosY()
 		
-		if(escenario.mismaPosicion(game.at(x, y)) || escenario.mismaPosicionFruta(game.at(x, y))){
+		if(escenarioNivel.mismaPosicion(game.at(x, y)) || escenarioNivel.mismaPosicionPunto(game.at(x, y))){
 			return self.generarPosicionAleatoria()
 		}
-		escenario.enlistarObjeto(game.at(x, y))
+		escenarioNivel.enlistarObjeto(game.at(x, y))
 		return game.at(x, y)
 	}
 }

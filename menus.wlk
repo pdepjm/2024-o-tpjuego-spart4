@@ -1,16 +1,11 @@
-import musica.*
 import mainExample.*
-import wollok.game.*
-import jugador.*
 import muros.*
-import enemigos.*
-import puntos.*
 import miscelaneos.*
+import juego.*
 
 class Menus{
 	const add_1
 	const add_2
-	const moverA
 	const cantidadDeIncrementoParaPosiciones
 	const equisMax
 	const equisMin
@@ -22,16 +17,21 @@ class Menus{
 		game.addVisual(add_1)
 		game.addVisual(add_2)	  
 	  if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
-		keyboard.w().onPressDo({if(moverA.position().y() < yeMax) moverA.position(game.at(moverA.position().x(), moverA.position().y() + cantidadDeIncrementoParaPosiciones))})
-	  	keyboard.a().onPressDo({if(moverA.position().x() > equisMin) moverA.position(game.at(moverA.position().x() - cantidadDeIncrementoParaPosiciones, moverA.position().y()))})
-	  	keyboard.s().onPressDo({if(moverA.position().y() > yeMin) moverA.position(game.at(moverA.position().x(), moverA.position().y() - cantidadDeIncrementoParaPosiciones))})
-	  	keyboard.d().onPressDo({if(moverA.position().x() < equisMax) moverA.position(game.at(moverA.position().x() + cantidadDeIncrementoParaPosiciones, moverA.position().y()))})}
+		keyboard.w().onPressDo({if(add_2.position().y() < yeMax) add_2.position(game.at(add_2.position().x(), add_2.position().y() + cantidadDeIncrementoParaPosiciones))})
+	  	keyboard.a().onPressDo({if(add_2.position().x() > equisMin) add_2.position(game.at(add_2.position().x() - cantidadDeIncrementoParaPosiciones, add_2.position().y()))})
+	  	keyboard.s().onPressDo({if(add_2.position().y() > yeMin) add_2.position(game.at(add_2.position().x(), add_2.position().y() - cantidadDeIncrementoParaPosiciones))})
+	  	keyboard.d().onPressDo({if(add_2.position().x() < equisMax) add_2.position(game.at(add_2.position().x() + cantidadDeIncrementoParaPosiciones, add_2.position().y()))})}
 	  //keyboard.enter().onPressDo({})
+	}
+
+	method limpiarPantalla(){
+		game.removeVisual(add_1)
+		game.removeVisual(add_2)
 	}
 }
 
 
-object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSeleccion, moverA = marcoDeSeleccion, cantidadDeIncrementoParaPosiciones = 5, equisMax = 12, equisMin = 2, yeMax = 5, yeMin = 5, tipoDeMenu = "personajes"){
+object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSeleccion, cantidadDeIncrementoParaPosiciones = 5, equisMax = 12, equisMin = 2, yeMax = 5, yeMin = 5, tipoDeMenu = "personajes"){
 	override method cargar(){
 		super()
 		keyboard.enter().onPressDo({
@@ -39,55 +39,40 @@ object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSelec
 				sincronizadorDePantallas.cambiarPantalla("niveles")
 				//valores visuales
 				const posicion = (marcoDeSeleccion.position().x()-2)/5
-				jugador.valor(coleccion.personaje(posicion))
-				lineaEnemiga.imagen(coleccion.enemigo(posicion))
-				fondoJuego.valor(coleccion.fondo(posicion))
-				visual.valor(coleccion.bloque_i(posicion))
-				visualSuperior.valor(coleccion.bloque_s(posicion))
-				spawn.puntos(coleccion.puntos(posicion))
-				musicaDeFondo.sonido(game.sound(coleccion.musica(posicion)))
+				juego.cargarVisuales(posicion)
 				//remove
-				game.removeVisual(menuPersonajes)
-				game.removeVisual(marcoDeSeleccion)
+				self.limpiarPantalla()
 				menuNivel.cargar()
 			}
 		})
 	}
 }
 
-object menuNivel inherits Menus(add_1 = menuNiveles, add_2 = seleccionNivel, moverA = seleccionNivel, cantidadDeIncrementoParaPosiciones = 2, equisMax = 14, equisMin = 1, yeMax = 11, yeMin = 3, tipoDeMenu = "niveles"){
+object menuNivel inherits Menus(add_1 = menuNiveles, add_2 = seleccionNivel, cantidadDeIncrementoParaPosiciones = 2, equisMax = 3, equisMin = 1, yeMax = 11, yeMin = 11, tipoDeMenu = "niveles"){
     override method cargar(){
 		super()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				sincronizadorDePantallas.cambiarPantalla("jugar")
 				if(seleccionNivel.position() == game.at(1,11)){ //Seleccionado nivel 1
-				escenario.nivel(1)
+				escenarioNivel.nivel(1)
 				} else if(seleccionNivel.position() == game.at(3,11)){ //Seleccionado nivel 2
-				escenario.nivel(2)
+				escenarioNivel.nivel(2)
 				}
-				game.removeVisual(menuNiveles)
-				game.removeVisual(seleccionNivel)
-				points.reset()
+				self.limpiarPantalla()
 				juego.jugar()
 			}
 		})
 	}
 }
 
-object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, moverA = seleccionGanaste, cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 5, yeMin = 5, tipoDeMenu = "ganador"){
+object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 5, yeMin = 5, tipoDeMenu = "ganador"){
 	override method cargar(){
 		super()
-        game.removeVisual(jugador)
-		lineaEnemiga.enemigo().limpiarEnemigos()
-		game.removeVisual(fondoJuego)
-		game.removeVisual(points)
-		escenario.limpiarEscenario()
-		musicaDeFondo.stop()
+        juego.limpiar()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
-				game.removeVisual(seleccionGanaste)
-				game.removeVisual(ganaste)
+				self.limpiarPantalla()
 				if (seleccionGanaste.position() == game.at(6, 5)) {
 					sincronizadorDePantallas.cambiarPantalla("niveles")
 					menuNivel.cargar()
@@ -100,54 +85,23 @@ object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, mov
 		})
 	}
 }
-object menuPerdiste inherits Menus(add_1 = perdiste, add_2 = seleccionPerdiste, moverA = seleccionGanaste, cantidadDeIncrementoParaPosiciones = 2, equisMax = 5, equisMin = 5, yeMax = 10, yeMin = 5, tipoDeMenu = "perdedor"){
+object menuPerdiste inherits Menus(add_1 = perdiste, add_2 = seleccionPerdiste, cantidadDeIncrementoParaPosiciones = 2, equisMax = 5, equisMin = 5, yeMax = 10, yeMin = 5, tipoDeMenu = "perdedor"){
 	override method cargar(){
 		super()
-        game.removeVisual(jugador)
-		lineaEnemiga.enemigo().limpiarEnemigos()
-		game.removeVisual(fondoJuego)
-		game.removeVisual(points)
-		escenario.limpiarEscenario()
-		musicaDeFondo.stop()
+        juego.limpiar()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
-				game.removeVisual(seleccionGanaste)
-				game.removeVisual(perdiste)
-				if (seleccionGanaste.position() == game.at(5, 7)) {
+				self.limpiarPantalla()
+				if (seleccionPerdiste.position() == game.at(5, 7)) {
 					sincronizadorDePantallas.cambiarPantalla("jugar")
 					juego.jugar()
 				}
-				if (seleccionGanaste.position() == game.at(5, 5)){ 
+				if (seleccionPerdiste.position() == game.at(5, 5)){ 
 					game.addVisual(finDelJuego)
 					game.stop()
 				}
 			}
 		})
-	}
-}
-
-object juego{
-
-	method jugar(){ //DIBUJO DE LOS ELEMENTOS DEL MUNDO
-		//dibujar fondo
-		game.addVisual(fondoJuego)
-		//dibujar lateral superior
-		escenario.generarLateralSuperior()
-		//dibujar muros
-		escenario.generarEscenario()
-		//dibujar enemigo
-		lineaEnemiga.activar()
-		//dibujar jugador
-		jugador.posicionate()
-		game.showAttributes(jugador)
-		//dibujar frutas
-		spawn.dibujarPuntos(1)
-		//dibujar puntos
-		game.addVisual(points)
-		//dibujar superior
-		escenario.generarBloquesSuperiores()
-		//reproducir la musica correspondiente
-		musicaDeFondo.play()
 	}
 }
 

@@ -46,7 +46,7 @@ object niveles{
 object b {
     method decodificar(x,y) 
     {
-        escenario.listaPosiciones().add(game.at(x,y)) 
+        escenarioNivel.listaPosiciones().add(game.at(x,y)) 
         new Bloque().ubicarYDibujar(x,y)
     }
     method decodificarSuperior(x,y) = new BloqueSuperior().ubicarYDibujar(x, y)
@@ -54,4 +54,5 @@ object b {
 
 object n {
     method decodificar(x,y) {}
+    method decodificarSuperior(x,y){}
 }

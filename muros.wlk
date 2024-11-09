@@ -7,7 +7,7 @@ class Bloque inherits ObjetoVisible{
     method ubicarYDibujar(x,y){
         self.position(game.at(x,y))
         game.addVisual(self)
-        escenario.enlistarBloque(self)
+        escenarioNivel.enlistarBloque(self)
     }
     method quitarBloque() = game.removeVisual(self)
 
@@ -32,7 +32,7 @@ object visualSuperior{
     var property valor = "b_fiesta_sup.png"
 }
 
-object escenario{
+object escenarioNivel{
     const property listaPosiciones = []
     const property listaPuntos = []
     const property listaBloques = []
@@ -55,14 +55,14 @@ object escenario{
     }
 
     method limpiarBloques() = listaBloques.forEach({block => block.quitarBloque() listaBloques.remove(block)})
-    method limpiarFrutas() = listaPuntos.forEach({fruta => listaPuntos.remove(fruta)})
+    method limpiarPuntos() = listaPuntos.forEach({punto => listaPuntos.remove(punto)})
     method limpiarEscenario() {
       self.limpiarBloques()
-      self.limpiarFrutas()
+      self.limpiarPuntos()
     }
 
     method mismaPosicion(posiblePosicion) = listaPosiciones.any({posicion => posicion == posiblePosicion})
-    method mismaPosicionFruta(posiblePosicion) = listaPuntos.any({posicion => posicion == posiblePosicion})
+    method mismaPosicionPunto(posiblePosicion) = listaPuntos.any({posicion => posicion == posiblePosicion})
 
     method enlistarObjeto(cosa) = listaPuntos.add(cosa)
     method enlistarBloque(block) = listaBloques.add(block)

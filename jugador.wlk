@@ -1,9 +1,6 @@
 import muros.*
-
 import menus.menuPerdiste
-
 import movimiento.*
-
 import miscelaneos.*
 
 object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
@@ -25,7 +22,7 @@ object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
   }
 }
 
-object points inherits ObjetoVisible{
+object points{
   var puntosObtenidos = 0
   method sumarPuntos(){
     puntosObtenidos += 1
@@ -40,7 +37,7 @@ object points inherits ObjetoVisible{
   method image() = "barra.png"
 }
 
-object modificadorMapa inherits ObjetoVisible{
+object modificadorMapa{
 
     var property position = jugador.position()
 
