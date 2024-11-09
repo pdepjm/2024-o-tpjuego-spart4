@@ -40,7 +40,7 @@ object niveles{
                     [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
                     [b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b]]
 
-    method entregarFila(fila, nivel) = if(nivel == 1) nivel1.get(fila) else nivel2.get(fila)
+    method entregarFila(fila, nivel) = if(nivel == 0) nivel1.get(fila) else nivel2.get(fila)
 }
 
 object b {

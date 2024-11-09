@@ -54,11 +54,8 @@ object menuNivel inherits Menus(add_1 = menuNiveles, add_2 = seleccionNivel, can
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				sincronizadorDePantallas.cambiarPantalla("jugar")
-				if(add_2.position() == game.at(1,11)){ //Seleccionado nivel 1
-				escenarioNivel.nivel(1)
-				} else if(add_2.position() == game.at(3,11)){ //Seleccionado nivel 2
-				escenarioNivel.nivel(2)
-				}
+				const nivel = (add_2.position().x()-1)/2
+				escenarioNivel.nivel(nivel)
 				self.limpiarPantalla()
 				juego.jugar()
 			}
