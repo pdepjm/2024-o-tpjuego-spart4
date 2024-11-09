@@ -38,7 +38,7 @@ object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSelec
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
 				sincronizadorDePantallas.cambiarPantalla("niveles")
 				//valores visuales
-				const posicion = (marcoDeSeleccion.position().x()-2)/5
+				const posicion = (add_2.position().x()-2)/5
 				juego.cargarVisuales(posicion)
 				//remove
 				self.limpiarPantalla()
@@ -54,9 +54,9 @@ object menuNivel inherits Menus(add_1 = menuNiveles, add_2 = seleccionNivel, can
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				sincronizadorDePantallas.cambiarPantalla("jugar")
-				if(seleccionNivel.position() == game.at(1,11)){ //Seleccionado nivel 1
+				if(add_2.position() == game.at(1,11)){ //Seleccionado nivel 1
 				escenarioNivel.nivel(1)
-				} else if(seleccionNivel.position() == game.at(3,11)){ //Seleccionado nivel 2
+				} else if(add_2.position() == game.at(3,11)){ //Seleccionado nivel 2
 				escenarioNivel.nivel(2)
 				}
 				self.limpiarPantalla()
@@ -73,11 +73,11 @@ object menuGanaste inherits Menus(add_1 = ganaste, add_2 = seleccionGanaste, can
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				self.limpiarPantalla()
-				if (seleccionGanaste.position() == game.at(6, 5)) {
+				if (add_2.position() == game.at(6, 5)) {
 					sincronizadorDePantallas.cambiarPantalla("niveles")
 					menuNivel.cargar()
 				}
-				if (seleccionGanaste.position() == game.at(10, 5)){ 
+				if (add_2.position() == game.at(10, 5)){ 
 					game.addVisual(finDelJuego)
 					game.stop()
 				}
@@ -92,11 +92,11 @@ object menuPerdiste inherits Menus(add_1 = perdiste, add_2 = seleccionPerdiste, 
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				self.limpiarPantalla()
-				if (seleccionPerdiste.position() == game.at(5, 7)) {
+				if (add_2.position() == game.at(5, 7)) {
 					sincronizadorDePantallas.cambiarPantalla("jugar")
 					juego.jugar()
 				}
-				if (seleccionPerdiste.position() == game.at(5, 5)){ 
+				if (add_2.position() == game.at(5, 5)){ 
 					game.addVisual(finDelJuego)
 					game.stop()
 				}
