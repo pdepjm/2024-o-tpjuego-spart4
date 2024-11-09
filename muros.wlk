@@ -34,7 +34,7 @@ object visualSuperior{
 
 object escenario{
     const property listaPosiciones = []
-    const property listafrutas = []
+    const property listaPuntos = []
     const property listaBloques = []
     var property nivel = 0
 
@@ -55,18 +55,18 @@ object escenario{
     }
 
     method limpiarBloques() = listaBloques.forEach({block => block.quitarBloque() listaBloques.remove(block)})
-    method limpiarFrutas() = listafrutas.forEach({fruta => listafrutas.remove(fruta)})
+    method limpiarFrutas() = listaPuntos.forEach({fruta => listaPuntos.remove(fruta)})
     method limpiarEscenario() {
       self.limpiarBloques()
       self.limpiarFrutas()
     }
 
     method mismaPosicion(posiblePosicion) = listaPosiciones.any({posicion => posicion == posiblePosicion})
-    method mismaPosicionFruta(posiblePosicion) = listafrutas.any({posicion => posicion == posiblePosicion})
+    method mismaPosicionFruta(posiblePosicion) = listaPuntos.any({posicion => posicion == posiblePosicion})
 
-    method enlistarObjeto(cosa) = listafrutas.add(cosa)
+    method enlistarObjeto(cosa) = listaPuntos.add(cosa)
     method enlistarBloque(block) = listaBloques.add(block)
 
-    method quitarObjeto(cosa) = listafrutas.remove(cosa)
+    method quitarObjeto(cosa) = listaPuntos.remove(cosa)
     method sacarBloqueDeLista(block) = listaBloques.remove(block)
 }

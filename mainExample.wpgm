@@ -19,15 +19,8 @@ program BadIceCreamGame {
     //Inicio menu
     menuPersonaje.cargar()
     //inicio
-    
-   
-    
     game.start()
-   
-
-
-
-
+    
     //Juego puntos
     keyboard.r().onPressDo({
         const nuevoPunto = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")

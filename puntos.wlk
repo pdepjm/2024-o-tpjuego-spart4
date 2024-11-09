@@ -1,11 +1,11 @@
 import muros.*
 import miscelaneos.*
 
-class Fruta inherits ObjetoVisible{
+class Punto inherits ObjetoVisible{
 	var property position = posicionAleatoria.generarPosicionAleatoria()
 	var valor = spawn.puntos().get(0)
 
-	override method esFruta() = true
+	override method esPunto() = true
 
 	method image(){
 		return valor
@@ -28,7 +28,7 @@ class Fruta inherits ObjetoVisible{
 
 object spawn{
 	method dibujarPuntos(indice){
-		(0..9).forEach({x => new Fruta().ubicarYDibujar(posicionAleatoria.generarPosicionAleatoria(), indice)})
+		(0..9).forEach({x => new Punto().ubicarYDibujar(posicionAleatoria.generarPosicionAleatoria(), indice)})
 	}
 
 	var property puntos = ["bananas.png", "uva.png", "sandia.png"]

@@ -1,16 +1,10 @@
 import musica.*
 import mainExample.*
-
 import wollok.game.*
-
 import jugador.*
-
 import muros.*
-
 import enemigos.*
-
 import puntos.*
-
 import miscelaneos.*
 
 class Menus{
@@ -43,22 +37,16 @@ object menuPersonaje inherits Menus(add_1 = menuPersonajes, add_2 = marcoDeSelec
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
 				sincronizadorDePantallas.cambiarPantalla("niveles")
-				if(marcoDeSeleccion.position().x() == 7){ //elementos del pajarito
-					jugador.valor("p_piopio.png")
-					lineaEnemiga.imagen("e_elusive.png")
-					fondoJuego.valor("f_pio.png")
-					visual.valor("b_pio_i.png")
-					visualSuperior.valor("b_pio_sup.png")
-					spawn.puntos(["archaic coin.png", "circus coin.png", "lunaver coin.png"])
-				} else if(marcoDeSeleccion.position().x() == 12){ //elementos de Goku
-					jugador.valor("p_goku.png")
-					lineaEnemiga.imagen("e_cell.png")
-					fondoJuego.valor("f_pasto.png")
-					visual.valor("b_pasto_i.png")
-					visualSuperior.valor("b_pasto_sup.png")
-					spawn.puntos(["semilla.png", "capsula.png", "comida.png"])
-					musicaDeFondo.sonido(game.sound("musicaDragonBallZ.mp3"))
-					}
+				//valores visuales
+				const posicion = (marcoDeSeleccion.position().x()-2)/5
+				jugador.valor(coleccion.personaje(posicion))
+				lineaEnemiga.imagen(coleccion.enemigo(posicion))
+				fondoJuego.valor(coleccion.fondo(posicion))
+				visual.valor(coleccion.bloque_i(posicion))
+				visualSuperior.valor(coleccion.bloque_s(posicion))
+				spawn.puntos(coleccion.puntos(posicion))
+				musicaDeFondo.sonido(game.sound(coleccion.musica(posicion)))
+				//remove
 				game.removeVisual(menuPersonajes)
 				game.removeVisual(marcoDeSeleccion)
 				menuNivel.cargar()
