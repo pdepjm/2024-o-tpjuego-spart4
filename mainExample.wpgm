@@ -1,0 +1,57 @@
+import menus.*
+
+import wollok.game.*
+
+import jugador.*
+
+import puntos.*
+
+import enemigos.*
+
+import muros.*
+import musica.*
+
+program BadIceCreamGame {
+    game.cellSize(40)
+    game.title("Bad Ice Cream")
+    game.height(18)
+    game.width(18)
+    //Inicio menu
+    menuPersonaje.cargar()
+    //inicio
+    game.start()
+    
+    //Juego puntos
+    keyboard.r().onPressDo({
+        const nuevoPunto = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
+        nuevoPunto.eliminarPunto()
+        points.sumarPuntos()
+        if(points.puntosObtenidos() == 10){
+                spawn.dibujarPuntos(2)
+            }
+            if(points.puntosObtenidos() == 20){
+                spawn.dibujarPuntos(3)
+            }
+        if(points.puntosObtenidos() == 30){
+            sincronizadorDePantallas.cambiarPantalla("ganador")
+            menuGanaste.cargar()
+        }
+    })
+
+
+    // Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
+	keyboard.shift().onPressDo({
+		sincronizadorDePantallas.cambiarPantalla("ganador")
+		menuGanaste.cargar()})
+
+    game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
+}
+
+object interactuador{
+    method obtenerPrimerElemento(key,accion){
+              const colliders = game.colliders(jugador)
+        if (colliders.isEmpty())
+            throw new DomainException(message = "Apreta "+ key + accion, source = jugador)
+    return colliders.head()
+    }
+}
