@@ -13,7 +13,7 @@ object menuPersonajes{
 }
 object menuNiveles{
     var property position = game.origin()
-    method image() = "PP_niveles.png"
+    method image() = "PP_niveles_2.png"
 }
 object finDelJuego{
     var property position = game.origin()
