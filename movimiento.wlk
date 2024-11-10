@@ -1,5 +1,6 @@
 import muros.*
 import miscelaneos.*
+import niveles.*
 
 class FiguraConMovimiento inherits ObjetoVisible{
     var position
@@ -7,7 +8,7 @@ class FiguraConMovimiento inherits ObjetoVisible{
     method equisCorrecta(equis) = equis >= 1 && equis <= (game.width()-2)
     method yeCorrecta(ye) = ye >= 1 && ye <= (game.height()-2)
     method position(posicion){
-        if(self.equisCorrecta(posicion.x()) && self.yeCorrecta(posicion.y()) && !escenarioNivel.mismaPosicion(posicion)){
+        if(self.equisCorrecta(posicion.x()) && self.yeCorrecta(posicion.y()) && !niveles.mismaPosicion(posicion)){
             position = game.at(posicion.x(), posicion.y())
         }
     }

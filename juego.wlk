@@ -4,6 +4,7 @@ import muros.*
 import enemigos.*
 import puntos.*
 import miscelaneos.*
+import niveles.*
 
 object juego{
 //DIBUJO DE LOS ELEMENTOS DEL MUNDO    
@@ -12,9 +13,9 @@ object juego{
 		//dibujar fondo
 		game.addVisual(fondoJuego)
 		//dibujar lateral superior
-		escenarioNivel.generarLateralSuperior()
+		niveles.generarLateralSuperior()
 		//dibujar muros
-		escenarioNivel.generarEscenario()
+		niveles.generarEscenario()
 		//dibujar enemigo
 		lineaEnemiga.activar()
 		//dibujar jugador
@@ -25,7 +26,7 @@ object juego{
 		//dibujar puntos
 		game.addVisual(points)
 		//dibujar superior
-		escenarioNivel.generarBloquesSuperiores()
+		niveles.generarBloquesSuperiores()
 		//reproducir la musica correspondiente
 		musicaDeFondo.play()
 	}
@@ -36,7 +37,7 @@ object juego{
 		lineaEnemiga.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
-		escenarioNivel.limpiarEscenario()
+		niveles.limpiarEscenario()
 		musicaDeFondo.stop()
     }
 
