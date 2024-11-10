@@ -17,7 +17,8 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 
 ## Reglas de Juego / Instrucciones
 
-(completar...)
+- Recolectar todos los objetos que aparezcan en el mapa
+- Evitar ser tocado por el enemigo y derrotarlo disparandole 3 veces
 
 ## Controles:
 ### Menus:
