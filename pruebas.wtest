@@ -45,16 +45,16 @@ describe "Group of tests for the player" {
   test "Should place a block"{
     game.addVisual(new Bloque(position = game.at(4, 1)))
     modificadorMapa.modBloques(moverDerecha)
-    assert.that(game.getObjectsIn(game.at(2, 1)).any({elemento => elemento.soyBloque()}) && 
-                !(game.getObjectsIn(game.at(5, 1)).any({elemento => elemento.soyBloque()})))
+    assert.that(niveles.mismaPosicion(game.at(2, 1)) && 
+                !(niveles.mismaPosicion(game.at(5, 1))))
   }
 
   test "Should remove a block"{
     game.addVisual(new Bloque(position = game.at(2, 1)))
     game.addVisual(new Bloque(position = game.at(4, 1)))
     modificadorMapa.modBloques(moverDerecha)
-    assert.notThat(game.getObjectsIn(game.at(2, 1)).any({elemento => elemento.soyBloque()}) &&
-                    !(game.getObjectsIn(game.at(4, 1)).any({elemento => elemento.soyBloque()})))
+    assert.notThat(!(niveles.mismaPosicion(game.at(2, 1))) &&
+                    (niveles.mismaPosicion(game.at(4, 1))))
   }
 }
 

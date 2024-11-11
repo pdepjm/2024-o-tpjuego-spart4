@@ -2,11 +2,11 @@ import muros.*
 import miscelaneos.*
 import niveles.*
 
-class Punto inherits ObjetoVisible{
+class Punto{
 	var property position = posicionAleatoria.generarPosicionAleatoria()
 	var valor = spawn.puntos().get(0)
 
-	override method esPunto() = true
+	// override method esPunto() = true
 
 	method image(){
 		return valor

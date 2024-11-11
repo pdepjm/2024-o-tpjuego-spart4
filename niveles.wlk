@@ -155,6 +155,7 @@ object niveles{
 
     method mismaPosicion(posiblePosicion) = listaPosiciones.any({posicion => posicion == posiblePosicion})
     method mismaPosicionPunto(posiblePosicion) = listaPuntos.any({posicion => posicion == posiblePosicion})
+    method quitarPosicion(posiblePosicion){ self.listaPosiciones().remove(self.listaPosiciones().find({posicion => posicion == posiblePosicion})) }
 
     method enlistarObjeto(cosa) = listaPuntos.add(cosa)
     method enlistarBloque(block) = listaBloques.add(block)

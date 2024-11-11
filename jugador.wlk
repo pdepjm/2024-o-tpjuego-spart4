@@ -2,10 +2,11 @@ import muros.*
 import menus.menuPerdiste
 import movimiento.*
 import miscelaneos.*
+import niveles.*
 
 object jugador inherits FiguraConMovimiento(position = game.at(1, 1)) {
 
-  override method jugador() = true
+  // override method jugador() = true
 
   method posicionate(){
     self.position(game.at(1, 1))
@@ -40,11 +41,23 @@ object points{
 object modificadorMapa{
 
     var property position = jugador.position()
+    var property estado_accion = ponerBloque
 
     method modBloques(direccion) {
-      game.addVisual(self)
       self.position(jugador.position())
       self.detectarSiguientePosicionValida(direccion)
+    }
+
+    method detectarSiguientePosicionValida(direccion){
+        self.moverPuntero(direccion)
+
+        if(niveles.mismaPosicion(self.position())) self.estado_accion(quitarBloque)
+        self.estado_accion().realizarAccion(self.position())
+
+        game.onTick(100, "mover-puntero", {
+          self.moverPuntero(direccion)
+          self.estado_accion().realizarAccion(self.position())
+        })
     }
 
     method eventosDelTeclado() {
@@ -54,53 +67,9 @@ object modificadorMapa{
       keyboard.w().onPressDo({ self.modBloques(moverArriba) })
     }
 
-    method realizarAccion(accion, direccion){
-        if(accion == 2){
-            self.ponerBloques()
-            game.onTick(20, "mover-puntero", {self.moverPuntero(direccion) self.ponerBloques()})
-        }
-        if(accion == 1){
-            self.quitarBloques()
-            game.onTick(20, "mover-puntero", {self.moverPuntero(direccion) self.quitarBloques()})
-        }
-        if(accion == -1){
-            self.removerPuntero()
-        }
-    }
-
     method removerPuntero() {
       game.removeTickEvent("mover-puntero")
-      game.removeVisual(self)
-    }
-
-    method detectarSiguientePosicionValida(direccion){
-        var respuesta = 2
-        self.moverPuntero(direccion)
-        if(game.getObjectsIn(self.position()).any({elemento => return elemento.soyBloque()})) {respuesta = 1}
-        else if(game.getObjectsIn(self.position()).any({elemento => return elemento.esEnemigo()})) {respuesta = -1}
-        self.realizarAccion(respuesta, direccion)
-    }
-
-    method quitarBloques(){
-        if(game.getObjectsIn(self.position()).any({elemento => return elemento.soyBloque()})){
-            game.removeVisual(game.getObjectsIn(self.position()).find({elemento => return elemento.soyBloque()}))
-            //self.position(game.at(self.position().x(), self.position().y() + 1))
-            //game.removeVisual(game.getObjectsIn(self.position()).find({elemento => return elemento.esBloqueSuperior()}))
-            //self.position(game.at(self.position().x(), self.position().y() - 1))
-        }
-        else{
-            self.removerPuntero()
-        }
-    }
-
-    method ponerBloques(){
-        if(game.getObjectsIn(self.position()).any({elemento => return elemento.soyBloque()})){
-            self.removerPuntero()
-        }
-        else{
-            new Bloque().ubicarYDibujar(self.position().x(), self.position().y())
-            new BloqueSuperior().ubicarYDibujar(self.position().x(), self.position().y())
-        }
+      self.estado_accion(ponerBloque)
     }
 
     method moverPuntero(direccion){
@@ -109,4 +78,29 @@ object modificadorMapa{
                     .right(direccion.vector().get(2))
                     .up(direccion.vector().get(3))
         }
+}
+
+object ponerBloque{
+  method realizarAccion(posicion){
+    if(!niveles.mismaPosicion(posicion)){
+      b.decodificar(posicion.x(), posicion.y())
+      new BloqueSuperior().ubicarYDibujar(posicion.x(), posicion.y())
+    }
+    else{
+      modificadorMapa.removerPuntero()
+    }
+  }
+}
+
+object quitarBloque {
+  method realizarAccion(posicion) {
+    if(niveles.mismaPosicion(posicion) && posicion.x() >= 1 && posicion.x() <= (game.width()-2) && posicion.y() >= 1 && posicion.y() <= (game.height()-2)){
+      niveles.quitarPosicion(posicion)
+      game.getObjectsIn(posicion).get(game.getObjectsIn(posicion).size() - 1).quitarBloque()
+      game.getObjectsIn(posicion).get(game.getObjectsIn(posicion).size() - 1).quitarBloque()
+    }
+    else{
+      modificadorMapa.removerPuntero()
+    }
+  }
 }

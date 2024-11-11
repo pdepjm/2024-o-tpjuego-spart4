@@ -1,14 +1,14 @@
 import miscelaneos.*
 import muros.*
 
-class Enemigo1 inherits ObjetoVisible{
+class Enemigo1{
     //var lado = 0
     var property vida
     var property position = game.center()
     var property velocidad = 300 
     var property apariencia = "piopio.png" 
     method image() = apariencia
-    override method esEnemigo() = true 
+    // override method esEnemigo() = true 
 
     // [left, down, right, up]
     var property vector_movimiento = [0, 1, 0, 0] 
@@ -24,13 +24,15 @@ class Enemigo1 inherits ObjetoVisible{
     }
 
     method detectar_colisiones() {
-        game.onCollideDo(self, {elemento => 
+       /*  game.onCollideDo(self, {elemento => 
           if(elemento.soyBloque()){
             self.volver()
             self.cambiar_vector_movimiento() 
           }
-        })
+        }) */
     }
+
+    method retroceder(){}
 
     method volver() {
          position = position.left(vector_movimiento.get(0) * -1)
@@ -58,12 +60,12 @@ class Enemigo1 inherits ObjetoVisible{
 }
 
 object lineaEnemiga{
-    var property enemigo = new Enemigo1(vida = 100)
+   var property enemigo = new Enemigo1(vida = 100)
 
     method imagen(imagen){
-        enemigo.apariencia(imagen)
+        //enemigo.apariencia(imagen)
     }
     method activar(){
-        enemigo.activar_enemigo()
+        // enemigo.activar_enemigo()
     }
 }

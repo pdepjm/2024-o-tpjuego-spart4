@@ -2,7 +2,7 @@ import muros.*
 import miscelaneos.*
 import niveles.*
 
-class FiguraConMovimiento inherits ObjetoVisible{
+class FiguraConMovimiento{
     var position
     method position() = position
     method equisCorrecta(equis) = equis >= 1 && equis <= (game.width()-2)
