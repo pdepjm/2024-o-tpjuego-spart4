@@ -44,7 +44,7 @@ program BadIceCreamGame {
 		sincronizadorDePantallas.cambiarPantalla("ganador")
 		menuGanaste.cargar()})
 
-    game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
+    //game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
 }
 
 object interactuador{

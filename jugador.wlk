@@ -38,24 +38,25 @@ object points{
   method image() = "barra.png"
 }
 
-object modificadorMapa{
+object modificadorMapa inherits MutablePosition{
 
     var property position = jugador.position()
     var property estado_accion = ponerBloque
 
     method modBloques(direccion) {
+      game.removeTickEvent("mover-puntero")
       self.position(jugador.position())
       self.detectarSiguientePosicionValida(direccion)
     }
 
     method detectarSiguientePosicionValida(direccion){
-        self.moverPuntero(direccion)
+        self.position(direccion.mover(self.position()))
 
         if(niveles.mismaPosicion(self.position())) self.estado_accion(quitarBloque)
         self.estado_accion().realizarAccion(self.position())
 
         game.onTick(100, "mover-puntero", {
-          self.moverPuntero(direccion)
+          self.position(direccion.mover(self.position()))
           self.estado_accion().realizarAccion(self.position())
         })
     }
@@ -71,18 +72,11 @@ object modificadorMapa{
       game.removeTickEvent("mover-puntero")
       self.estado_accion(ponerBloque)
     }
-
-    method moverPuntero(direccion){
-        position = position.left(direccion.vector().get(0))
-                    .down(direccion.vector().get(1))
-                    .right(direccion.vector().get(2))
-                    .up(direccion.vector().get(3))
-        }
 }
 
 object ponerBloque{
   method realizarAccion(posicion){
-    if(!niveles.mismaPosicion(posicion)){
+    if(!niveles.mismaPosicion(posicion) && posicion.x() >= 1 && posicion.x() <= (game.width()-2) && posicion.y() >= 1 && posicion.y() <= (game.height()-2)){
       b.decodificar(posicion.x(), posicion.y())
       new BloqueSuperior().ubicarYDibujar(posicion.x(), posicion.y())
     }

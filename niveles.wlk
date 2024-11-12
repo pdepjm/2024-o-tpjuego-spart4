@@ -1,5 +1,6 @@
 import miscelaneos.*
 import muros.*
+import enemigos.*
 /*
 class Nivel {
     const matrizPosiciones
@@ -88,14 +89,15 @@ object niveles{
     const property listaPosiciones = []
     const property listaPuntos = []
     const property listaBloques = []
+    const property listaEnemigos = []
     var property nivel = 0
 
     const nivel1 = [[b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b],
                     [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,n,b,b,b,n,n,n,n,n,n,n,n,b,b,b,n,b],
+                    [b,n,b,b,b,n,n,n,n,n,e,n,n,b,b,b,n,b],
                     [b,n,b,n,b,n,n,n,n,n,n,n,n,b,n,b,n,b],
                     [b,n,b,n,b,n,n,n,n,n,n,n,n,b,n,b,n,b],
-                    [b,n,b,n,b,n,n,n,n,n,n,n,n,b,n,b,n,b],
+                    [b,n,b,e,b,n,n,n,n,n,n,n,n,b,n,b,n,b],
                     [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
                     [b,n,n,n,n,n,n,b,b,b,b,n,n,n,n,n,n,b],
                     [b,n,n,n,n,n,n,n,b,b,n,n,n,n,n,n,n,b],
@@ -106,7 +108,7 @@ object niveles{
                     [b,n,n,n,b,b,n,n,b,b,n,n,b,b,n,n,n,b],
                     [b,n,n,n,n,n,b,b,n,n,b,b,n,n,n,n,n,b],
                     [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
+                    [b,n,n,n,n,e,n,n,n,n,n,n,n,n,n,n,n,b],
                     [b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b]]
                     
     const nivel2 = [[b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b],
@@ -114,7 +116,7 @@ object niveles{
                     [b,n,n,n,n,n,b,b,b,b,b,b,b,b,n,n,n,b],
                     [b,n,n,n,b,b,n,n,n,n,n,n,n,n,b,n,n,b],
                     [b,n,b,b,n,n,n,b,b,b,b,b,b,n,b,n,n,b],
-                    [b,n,b,n,n,n,b,n,n,n,n,n,b,n,n,b,n,b],
+                    [b,n,b,n,n,n,b,n,n,e,n,n,b,n,n,b,n,b],
                     [b,n,b,n,b,b,n,n,b,b,b,n,n,b,n,b,n,b],
                     [b,n,b,n,b,n,n,b,n,n,n,b,n,b,n,b,n,b],
                     [b,n,b,n,b,n,b,n,n,b,n,b,n,b,n,b,n,b],
@@ -125,7 +127,7 @@ object niveles{
                     [b,n,n,b,b,b,b,b,b,b,b,n,n,b,b,n,n,b],
                     [b,n,n,n,n,n,n,n,n,n,n,b,b,n,n,n,n,b],
                     [b,n,n,b,b,b,b,b,b,b,b,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
+                    [b,n,n,n,n,n,e,n,n,n,n,n,n,n,n,n,n,b],
                     [b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b]]
 
     method entregarFila(fila, nivelPedido) = if(nivelPedido == 0) nivel1.get(fila) else nivel2.get(fila)
@@ -146,6 +148,8 @@ object niveles{
         (17..0).forEach({x => listaPosiciones.add(game.at(x,17)) new Bloque().ubicarYDibujar(x,17)})
     }
 
+    method activarEnemigos() = listaEnemigos.forEach({enemigo => enemigo.activar_enemigo()})
+
     method limpiarBloques() = listaBloques.forEach({block => block.quitarBloque() listaBloques.remove(block)})
     method limpiarPuntos() = listaPuntos.forEach({punto => listaPuntos.remove(punto)})
     method limpiarEscenario() {
@@ -162,6 +166,9 @@ object niveles{
 
     method quitarObjeto(cosa) = listaPuntos.remove(cosa)
     method sacarBloqueDeLista(block) = listaBloques.remove(block)
+
+    method enlistarEnemigo(enemigo) = listaEnemigos.add(enemigo)
+    method quitarEnemigo(enemigo) = listaEnemigos.remove(enemigo)
 }
 
 object b {
@@ -175,5 +182,12 @@ object b {
 
 object n {
     method decodificar(x,y) {}
+    method decodificarSuperior(x,y){}
+}
+
+object e{
+    method decodificar(x, y){
+        niveles.enlistarEnemigo(new Enemigo1(vida = 100, position = game.at(x, y)))
+    }
     method decodificarSuperior(x,y){}
 }

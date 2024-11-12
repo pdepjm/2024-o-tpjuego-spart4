@@ -27,6 +27,8 @@ object juego{
 		game.addVisual(points)
 		//dibujar superior
 		niveles.generarBloquesSuperiores()
+		//Activar el movimiento del enemigo 
+		niveles.activarEnemigos()
 		//reproducir la musica correspondiente
 		musicaDeFondo.play()
 	}
@@ -43,7 +45,8 @@ object juego{
 
     method cargarVisuales(posicion){
         jugador.valor(coleccion.personaje(posicion))
-		lineaEnemiga.imagen(coleccion.enemigo(posicion))
+		// lineaEnemiga.imagen(coleccion.enemigo(posicion))
+		aparienciaEnemigo.valor(coleccion.enemigo(posicion))
 		fondoJuego.valor(coleccion.fondo(posicion))
         visual.valor(coleccion.bloque_i(posicion))
 		visualSuperior.valor(coleccion.bloque_s(posicion))
