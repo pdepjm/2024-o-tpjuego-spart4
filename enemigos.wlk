@@ -1,55 +1,29 @@
+import niveles.*
 import miscelaneos.*
 import muros.*
+import wollok.game.*
 
-class Enemigo1 inherits ObjetoVisible{
-    //var lado = 0
+class Enemigo1 inherits MutablePosition{
+    
     var property vida
-    var property position = game.center()
-    var property velocidad = 300 
-    var property apariencia = "piopio.png" 
-    method image() = apariencia
-    override method esEnemigo() = true 
-
-    // [left, down, right, up]
-    var property vector_movimiento = [0, 1, 0, 0] 
+    var property velocidad = 200 
+    var property position
+    method image() = aparienciaEnemigo.valor()
+    var property direccion = moverDerecha 
 
     method movimiento(){
-        game.onTick(velocidad, self, {self.moverse()})
-    }
-
-    method cambiar_vector_movimiento() {
-      const elemento = vector_movimiento.get(0)
-      vector_movimiento.remove(vector_movimiento.get(0))
-      vector_movimiento.addAll([elemento])
-    }
-
-    method detectar_colisiones() {
-        game.onCollideDo(self, {elemento => 
-          if(elemento.soyBloque()){
-            self.volver()
-            self.cambiar_vector_movimiento() 
-          }
+        game.onTick(velocidad, self, {
+            self.position(self.direccion().mover(self.position()))
+            if(niveles.mismaPosicion(self.position())){
+                self.position(self.direccion().retroceder(self.position()))
+                self.direccion(cambiarDireccion.rotarDireccion(self.direccion()))
+            }
         })
-    }
-
-    method volver() {
-         position = position.left(vector_movimiento.get(0) * -1)
-                    .down(vector_movimiento.get(1) * -1)
-                    .right(vector_movimiento.get(2) * -1)
-                    .up(vector_movimiento.get(3) * -1)
-    }
-
-    method moverse(){
-        position = position.left(vector_movimiento.get(0))
-                    .down(vector_movimiento.get(1))
-                    .right(vector_movimiento.get(2))
-                    .up(vector_movimiento.get(3))
     }
 
     method activar_enemigo() {
       game.addVisual(self)
-	    self.movimiento()
-	    self.detectar_colisiones()
+	  self.movimiento()
     }
 
     method limpiarEnemigos(){
@@ -57,12 +31,16 @@ class Enemigo1 inherits ObjetoVisible{
     }
 }
 
-object lineaEnemiga{
-    var property enemigo = new Enemigo1(vida = 100)
+object aparienciaEnemigo {
+   var property valor = "b_fiesta_i.png"
+}
 
-    method imagen(imagen){
+object lineaEnemiga{
+    var property enemigo = new Enemigo1(vida = 100, position = game.at(1, 5))
+
+/*     method imagen(imagen){
         enemigo.apariencia(imagen)
-    }
+    } */
     method activar(){
         enemigo.activar_enemigo()
     }

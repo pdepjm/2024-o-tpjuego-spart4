@@ -20,30 +20,33 @@ object finDelJuego{
     method image() = "PP_final.png"
 }
 
-mixin ObjetoVisible {
-  method soyBloque() = false
-  method esPunto() = false
-  method jugador() = false   
-  method esEnemigo() = false 
-  method esFondo() = false
-  method esBloqueSuperior() = false
-}
-
 object moverAbajo{
-    method vector() = [0, 1, 0, 0]
+    method mover(posicion) = posicion.down(1)
+    method retroceder(posicion) = posicion.down(-1) 
 }
 
 object moverArriba{
-    method vector() = [0, 0, 0, 1]
+    method mover(posicion) = posicion.up(1)
+    method retroceder(posicion) = posicion.up(-1)
 }
 
 object moverDerecha{
-    method vector() = [0, 0, 1, 0]
+    method mover(posicion) = posicion.right(1)
+    method retroceder(posicion) = posicion.right(-1)
 }
 
 object moverIzquierda{
-    method vector() = [1, 0, 0, 0]
+    method mover(posicion) = posicion.left(1)
+    method retroceder(posicion) = posicion.left(-1)
 }
+
+object cambiarDireccion{
+    const property vectorDirecciones = [moverIzquierda, moverAbajo, moverDerecha, moverArriba]
+
+    method rotarDireccion(direccionActual) = self.vectorDirecciones().anyOne()
+    
+}
+
 
 //IMAGENES DE SELECCION
 object marcoDeSeleccion{
@@ -64,11 +67,11 @@ object seleccionPerdiste{
 }
 
 //BACKGROUND
-object fondoJuego inherits ObjetoVisible{
+object fondoJuego{
     var property position = game.origin()
     var property valor = "f_slime.png"
     method image() = valor
-    override method esFondo() = true 
+    // override method esFondo() = true 
 }
 
 //IMAGENES RELACIONADA A LOS PERSONAJES

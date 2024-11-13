@@ -1,19 +1,22 @@
 import niveles.*
 import miscelaneos.*
 
-class Bloque inherits ObjetoVisible{
+class Bloque{
 	var property position = game.center()
 	method image() = visual.valor()
     method ubicarYDibujar(x,y){
         self.position(game.at(x,y))
         game.addVisual(self)
-        escenarioNivel.enlistarBloque(self)
+        niveles.enlistarBloque(self)
     }
-    method quitarBloque() = game.removeVisual(self)
+    method quitarBloque() {
+        game.removeVisual(self)
+        niveles.sacarBloqueDeLista(self)
+    }
 
-    override method soyBloque() = true 
+    // override method soyBloque() = true 
 }
-class BloqueSuperior inherits ObjetoVisible{
+class BloqueSuperior {
 	var property position = game.center()
 	method image() = visualSuperior.valor()
     method ubicarYDibujar(x,y){
@@ -22,7 +25,7 @@ class BloqueSuperior inherits ObjetoVisible{
     }
     method quitarBloque() = game.removeVisual(self)
 
-    override method esBloqueSuperior() = true
+    // override method esBloqueSuperior() = true
 }
 
 object visual{
@@ -31,7 +34,7 @@ object visual{
 object visualSuperior{
     var property valor = "b_fiesta_sup.png"
 }
-
+/*
 object escenarioNivel{
     const property listaPosiciones = []
     const property listaPuntos = []
@@ -69,4 +72,4 @@ object escenarioNivel{
 
     method quitarObjeto(cosa) = listaPuntos.remove(cosa)
     method sacarBloqueDeLista(block) = listaBloques.remove(block)
-}
+}*/

@@ -1,11 +1,12 @@
 import muros.*
 import miscelaneos.*
+import niveles.*
 
-class Punto inherits ObjetoVisible{
+class Punto{
 	var property position = posicionAleatoria.generarPosicionAleatoria()
 	var valor = spawn.puntos().get(0)
 
-	override method esPunto() = true
+	// override method esPunto() = true
 
 	method image(){
 		return valor
@@ -42,10 +43,10 @@ object posicionAleatoria {
 		const x = self.generarPosX()
 		const y = self.generarPosY()
 		
-		if(escenarioNivel.mismaPosicion(game.at(x, y)) || escenarioNivel.mismaPosicionPunto(game.at(x, y))){
+		if(niveles.mismaPosicion(game.at(x, y)) || niveles.mismaPosicionPunto(game.at(x, y))){
 			return self.generarPosicionAleatoria()
 		}
-		escenarioNivel.enlistarObjeto(game.at(x, y))
+		niveles.enlistarObjeto(game.at(x, y))
 		return game.at(x, y)
 	}
 }

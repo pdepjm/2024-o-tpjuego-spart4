@@ -2,6 +2,7 @@ import mainExample.*
 import muros.*
 import miscelaneos.*
 import juego.*
+import niveles.*
 
 class Menus{
 	const add_1
@@ -55,7 +56,7 @@ object menuNivel inherits Menus(add_1 = menuNiveles, add_2 = seleccionNivel, can
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				sincronizadorDePantallas.cambiarPantalla("jugar")
 				const nivel = (add_2.position().x()-1)/2
-				escenarioNivel.nivel(nivel)
+				niveles.nivel(nivel)
 				self.limpiarPantalla()
 				juego.jugar()
 			}
