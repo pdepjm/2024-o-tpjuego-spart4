@@ -13,8 +13,7 @@ class Enemigo1 inherits FiguraConMovimiento(position = new PosicionVariable(x = 
     method image() = aparienciaEnemigo.valor()
 
     method nuevaPosicion(){
-        const direccion = 1.randomUpTo(4).round()//.truncate(0) //elige al azar una dirección
-        //var posiblePosicion = 0
+        const direccion = 1.randomUpTo(4).round() //elige al azar una dirección
         //le da el valor correspondiente
         if(direccion == 1){ //arriba
             self.posiblePosicion().sumarPos(0, 1)
@@ -40,8 +39,7 @@ class Enemigo1 inherits FiguraConMovimiento(position = new PosicionVariable(x = 
     }
 
     method caminar(){
-        //game.onTick(200, self, {self.position(self.nuevaPosicion())})
-        game.onTick(400, self, {self.nuevaPosicion()})
+        game.onTick(300, self, {self.nuevaPosicion()})
     }
 
     method herido() {
@@ -65,5 +63,5 @@ class Enemigo1 inherits FiguraConMovimiento(position = new PosicionVariable(x = 
 }
 
 object aparienciaEnemigo {
-   var property valor = "cell1.png"
+   var property valor = null
 }

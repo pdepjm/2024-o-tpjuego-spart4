@@ -72,24 +72,17 @@ describe "Group of test for the enemy" {
   }
 
   test "Should move"{
-    const enemy = new Enemigo1(vida = 100, position = game.at(1, 2), velocidad = 0)
+    const posicion_base = game.at(1, 2)
+    const enemy = new Enemigo1(vida = 100)
     game.addVisual(enemy)
-    enemy.moverse()
-    assert.equals(game.at(1, 1), enemy.position())
+    enemy.nuevaPosicion()
+    assert.notThat(posicion_base == enemy.position())
   }
 
-  test "Should rotate direction" {
-    const enemy = new Enemigo1(vida = 100, position = game.at(1, 1), velocidad = 0)
-    game.addVisual(enemy)
-    enemy.cambiar_vector_movimiento()
-    assert.equals(1, enemy.vector_movimiento().get(0))
-  }
-
-  test "Should turn back"{
-    const enemy = new Enemigo1(vida = 100, position = game.at(1, 2), velocidad = 0)
-    game.addVisual(enemy)
-    enemy.moverse()
-    enemy.volver()
-    assert.equals(game.at(1, 2), enemy.position())
+  test "Should died" {
+    const enemy = new Enemigo1(vida = 100, position = game.at(1, 1))
+    enemy.herido()
+    enemy.herido()
+    assert.equals(enemy.vida(), 0)
   }
 }

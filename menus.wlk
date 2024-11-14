@@ -75,10 +75,10 @@ class MenuNivel inherits Menus(add = menuNiveles, moverA = new SeleccionNivel(),
 		super()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
+				self.limpiarPantalla()
 				sincronizadorDePantallas.cambiarPantalla("jugar")
 				const nivel = (moverA.position().x()-1)/2
 				niveles.nivel(nivel)
-				self.limpiarPantalla()
 				juego.jugar()
 			}
 		})
@@ -138,8 +138,4 @@ object sincronizadorDePantallas{
 	method pantallaActual() = pantalla
 
 	method habilitar() = pantalla == "jugar"
-}
-
-object laMuerte {
-  method erradicar() = game.removeVisual(game.getObjectsIn(game.at(1, 1)))
 }

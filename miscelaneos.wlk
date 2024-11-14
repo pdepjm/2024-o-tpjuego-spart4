@@ -85,9 +85,9 @@ object coleccion{
     const c_ataques_sound = ["sonido_helado.mp3","sonido_pepita.mp3","Kamehameha.mp3"]
     
     const c_enemigos = ["e_brocoli.png", "e_elusive.png", "e_cell.png"]
-    const c_bloques = ["b_fiesta_i.png","b_pio_i.png","b_pasto_i.png"]
-    const c_bloques_sup = ["b_fiesta_sup.png","b_pio_sup.png","b_pasto_sup.png"]
-    const c_fondos = ["f_slime.png","f_pio.png","f_pasto.png"]
+    const c_bloques = ["bq_fiesta_i.png","bq_pio_i.png","bq_pasto_i.png"]
+    const c_bloques_sup = ["bq_fiesta_sup.png","bq_pio_sup.png","bq_pasto_sup.png"]
+    const c_fondos = ["fd_slime.png","fd_pio.png","fd_pasto.png"]
     const c_puntos = [["pu_bananas.png","pu_uva.png","pu_sandia.png"],
                       ["pu_archaic coin.png","pu_circus coin.png","pu_lunaver coin.png"],
                       ["pu_semilla.png","pu_capsula.png","pu_comida.png"]]

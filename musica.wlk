@@ -3,6 +3,7 @@ object musica{
 
   method sonido_on(){
     self.cancion().volume(0.03)
+    self.cancion().shouldLoop(true)
     self.cancion().play()
   }
 

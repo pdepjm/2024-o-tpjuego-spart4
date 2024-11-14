@@ -14,7 +14,6 @@ class Jugador inherits FiguraConMovimiento(position = new PosicionVariable(x = 1
   method posicionate(){
     self.position(game.at(1, 1))
     game.addVisualCharacter(self)
-    modificadorMapa.eventosDelTeclado()
   }
 
   method volver(){
@@ -62,7 +61,7 @@ object datosJugador {
   var property sonido_ataque = null
 }
 
-object gokuAtacando {
+object personajeAtacando {
   //var property position = null
   const property position = new PosicionVariable()
   var property lado = null
@@ -97,12 +96,12 @@ class AtaqueDerecho{
   }
 
   method energia(posicion, lado, valor){
-    gokuAtacando.lado(lado)
-    gokuAtacando.position().establecerPos(posicion.x(), posicion.y())
+    personajeAtacando.lado(lado)
+    personajeAtacando.position().establecerPos(posicion.x(), posicion.y())
     position.establecerPos(posicion.x() + valor, posicion.y())
     if(!niveles.mismaPosicion(self.position())){
       self.efectoSonoro()
-      game.addVisual(gokuAtacando)
+      game.addVisual(personajeAtacando)
       personaje = atajos.jugador()
       atajos.jugador().eliminate()
       game.addVisual(self)
@@ -120,12 +119,12 @@ class AtaqueDerecho{
     else{
       const jugador = new Jugador()
 		  jugador.valor(datosJugador.imagen())
-      jugador.position(gokuAtacando.position())
+      jugador.position(personajeAtacando.position())
       if(sincronizadorDePantallas.pantallaActual() == "jugar"){
         jugador.volver()
       }
       self.eliminate()
-      gokuAtacando.eliminate()
+      personajeAtacando.eliminate()
       if(sincronizadorDePantallas.pantallaActual() == "perdedor"){
     //console.println("entraste aca")
         new MenuPerdiste().cargar()
@@ -153,12 +152,12 @@ class AtaqueIzquierdo inherits AtaqueDerecho{
     else{
       const jugador = new Jugador()
 		  jugador.valor(datosJugador.imagen())
-      jugador.position(gokuAtacando.position())
+      jugador.position(personajeAtacando.position())
       if(sincronizadorDePantallas.pantallaActual() == "jugar"){
         jugador.volver()
       }
       self.eliminate()
-      gokuAtacando.eliminate()
+      personajeAtacando.eliminate()
       if(sincronizadorDePantallas.pantallaActual() == "perdedor"){
     //console.println("entraste aca")
         new MenuPerdiste().cargar()
@@ -177,8 +176,8 @@ object points{
     puntosObtenidos += 1
   }
   method puntosObtenidos() = puntosObtenidos
-    method position() = game.at((game.width()-3),(game.height()-1))
-    method text() = "            Puntos:  " + puntosObtenidos
+  method position() = game.at((game.width()-3),(game.height()-1))
+  method text() = "            Puntos:  " + puntosObtenidos
   method textColor() = "FF0000FF"
   method reset(){
     puntosObtenidos = 0
@@ -207,13 +206,6 @@ object modificadorMapa inherits MutablePosition{
           self.position(direccion.mover(self.position()))
           self.estado_accion().realizarAccion(self.position())
         })
-    }
-
-    method eventosDelTeclado() {
-      keyboard.d().onPressDo({ self.modBloques(moverDerecha) })
-      keyboard.s().onPressDo({ self.modBloques(moverAbajo) })
-      keyboard.a().onPressDo({ self.modBloques(moverIzquierda) })
-      keyboard.w().onPressDo({ self.modBloques(moverArriba) })
     }
 
     method removerPuntero() {
