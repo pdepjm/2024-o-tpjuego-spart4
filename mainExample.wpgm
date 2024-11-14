@@ -1,0 +1,71 @@
+import menus.*
+
+import wollok.game.*
+
+import jugador.*
+
+import puntos.*
+
+import enemigos.*
+
+import muros.*
+import musica.*
+import miscelaneos.*
+
+program BadIceCreamGame {
+    game.cellSize(40)
+    game.title("Bad Ice Cream")
+    game.height(18)
+    game.width(18)
+    //Inicio menu
+    new MenuPersonaje().cargar()
+    //inicio
+    game.start()
+
+    //Juego puntos
+    keyboard.r().onPressDo({
+        if(sincronizadorDePantallas.habilitar()){
+          const nuevoPunto = interactuador.obtenerPrimerElemento()
+        nuevoPunto.eliminarPunto()
+        points.sumarPuntos()
+        if(points.puntosObtenidos() == 10){
+                spawn.dibujarPuntos(2)
+            }
+        if(points.puntosObtenidos() == 20){
+                spawn.dibujarPuntos(3)
+            }
+        if(points.puntosObtenidos() == 30){
+            sincronizadorDePantallas.cambiarPantalla("ganador")
+				musica.sonido_pause()
+                new MenuGanaste().cargar()
+            }  
+        }
+        })
+    
+
+    keyboard.e().onPressDo({if(sincronizadorDePantallas.habilitar()) {atajos.jugador().atacarDerecha()}})
+    keyboard.q().onPressDo({if(sincronizadorDePantallas.habilitar()) {atajos.jugador().atacarIzquierda()}})
+    keyboard.d().onPressDo({if(sincronizadorDePantallas.habilitar()) modificadorMapa.modBloques(moverDerecha) })
+    keyboard.s().onPressDo({if(sincronizadorDePantallas.habilitar()) modificadorMapa.modBloques(moverAbajo) })
+    keyboard.a().onPressDo({if(sincronizadorDePantallas.habilitar()) modificadorMapa.modBloques(moverIzquierda) })
+    keyboard.w().onPressDo({if(sincronizadorDePantallas.habilitar()) modificadorMapa.modBloques(moverArriba) })
+
+
+    // Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
+	keyboard.shift().onPressDo({
+        if(sincronizadorDePantallas.habilitar()){ 
+           sincronizadorDePantallas.cambiarPantalla("ganador")
+           musica.sonido_off()
+            new MenuGanaste().cargar() 
+        }
+	})
+}
+
+object interactuador{
+    method obtenerPrimerElemento(){
+        const colliders = game.colliders(atajos.jugador())
+        if (colliders.isEmpty())
+            throw new DomainException()
+    return colliders.head()
+    }
+}
