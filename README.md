@@ -14,6 +14,9 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 - Miranda Martín Julian
 - Valenzuela Maltas Luciano Santino
  
+## Diagrama
+
+<https://drive.google.com/file/d/1BEA8pSvVdBY0Qj266RTwAdkdH6OxiM7M/view?usp=sharing>
 
 ## Capturas 
 ### Personajes a seleccionar
