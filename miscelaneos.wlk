@@ -53,16 +53,16 @@ object marcoDeSeleccion{
     var property position = game.at(2,5)
     method image() = "S_personajes.png"
 }
-object seleccionNivel{
+class SeleccionNivel{
     var property position = game.at(1, 11)
     method image() = "S_niveles.png"
 }
-object seleccionGanaste{
+class SeleccionGanaste{
     var property position = game.at(6, 5)
     method image() = "S_niveles.png"
 }
-object seleccionPerdiste{
-    var property position = game.at(5, 5)
+class SeleccionPerdiste{
+    var property position = game.at(5, 7)
     method image() = "S_derrota.png"
 }
 
@@ -81,6 +81,9 @@ object coleccion{
     const c_animaciones_i = ["ataque_i_helado.png", "ataque_i_piopio.png","ataque_i_goku.png"]
     const c_ataques_d = ["a_d_helados.png","a_d_granada.png","a_d_kame.png"]
     const c_ataques_i = ["a_i_helados.png","a_i_granada.png","a_i_kame.png"]
+    
+    const c_ataques_sound = ["sonido_helado.mp3","sonido_pepita.mp3","Kamehameha.mp3"]
+    
     const c_enemigos = ["e_brocoli.png", "e_elusive.png", "e_cell.png"]
     const c_bloques = ["b_fiesta_i.png","b_pio_i.png","b_pasto_i.png"]
     const c_bloques_sup = ["b_fiesta_sup.png","b_pio_sup.png","b_pasto_sup.png"]
@@ -88,7 +91,7 @@ object coleccion{
     const c_puntos = [["pu_bananas.png","pu_uva.png","pu_sandia.png"],
                       ["pu_archaic coin.png","pu_circus coin.png","pu_lunaver coin.png"],
                       ["pu_semilla.png","pu_capsula.png","pu_comida.png"]]
-    const c_musica = ["BadIceCreamMusicaDeFondo.mp3", "BadIceCreamMusicaDeFondo.mp3", "musicaDragonBallZ.mp3"]
+    const c_musica = ["BadIceCreamMusicaDeFondo.mp3", "Flow Hero.mp3", "Super Survivor.mp3"]
 
     method personaje(indice) = c_personajes.get(indice)
     method animacion_d(indice) = c_animaciones_d.get(indice)
@@ -101,4 +104,5 @@ object coleccion{
     method fondo(indice) = c_fondos.get(indice)
     method puntos(indice) = c_puntos.get(indice)
     method musica(indice) = c_musica.get(indice)
+    method sonido(indice) = c_ataques_sound.get(indice)
 }

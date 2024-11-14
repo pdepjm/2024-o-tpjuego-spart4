@@ -92,43 +92,43 @@ object niveles{
     const property listaEnemigos = []
     var property nivel = 0
 
-    const nivel1 = [[b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b],
-                    [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,n,b,b,b,n,n,n,n,n,e,n,n,b,b,b,n,b],
-                    [b,n,b,n,b,n,n,n,n,n,n,n,n,b,n,b,n,b],
-                    [b,n,b,n,b,n,n,n,n,n,n,n,n,b,n,b,n,b],
-                    [b,n,b,e,b,n,n,n,n,n,n,n,n,b,n,b,n,b],
-                    [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,n,b,b,b,b,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,n,n,b,b,n,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,n,n,b,b,n,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,n,n,b,b,n,n,n,n,n,n,n,b],
-                    [b,n,n,b,n,n,n,n,b,b,n,n,n,n,b,n,n,b],
-                    [b,n,n,n,b,b,n,n,b,b,n,n,b,b,n,n,n,b],
-                    [b,n,n,n,n,n,b,b,n,n,b,b,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,e,n,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b]]
+    const nivel1 = [[n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,n,b,b,b,n,n,n,n,n,e,n,n,b,b,b,n,n],
+                    [n,n,b,n,b,n,n,n,n,n,n,n,n,b,n,b,n,n],
+                    [n,n,b,n,b,n,n,n,n,n,n,n,n,b,n,b,n,n],
+                    [n,n,b,e,b,n,n,n,n,n,n,n,n,b,n,b,n,n],
+                    [n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,b,b,b,b,n,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,b,b,n,n,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,b,b,n,n,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,b,b,n,n,n,n,n,n,n,n],
+                    [n,n,n,b,n,n,n,n,b,b,n,n,n,n,b,n,n,n],
+                    [n,n,n,n,b,b,n,n,b,b,n,n,b,b,n,n,n,n],
+                    [n,n,n,n,n,n,b,b,n,n,b,b,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,n,n,n,n,e,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n]]
                     
-    const nivel2 = [[b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b],
-                    [b,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,b,b,b,b,b,b,b,b,n,n,n,b],
-                    [b,n,n,n,b,b,n,n,n,n,n,n,n,n,b,n,n,b],
-                    [b,n,b,b,n,n,n,b,b,b,b,b,b,n,b,n,n,b],
-                    [b,n,b,n,n,n,b,n,n,e,n,n,b,n,n,b,n,b],
-                    [b,n,b,n,b,b,n,n,b,b,b,n,n,b,n,b,n,b],
-                    [b,n,b,n,b,n,n,b,n,n,n,b,n,b,n,b,n,b],
-                    [b,n,b,n,b,n,b,n,n,b,n,b,n,b,n,b,n,b],
-                    [b,n,b,n,b,n,b,b,b,n,n,b,n,b,n,b,n,b],
-                    [b,n,b,n,b,n,n,n,n,n,b,n,n,b,n,b,n,b],
-                    [b,n,b,n,b,b,b,b,b,b,n,n,b,b,n,b,n,b],
-                    [b,n,b,n,n,n,n,n,n,n,n,b,n,n,n,b,n,b],
-                    [b,n,n,b,b,b,b,b,b,b,b,n,n,b,b,n,n,b],
-                    [b,n,n,n,n,n,n,n,n,n,n,b,b,n,n,n,n,b],
-                    [b,n,n,b,b,b,b,b,b,b,b,n,n,n,n,n,n,b],
-                    [b,n,n,n,n,n,e,n,n,n,n,n,n,n,n,n,n,b],
-                    [b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b]]
+    const nivel2 = [[n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,b,b,b,n,n,n,n,n,n,n,n,b,b,b,n,n,n],
+                    [n,b,n,n,n,n,n,n,b,n,n,n,n,n,b,n,n,n],
+                    [n,b,n,n,n,n,n,n,b,b,b,b,n,n,n,n,n,n],
+                    [n,b,b,b,n,n,n,n,n,n,n,b,n,n,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,n,n,n,b,n,n,b,n,n,n],
+                    [n,n,n,n,n,b,b,b,n,n,n,b,n,n,b,n,n,n],
+                    [n,n,n,n,n,b,n,b,n,n,n,b,n,n,b,n,n,n],
+                    [n,b,n,n,n,n,n,b,n,n,n,b,n,n,b,n,n,n],
+                    [n,b,n,n,n,n,n,b,n,n,n,b,b,b,b,n,n,n],
+                    [n,b,n,n,b,n,n,b,n,n,n,n,n,n,n,n,n,n],
+                    [n,b,n,n,b,n,n,b,n,n,n,n,n,n,n,b,n,n],
+                    [n,b,n,n,b,b,b,b,n,n,n,n,n,n,n,n,n,n],
+                    [n,b,n,n,n,n,n,n,n,n,n,n,n,b,n,n,n,n],
+                    [n,n,n,n,n,b,b,b,b,b,b,b,b,b,n,n,n,n],
+                    [n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n,n],
+                    [n,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,b,n]]
 
     method entregarFila(fila, nivelPedido) = if(nivelPedido == 0) nivel1.get(fila) else nivel2.get(fila)
 
@@ -142,10 +142,6 @@ object niveles{
         (16 .. 0).forEach({y => const listaAux = self.entregarFila(17-y, nivel)
 						        (0..17).forEach({x => const aux = listaAux.get(x) aux.decodificarSuperior(x, y)})
 					    })
-    }
-
-    method generarLateralSuperior(){
-        (17..0).forEach({x => listaPosiciones.add(game.at(x,17)) new Bloque().ubicarYDibujar(x,17)})
     }
 
     method activarEnemigos() = listaEnemigos.forEach({enemigo => enemigo.activar_enemigo()})

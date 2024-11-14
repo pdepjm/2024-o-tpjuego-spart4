@@ -17,10 +17,14 @@ program BadIceCreamGame {
     game.height(18)
     game.width(18)
     //Inicio menu
-    menuPersonaje.cargar()
+    new MenuPersonaje().cargar()
     //inicio
     game.start()
-    
+
+
+//const position = new MutablePosition
+	
+	
     //Juego puntos
     keyboard.r().onPressDo({
         const nuevoPunto = interactuador.obtenerPrimerElemento("r"," sobre una fruta para recolectarla")
@@ -29,29 +33,38 @@ program BadIceCreamGame {
         if(points.puntosObtenidos() == 10){
                 spawn.dibujarPuntos(2)
             }
-            if(points.puntosObtenidos() == 20){
+        if(points.puntosObtenidos() == 20){
                 spawn.dibujarPuntos(3)
             }
         if(points.puntosObtenidos() == 30){
             sincronizadorDePantallas.cambiarPantalla("ganador")
-            menuGanaste.cargar()
-        }
-    })
+				musica.sonido_pause()
+                new MenuGanaste().cargar()
+            }
+        })
+    
+
+    keyboard.e().onPressDo({if(sincronizadorDePantallas.habilitar()) {atajos.jugador().atacarDerecha()}})
+    keyboard.q().onPressDo({if(sincronizadorDePantallas.habilitar()) {atajos.jugador().atacarIzquierda()}})
 
 
     // Si tocas shift se gana el juego automaticamente. Asi cuando probamos no tenemos que jugarlo completo. Despues esto se saca.
 	keyboard.shift().onPressDo({
-		sincronizadorDePantallas.cambiarPantalla("ganador")
-		menuGanaste.cargar()})
+        if(sincronizadorDePantallas.habilitar()){ 
+           sincronizadorDePantallas.cambiarPantalla("ganador")
+           musica.sonido_off()
+            new MenuGanaste().cargar() 
+        }
+	})
 
-    //game.onCollideDo(lineaEnemiga.enemigo(), {elemento => if(elemento.jugador()){ elemento.eliminate() sincronizadorDePantallas.cambiarPantalla("perdedor") menuPerdiste.cargar()}})
+    //game.onCollideDo(atajos.enemigo(), {elemento => elemento.impactado()})
 }
 
 object interactuador{
     method obtenerPrimerElemento(key,accion){
-              const colliders = game.colliders(jugador)
+        const colliders = game.colliders(atajos.jugador())
         if (colliders.isEmpty())
-            throw new DomainException(message = "Apreta "+ key + accion, source = jugador)
+            throw new DomainException(message = "Apreta "+ key + accion, source = atajos.jugador())
     return colliders.head()
     }
 }

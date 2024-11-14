@@ -8,6 +8,8 @@ import menus.*
 import enemigos.*
 
 describe "Group of tests for the player" {
+  
+const jugador = new Jugador(valor = datosJugador.imagen())
 
   method initialize(){
     game.clear()
@@ -15,6 +17,7 @@ describe "Group of tests for the player" {
     game.height(18)
     game.width(18)
     game.start()
+    
     jugador.posicionate()
   }
 

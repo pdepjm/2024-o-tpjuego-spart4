@@ -1,21 +1,20 @@
-import muros.*
-// const musicaBadIceCream = new MusicaDeFondo(musica = "BadIceCreamMusicaDeFondo.mp3")
+object musica{
+  var property cancion = null
 
-// const musicaDragonBallZ = new MusicaDeFondo(musica = "musicaDragonBallZ.mp3")
+  method sonido_on(){
+    self.cancion().volume(0.03)
+    self.cancion().play()
+  }
 
-object musicaDeFondo
+  method sonido_off() {
+    self.cancion().stop()
+  }
 
-{
-var property sonido = game.sound("BadIceCreamMusicaDeFondo.mp3")
+  method sonido_pause() {
+    self.cancion().pause()
+  }
 
-
-method play(){
-	sonido.volume(0.25)
-	sonido.shouldLoop(true)
-	sonido.play()
-}
-
-method stop(){
-	sonido.stop()
-}
+  method sonido_continue() {
+    self.cancion().resume()
+  }
 }

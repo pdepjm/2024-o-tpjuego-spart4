@@ -2,28 +2,61 @@ import niveles.*
 import miscelaneos.*
 import muros.*
 import wollok.game.*
+import movimiento.*
+import jugador.*
+import menus.*
 
-class Enemigo1 inherits MutablePosition{
+class Enemigo1 inherits FiguraConMovimiento(position = new PosicionVariable(x = 7, y = 13)){
     
     var property vida
-    var property velocidad = 200 
-    var property position
+    const property posiblePosicion = new PosicionVariable(x = 7, y = 13)
     method image() = aparienciaEnemigo.valor()
-    var property direccion = moverDerecha 
 
-    method movimiento(){
-        game.onTick(velocidad, self, {
-            self.position(self.direccion().mover(self.position()))
-            if(niveles.mismaPosicion(self.position())){
-                self.position(self.direccion().retroceder(self.position()))
-                self.direccion(cambiarDireccion.rotarDireccion(self.direccion()))
-            }
-        })
+    method nuevaPosicion(){
+        const direccion = 1.randomUpTo(4).round()//.truncate(0) //elige al azar una dirección
+        //var posiblePosicion = 0
+        //le da el valor correspondiente
+        if(direccion == 1){ //arriba
+            self.posiblePosicion().sumarPos(0, 1)
+        }
+        if(direccion == 2){ //abajo
+            self.posiblePosicion().sumarPos(0, -1)
+        }
+        if(direccion == 3){ //derecha
+            self.posiblePosicion().sumarPos(1, 0)
+        }
+
+        if(direccion == 4){ //izquierda
+            self.posiblePosicion().sumarPos(-1, 0)
+        }
+            //revisa si la posicion es la de un bloque
+        if(niveles.mismaPosicion(self.posiblePosicion()) || !self.equisCorrecta(self.posiblePosicion().x()) || !self.yeCorrecta(self.posiblePosicion().y())){ //si es rehace el mensaje
+            self.posiblePosicion().establecerPos(self.position().x(), self.position().y())
+            self.nuevaPosicion()
+        } 
+        else{ //sino devuelve la posicion nueva
+                self.position().establecerPos(posiblePosicion.x(), posiblePosicion.y())
+        }
     }
 
-    method activar_enemigo() {
-      game.addVisual(self)
-	  self.movimiento()
+    method caminar(){
+        //game.onTick(200, self, {self.position(self.nuevaPosicion())})
+        game.onTick(400, self, {self.nuevaPosicion()})
+    }
+
+    method herido() {
+      vida -= 50
+      if(vida == 0){
+        self.morir()
+      }
+    }
+
+    method morir(){
+        sincronizadorDePantallas.cambiarPantalla("ganador")
+    }
+
+    method aparecer(){
+        game.addVisual(self)
     }
 
     method limpiarEnemigos(){
@@ -32,16 +65,5 @@ class Enemigo1 inherits MutablePosition{
 }
 
 object aparienciaEnemigo {
-   var property valor = "b_fiesta_i.png"
-}
-
-object lineaEnemiga{
-    var property enemigo = new Enemigo1(vida = 100, position = game.at(1, 5))
-
-/*     method imagen(imagen){
-        enemigo.apariencia(imagen)
-    } */
-    method activar(){
-        enemigo.activar_enemigo()
-    }
+   var property valor = "cell1.png"
 }
