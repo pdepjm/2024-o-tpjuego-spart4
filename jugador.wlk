@@ -39,7 +39,6 @@ class Jugador inherits FiguraConMovimiento(position = new PosicionVariable(x = 1
   method impactado() {
     self.eliminate() //no debería ir acá, pero es donde mejor anda
     sincronizadorDePantallas.cambiarPantalla("perdedor") 
-//console.println("entraste aca")
     new MenuPerdiste().cargar()
   }
 
@@ -62,7 +61,6 @@ object datosJugador {
 }
 
 object personajeAtacando {
-  //var property position = null
   const property position = new PosicionVariable()
   var property lado = null
   method image() = lado
@@ -126,7 +124,6 @@ class AtaqueDerecho{
       self.eliminate()
       personajeAtacando.eliminate()
       if(sincronizadorDePantallas.pantallaActual() == "perdedor"){
-    //console.println("entraste aca")
         new MenuPerdiste().cargar()
       }
       if(sincronizadorDePantallas.pantallaActual() == "ganador"){
@@ -159,9 +156,7 @@ class AtaqueIzquierdo inherits AtaqueDerecho{
       self.eliminate()
       personajeAtacando.eliminate()
       if(sincronizadorDePantallas.pantallaActual() == "perdedor"){
-    //console.println("entraste aca")
         new MenuPerdiste().cargar()
-        //new MenuGanaste().cargar()
       }
       if(sincronizadorDePantallas.pantallaActual() == "ganador"){
         new MenuGanaste().cargar()

@@ -15,7 +15,6 @@ object juego{
 		//dibujar muros
 		niveles.generarEscenario()
 		//dibujar enemigo
-//lineaEnemiga.activar()
 		const jugador = new Jugador(valor = datosJugador.imagen())
 		//dibujar jugador
 		jugador.posicionate()
@@ -32,20 +31,15 @@ object juego{
 		enemigo.caminar()
 		game.onCollideDo(atajos.enemigo(), {elemento => elemento.impactado()})
 		//niveles.activarEnemigos()
-		//reproducir la musica correspondiente
-		//musicaDeFondo.play()
 		musica.sonido_continue()
 	}
 
 //BORRAR ELEMENTOS DEL JUEGO
     method limpiar(){
-        //game.removeVisual(atajos.jugador())
-		//lineaEnemiga.enemigo().limpiarEnemigos()
 		atajos.enemigo().limpiarEnemigos()
 		game.removeVisual(fondoJuego)
 		game.removeVisual(points)
 		niveles.limpiarEscenario()
-		//musicaDeFondo.stop()
     }
 
     method cargarVisuales(posicion){
@@ -54,13 +48,11 @@ object juego{
 		datosJugador.imagen_ataque_derecho(coleccion.ataque_d(posicion))
 		datosJugador.imagen_atacando_izquierda(coleccion.animacion_i(posicion))
 		datosJugador.imagen_atacando_derecha(coleccion.animacion_d(posicion))
-		// lineaEnemiga.imagen(coleccion.enemigo(posicion))
 		aparienciaEnemigo.valor(coleccion.enemigo(posicion))
 		fondoJuego.valor(coleccion.fondo(posicion))
         visual.valor(coleccion.bloque_i(posicion))
 		visualSuperior.valor(coleccion.bloque_s(posicion))
 		spawn.puntos(coleccion.puntos(posicion))
-					//musicaDeFondo.sonido(game.sound(coleccion.musica(posicion)))
     }
 	method cargarSonido(posicion){
 	  datosJugador.sonido_ataque(coleccion.sonido(posicion))

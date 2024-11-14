@@ -29,7 +29,6 @@ class Menus{
 
 	method cargar(){
 		game.addVisual(add)
-		//game.addVisual(add_2)	
 		game.addVisual(moverA)  
 	  if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){
 		keyboard.w().onPressDo({if(moverA.position().y() < yeMax) moverA.position(game.at(moverA.position().x(), moverA.position().y() + cantidadDeIncrementoParaPosiciones))})
@@ -37,7 +36,6 @@ class Menus{
 	  	keyboard.s().onPressDo({if(moverA.position().y() > yeMin) moverA.position(game.at(moverA.position().x(), moverA.position().y() - cantidadDeIncrementoParaPosiciones))})
 	  	keyboard.d().onPressDo({if(moverA.position().x() < equisMax) moverA.position(game.at(moverA.position().x() + cantidadDeIncrementoParaPosiciones, moverA.position().y()))})
 		}
-	  //keyboard.enter().onPressDo({})
 	}
 
 	method limpiarPantalla(){
@@ -88,8 +86,6 @@ class MenuNivel inherits Menus(add = menuNiveles, moverA = new SeleccionNivel(),
 class MenuGanaste inherits Menus(add = ganaste, moverA = new SeleccionGanaste(), cantidadDeIncrementoParaPosiciones = 4, equisMax = 10, equisMin = 6, yeMax = 5, yeMin = 5, tipoDeMenu = "ganador"){
 	override method cargar(){
 		super()
-        //game.removeVisual(jugador)
-		//atajos.jugador().eliminate()
 		juego.limpiar()
 		keyboard.enter().onPressDo({
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
@@ -114,12 +110,8 @@ class MenuPerdiste inherits Menus(add = perdiste, moverA = new SeleccionPerdiste
 			if(sincronizadorDePantallas.pantallaActual() == tipoDeMenu){	
 				self.limpiarPantalla()
 				if (moverA.position() == game.at(5, 7)) {
-					//points.reset()
-		//console.println("seleccionaste jugar")
 					sincronizadorDePantallas.cambiarPantalla("jugar")
 					juego.jugar()
-					//sincronizadorDePantallas.cambiarPantalla("niveles")
-					//new MenuNivel().cargar()
 				}
 				if (moverA.position() == game.at(5, 5)){ 
 					game.addVisual(finDelJuego)

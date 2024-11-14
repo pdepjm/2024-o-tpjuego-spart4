@@ -14,8 +14,6 @@ class Bloque{
         niveles.sacarBloqueDeLista(self)
     }
     method impactado(){}
-
-    // override method soyBloque() = true 
 }
 class BloqueSuperior {
 	var property position = game.center()
@@ -26,7 +24,6 @@ class BloqueSuperior {
     }
     method quitarBloque() = game.removeVisual(self)
 
-    // override method esBloqueSuperior() = true
 }
 
 object visual{
